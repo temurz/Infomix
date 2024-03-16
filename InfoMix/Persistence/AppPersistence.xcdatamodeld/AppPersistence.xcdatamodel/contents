@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="CardConfigEntity" representedClassName="CardConfigEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="configCode" optional="YES" attributeType="String"/>
+        <attribute name="configJson" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="LocalUserEntity" representedClassName="LocalUserEntity" syncable="YES" codeGenerationType="class">
+        <attribute name="certificate" optional="YES" attributeType="String"/>
+        <attribute name="configCode" optional="YES" attributeType="String"/>
+        <attribute name="firstName" optional="YES" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="jobName" optional="YES" attributeType="String"/>
+        <attribute name="lastActiveDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="lastName" optional="YES" attributeType="String"/>
+        <attribute name="phone" optional="YES" attributeType="String"/>
+        <attribute name="remoteId" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="token" optional="YES" attributeType="String"/>
+    </entity>
+    <elements>
+        <element name="LocalUserEntity" positionX="-54" positionY="-9" width="128" height="193"/>
+        <element name="CardConfigEntity" positionX="-54" positionY="63" width="128" height="59"/>
+    </elements>
+</model>
