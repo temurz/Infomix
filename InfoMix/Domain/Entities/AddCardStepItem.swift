@@ -44,11 +44,8 @@ struct AddCardStepItem: Identifiable{
     var valueString: String = ""
     var originaltemId: String? = nil
     
-    var title: String? = ""
-    var productionId: Int? = 0
-    
-//                                "editable": true
-    
+    var title: String? = nil
+    var productionId: String? = nil
 }
 extension AddCardStepItem :Then, Equatable {
     static func == (lhs: AddCardStepItem, rhs: AddCardStepItem) -> Bool {
@@ -90,8 +87,8 @@ extension AddCardStepItem: Codable {
         
         skip = try values.decodeIfPresent(Bool.self, forKey: .skip) ?? false
         editable = try values.decodeIfPresent(Bool.self, forKey: .editable) ?? false
-        title = try values.decode(String.self, forKey: .title)
-        productionId = try values.decode(Int.self, forKey: .productionId)
+        title = try values.decodeIfPresent(String.self, forKey: .title)
+        productionId = try values.decodeIfPresent(String.self, forKey: .productionId)
     }
     
     func encode(to encoder: Encoder) throws {
