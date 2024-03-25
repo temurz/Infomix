@@ -65,19 +65,19 @@ struct ProfileView: View {
                         .foregroundColor(.gray)
                         .padding(.horizontal)
                     
-                    Button(action: {
-                        self.logoutTrigger.send()
-                    }) {
-                        HStack {
-                            Text("Logout".localized())
-                            Image(systemName: "power")
-                        }.padding(8)
-                            .font(.caption)
-                            .foregroundColor(.white)
-                            .background(Color.red)
-                            .cornerRadius(.greatestFiniteMagnitude)
-                    }
-                    .padding()
+                        Button(action: {
+                            self.logoutTrigger.send()
+                        }) {
+                            HStack {
+                                Text("Delete account".localized())
+                                Image(systemName: "power")
+                            }.padding(8)
+                                .font(.caption)
+                                .foregroundColor(.white)
+                                .background(Color.red)
+                                .cornerRadius(.greatestFiniteMagnitude)
+                        }
+                        .padding()
                     
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
