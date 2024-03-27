@@ -63,7 +63,7 @@ struct ProductRow: View {
 
 struct ProductRow_Previews: PreviewProvider {
     static var previews: some View {
-        let product = Product(id: 1, name: "iPhone",  price: 999, brandName: "Artel")
+        let product = Product(id: 1, name: "iPhone",  price: 999, brandName: "ArtMaster")
         return ProductRow(viewModel: ProductItemViewModel(product: product))
     }
 }

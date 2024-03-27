@@ -18,6 +18,6 @@ struct About {
 
 extension About{
     static func airfel()-> About{
-        return About(phone: "+998 88 187 18 71", phoneWithoutSpace: "+998881871871", telegramAccount: "Artel_Uzbekistan", facebookAccount: nil, istagramAccount: nil)
+        return About(phone: "+998 88 187 18 71", phoneWithoutSpace: "+998881871871", telegramAccount: "ArtMaster", facebookAccount: nil, istagramAccount: nil)
     }
 }

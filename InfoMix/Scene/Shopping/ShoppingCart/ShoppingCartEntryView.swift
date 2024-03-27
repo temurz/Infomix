@@ -86,7 +86,7 @@ struct ShoppingCartEntryView: View {
 
 struct ShoppingCartEntryView_Previews: PreviewProvider {
     static var previews: some View {
-        ShoppingCartEntryView(entry: .constant(ProductEntry(id: 1, salesPrice: 10.0, quantity: 6, product: Product(id: 1, name: "Product 1", price: 10.0, brandName: "Artel", inStock: 1, description: "", content: "")))) 
+        ShoppingCartEntryView(entry: .constant(ProductEntry(id: 1, salesPrice: 10.0, quantity: 6, product: Product(id: 1, name: "Product 1", price: 10.0, brandName: "ArtMaster", inStock: 1, description: "", content: "")))) 
 
     }
 }
