@@ -37,6 +37,7 @@ extension API {
         static let sendFcmToken = NetworkManager.shared.baseUrl + "/auth/registerFcmId"
         static let cities = NetworkManager.shared.baseUrl + "/cities/tree"
         static let configs = NetworkManager.shared.baseUrl + "/config"
+        static let getCardConfigByCode = NetworkManager.shared.baseUrl + "/config"
         static let onlineApplication = NetworkManager.shared.baseUrl + "/auth/resume"
     }
 }

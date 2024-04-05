@@ -21,7 +21,9 @@ extension API{
             if let configVersion = configVersion {
                 params["configVersion"] = configVersion
             }
-            super.init(urlString: API.Urls.configs+"\(configCode)",
+            params["configCode"] = configCode
+            
+            super.init(urlString: API.Urls.configs,
                        parameters: params,
                        method: .get,
                        requireAccessToken: true)

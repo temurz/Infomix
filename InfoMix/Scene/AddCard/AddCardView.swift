@@ -60,7 +60,7 @@ struct AddCardView: View {
                     }
                 }
                 if output.enabledSendButton {
-//                    if AddCardStep.isPhoneValid(output.currentCardStep)(){
+                    if output.currentCardStep.isValid() {
                         Button(action: {
                             self.sendCardTrigger.send()
                         }, label: {
@@ -73,7 +73,7 @@ struct AddCardView: View {
                             .background(Color.white)
                             .cornerRadius(.greatestFiniteMagnitude)
                             .foregroundColor(Color.green)
-//                    }
+                    }
                 }
             }.frame(height: 64, alignment: .top)
                 .padding(8)

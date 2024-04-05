@@ -25,6 +25,11 @@ struct StepView: View {
                                 BarcodeEditableStepView(cardStepItem: item, scanTrigger: self.scanTrigger) { addCardStepItem in
                                     self.addCardStep.removeCloneStepItem(addCardStepItem)
                                 }
+                            case AddCardStepItemType.CHOOSE_PHOTO:
+                                ImageFieldStepView(cardStepItem: item)
+                                    .onAppear {
+                                        UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
+                                    }
                             default:
                                 EditFieldStepView(cardStepItem: item) { addCardStepItem in
                                     self.addCardStep.removeCloneStepItem(addCardStepItem)
@@ -50,12 +55,12 @@ struct StepView: View {
                             
                         }.buttonStyle(PlainButtonStyle())
                             .padding(12)
-                        HStack{
-                            Color.white
-                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-                        }.onTapGesture {
-                            hideKeyboard()
-                        }
+//                        HStack{
+//                            Color.white
+//                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+//                        }.onTapGesture {
+//                            hideKeyboard()
+//                        }
                     }
             }
         }

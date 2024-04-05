@@ -173,10 +173,9 @@ struct LoginView: View {
                     UserDefaults.standard.set(chosenConfig.configVersion, forKey: "configVersion")
                     
                     if UserDefaults.standard.object(forKey: "LCLCurrentLanguageKey") as? String == "ru"{
-                        output.service = chosenConfig.titleRu ?? "service".localized()
+                        output.service = chosenConfig.titleRu ?? chosenConfig.title 
                     }else{
-                        output.service = chosenConfig.titleUz ?? "service".localized()
-                        
+                        output.service = chosenConfig.titleUz ?? chosenConfig.title
                     }
                 }
             }

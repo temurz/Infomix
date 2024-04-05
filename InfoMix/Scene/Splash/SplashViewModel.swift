@@ -15,6 +15,7 @@ struct SplashViewModel {
     let getCardConfigUseCase: GetCardConfigUseCaseType
     var cardConfig: CardConfig?
     let startedTime = DispatchTime.now()
+    private let startTrigger = PassthroughSubject<Void, Never>()
 }
 
 // MARK: - ViewModelType
@@ -41,6 +42,8 @@ extension SplashViewModel: ViewModel {
         cardConfig
             .sink(receiveValue: { it in
                 output.cardConfig = it
+                CardConfig.shared = it
+                self.startTrigger.send()
             })
             .store(in: cancelBag)
         
@@ -54,7 +57,7 @@ extension SplashViewModel: ViewModel {
             .assign(to: \.isLoading, on: output)
             .store(in: cancelBag)
         
-        input.startTrigger
+        startTrigger
             .sink(receiveValue: { () in
                 let endTime = self.startedTime + DispatchTimeInterval.seconds(3)
                 let leftTimeToEnd = DispatchTime.now().distance(to: endTime)

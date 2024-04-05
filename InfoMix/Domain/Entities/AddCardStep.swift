@@ -103,8 +103,10 @@ extension AddCardStep{
         
     }
     func isValid() -> Bool{
-        
-        self.items[0].skip || self.items[0].valueString.count > 0
+        guard items.count != 0 else {
+            return false
+        }
+        return self.items[0].skip || self.items[0].valueString.count > 0
     }
     
     func isPhoneValid() -> Bool{

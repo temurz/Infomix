@@ -29,7 +29,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         
         Messaging.messaging().delegate = self
-        NetworkManager.shared = NetworkManager.init(baseUrl: "http://test.infomix.uz/api/v2")
+        NetworkManager.shared = NetworkManager.init(baseUrl: "http://artel.infomix.uz/api/v2")
         
         return true
     }

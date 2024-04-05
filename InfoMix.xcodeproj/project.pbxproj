@@ -203,6 +203,10 @@
 		B8FDD29C2796D5E80081E236 /* GettingTransactionStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FDD29B2796D5E80081E236 /* GettingTransactionStatistic.swift */; };
 		B8FDD29E2796D8C80081E236 /* API+TransactionStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FDD29D2796D8C80081E236 /* API+TransactionStatistic.swift */; };
 		B8FDD2A02796DD6A0081E236 /* TransactionStatisticUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FDD29F2796DD6A0081E236 /* TransactionStatisticUseCase.swift */; };
+		B8FE37F52BC019CB00C34D74 /* ImageFieldStepView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE37F42BC019CA00C34D74 /* ImageFieldStepView.swift */; };
+		B8FE37F82BC01A1C00C34D74 /* PickerImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE37F72BC01A1C00C34D74 /* PickerImage.swift */; };
+		B8FE37FA2BC01A3800C34D74 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE37F92BC01A3800C34D74 /* ImagePicker.swift */; };
+		B8FE37FC2BC01A6200C34D74 /* ImagePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE37FB2BC01A6200C34D74 /* ImagePickerViewModel.swift */; };
 		B8FE79C6279C01E800EDF7E7 /* NotificationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE79C5279C01E800EDF7E7 /* NotificationsView.swift */; };
 		B8FE79C8279C021B00EDF7E7 /* NotificationsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE79C7279C021B00EDF7E7 /* NotificationsRow.swift */; };
 		B8FE79CA279C023500EDF7E7 /* NotificationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FE79C9279C023500EDF7E7 /* NotificationsViewModel.swift */; };
@@ -662,6 +666,10 @@
 		B8FDD29B2796D5E80081E236 /* GettingTransactionStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingTransactionStatistic.swift; sourceTree = "<group>"; };
 		B8FDD29D2796D8C80081E236 /* API+TransactionStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+TransactionStatistic.swift"; sourceTree = "<group>"; };
 		B8FDD29F2796DD6A0081E236 /* TransactionStatisticUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatisticUseCase.swift; sourceTree = "<group>"; };
+		B8FE37F42BC019CA00C34D74 /* ImageFieldStepView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageFieldStepView.swift; sourceTree = "<group>"; };
+		B8FE37F72BC01A1C00C34D74 /* PickerImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerImage.swift; sourceTree = "<group>"; };
+		B8FE37F92BC01A3800C34D74 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		B8FE37FB2BC01A6200C34D74 /* ImagePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePickerViewModel.swift; sourceTree = "<group>"; };
 		B8FE79C5279C01E800EDF7E7 /* NotificationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsView.swift; sourceTree = "<group>"; };
 		B8FE79C7279C021B00EDF7E7 /* NotificationsRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsRow.swift; sourceTree = "<group>"; };
 		B8FE79C9279C023500EDF7E7 /* NotificationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsViewModel.swift; sourceTree = "<group>"; };
@@ -1607,6 +1615,17 @@
 			path = Transaction;
 			sourceTree = "<group>";
 		};
+		B8FE37F62BC01A0500C34D74 /* ImagePicker */ = {
+			isa = PBXGroup;
+			children = (
+				B8FE37FB2BC01A6200C34D74 /* ImagePickerViewModel.swift */,
+				B8FE37F42BC019CA00C34D74 /* ImageFieldStepView.swift */,
+				B8FE37F72BC01A1C00C34D74 /* PickerImage.swift */,
+				B8FE37F92BC01A3800C34D74 /* ImagePicker.swift */,
+			);
+			path = ImagePicker;
+			sourceTree = "<group>";
+		};
 		B8FE79C4279C01BB00EDF7E7 /* Notifications */ = {
 			isa = PBXGroup;
 			children = (
@@ -2034,6 +2053,7 @@
 		D2B257F02769B75D00974903 /* Steps */ = {
 			isa = PBXGroup;
 			children = (
+				B8FE37F62BC01A0500C34D74 /* ImagePicker */,
 				D2B257F12769B7BE00974903 /* BarcodeEditableStepView.swift */,
 				D2B257F92769EEAB00974903 /* EditFieldStepView.swift */,
 				D2B2580A276A088B00974903 /* AbstractStepView.swift */,
@@ -2263,6 +2283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B8FE37F52BC019CB00C34D74 /* ImageFieldStepView.swift in Sources */,
 				B840452027D5E0EB0022DB52 /* OnlineApplicationViewModel.swift in Sources */,
 				D2E05AEA2795447400BCA104 /* ChangePasswordUseCase.swift in Sources */,
 				D20D3373278D38E4001256C8 /* DeletingProductEntry.swift in Sources */,
@@ -2296,6 +2317,7 @@
 				D24F0307278EAA2100A0B125 /* OrderHistoryViewModel.swift in Sources */,
 				D274100F2775C3AD00385251 /* CalculateBonusesUseCase.swift in Sources */,
 				17A5B1F824D9026D004BD209 /* BaseViewController.swift in Sources */,
+				B8FE37FC2BC01A6200C34D74 /* ImagePickerViewModel.swift in Sources */,
 				1787233124BD547600D90F8E /* AppViewModel.swift in Sources */,
 				D2B257FA2769EEAB00974903 /* EditFieldStepView.swift in Sources */,
 				D274100B2775C1AF00385251 /* API+SendingDone.swift in Sources */,
@@ -2370,6 +2392,7 @@
 				D2B257FF2769F31900974903 /* ScannerView.swift in Sources */,
 				176BAA5524D158BC00324D3C /* LoginView.swift in Sources */,
 				B8FE79D7279C02EB00EDF7E7 /* NotificationsGateway.swift in Sources */,
+				B8FE37FA2BC01A3800C34D74 /* ImagePicker.swift in Sources */,
 				176BAA7124D26D6000324D3C /* Combine+Multipart.swift in Sources */,
 				B8895A5A27D8D49100916E33 /* CityGateway.swift in Sources */,
 				B8FE92E227A1C5A900D55319 /* MyCardsDetailAssembler.swift in Sources */,
@@ -2639,6 +2662,7 @@
 				D22FED9B276862FA00A01200 /* API+Agent.swift in Sources */,
 				D29D004A27A0044000C81B32 /* AppPersistence.xcdatamodeld in Sources */,
 				1770EC3324DAA9AC0022FBFE /* ShowingRepoCollection.swift in Sources */,
+				B8FE37F82BC01A1C00C34D74 /* PickerImage.swift in Sources */,
 				17A5B1FF24D9514B004BD209 /* RefreshFooterAnimator.swift in Sources */,
 				D261DA5527A1069D00E2A3AD /* LocalUser.swift in Sources */,
 				D2376B4C2774AE16001E271E /* AddCardConfirmAssembler.swift in Sources */,
@@ -2862,7 +2886,7 @@
 				CODE_SIGN_ENTITLEMENTS = InfoMix/InfoMix.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"InfoMix/Preview Content\"";
 				DEVELOPMENT_TEAM = HW395M775M;
 				ENABLE_PREVIEWS = YES;
@@ -2871,7 +2895,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = uz.infomix.mobile.artel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2890,7 +2914,7 @@
 				CODE_SIGN_ENTITLEMENTS = InfoMix/InfoMix.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"InfoMix/Preview Content\"";
 				DEVELOPMENT_TEAM = HW395M775M;
 				ENABLE_PREVIEWS = YES;
@@ -2899,7 +2923,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.4.0;
+				MARKETING_VERSION = 0.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = uz.infomix.mobile.artel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

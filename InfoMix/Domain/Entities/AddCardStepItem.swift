@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import Then
 import Localize_Swift
+import Alamofire
 
 enum AddCardStepItemType: String{
     case EDIT_TEXT,
@@ -30,6 +31,7 @@ struct AddCardStepItem: Identifiable{
     var id: String = UUID().uuidString
     var titleRu: String? = nil
     var value: Any? = nil
+    var imageValue : Data? = nil
     var remoteName: String? = nil
     var type: AddCardStepItemType = AddCardStepItemType.EDIT_TEXT_PHONE
     var minLength: Int = 0
@@ -37,15 +39,15 @@ struct AddCardStepItem: Identifiable{
     var cardStepId: Int? = 0
     var hasValidationError: Bool = false
     var titleUz: String? = nil
+    var title: String? = nil
     var skip: Bool = false
     var productionCode: String?
     var limit: Int = 0
     var editable = false
     var valueString: String = ""
     var originaltemId: String? = nil
+    var isSended: Bool = false
     
-    var title: String? = nil
-    var productionId: String? = nil
 }
 extension AddCardStepItem :Then, Equatable {
     static func == (lhs: AddCardStepItem, rhs: AddCardStepItem) -> Bool {
@@ -67,7 +69,6 @@ extension AddCardStepItem: Codable {
         case titleRu = "titleRu"
         case titleUz = "titleUz"
         case title = "title"
-        case productionId = "productionId"
     }
     
     init(from decoder: Decoder) throws {
@@ -75,6 +76,7 @@ extension AddCardStepItem: Codable {
         remoteName = try values.decodeIfPresent(String.self, forKey: .remoteName)
         titleRu = try values.decodeIfPresent(String.self, forKey: .titleRu)
         titleUz = try values.decodeIfPresent(String.self, forKey: .titleUz)
+        title = try values.decodeIfPresent(String.self, forKey: .title)
         productionCode = try values.decodeIfPresent(String.self, forKey: .productionCode)
         
         let typeString  = try values.decodeIfPresent(String.self, forKey: .type) ?? AddCardStepItemType.EDIT_TEXT.rawValue
@@ -87,8 +89,6 @@ extension AddCardStepItem: Codable {
         
         skip = try values.decodeIfPresent(Bool.self, forKey: .skip) ?? false
         editable = try values.decodeIfPresent(Bool.self, forKey: .editable) ?? false
-        title = try values.decodeIfPresent(String.self, forKey: .title)
-        productionId = try values.decodeIfPresent(String.self, forKey: .productionId)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -105,8 +105,6 @@ extension AddCardStepItem: Codable {
         try container.encode(limit, forKey: .limit)
         try container.encode(skip, forKey: .skip)
         try container.encode(editable, forKey: .editable)
-        try container.encode(title, forKey: .title)
-        try container.encode(productionId, forKey: .productionId)
     }
     
     
@@ -121,7 +119,7 @@ extension AddCardStepItem{
             localizationTitle =  self.titleUz
         }
         
-        return localizationTitle ?? ""
+        return localizationTitle ?? self.title ?? ""
     }
     
     func keyboardPad() -> UIKeyboardType {
@@ -149,13 +147,49 @@ extension AddCardStepItem{
         clone.editable = self.editable
         clone.valueString = self.valueString
         clone.originaltemId = self.originaltemId ?? self.id
-        clone.title = self.title
-        clone.productionId = self.productionId
+        
         return clone
     }
     
     mutating func changeValue(value: String){
         self.valueString = value
+    }
+    
+    func valid() -> Bool{
+        if(self.skip) {
+            return true
+        }
+        
+        switch(self.type){
+        case .EDIT_TEXT_PHONE:
+            return valueString.count == 12
+        case .EDIT_TEXT:
+            return valueString.count >= minLength && valueString.count <= maxLength
+        case .EDIT_TEXT_MULTILINE:
+            return true
+        case .EDIT_TEXT_INTEGER:
+            return true
+        case .EDIT_TEXT_FLOAT:
+            return true
+        case .EDIT_TEXT_BARCODE:
+            return valueString.count >= minLength && valueString.count <= maxLength
+        case .CHECK_BOX:
+            return true
+        case .CHOOSE_DATE:
+            return true
+        case .CHOOSE_TIME:
+            return true
+        case .CHOOSE_DATE_AND_TIME:
+            return true
+        case .CHOOSE_PHOTO:
+            return imageValue != nil
+        case .ADD_ONE_MORE_ITEM:
+            return true
+        }
+    }
+    
+    mutating func sended(){
+        self.isSended = true
     }
     
 }
