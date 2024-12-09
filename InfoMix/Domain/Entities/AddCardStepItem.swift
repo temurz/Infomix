@@ -40,6 +40,7 @@ struct AddCardStepItem: Identifiable{
     var hasValidationError: Bool = false
     var titleUz: String? = nil
     var title: String? = nil
+    var titleTranslations: [TitleTranslation]? = nil
     var skip: Bool = false
     var productionCode: String?
     var limit: Int = 0

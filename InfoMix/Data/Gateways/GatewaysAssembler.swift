@@ -66,6 +66,14 @@ extension GatewaysAssembler where Self: DefaultAssembler {
     func resolve() -> LocalUserGatewayType{
         LocalUserGateway()
     }
+    
+    func resolve() -> LoyaltyGatewayType {
+        LoyaltyGateway()
+    }
+    
+    func resolve() -> StatisticsGatewayType {
+        StatisticsGateway()
+    }
 }
 
 extension GatewaysAssembler where Self: PreviewAssembler {
@@ -113,5 +121,13 @@ extension GatewaysAssembler where Self: PreviewAssembler {
     
     func resolve() -> LocalUserGatewayType{
         LocalUserGateway()
+    }
+    
+    func resolve() -> LoyaltyGatewayType {
+        LoyaltyGateway()
+    }
+    
+    func resolve() -> StatisticsGatewayType {
+        StatisticsGateway()
     }
 }

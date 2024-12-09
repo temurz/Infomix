@@ -15,6 +15,8 @@ extension API {
         static let events = NetworkManager.shared.baseUrl+"/events/list"
         static let eventTypes = NetworkManager.shared.baseUrl+"/events/types"
         static let agentCurrentICU = NetworkManager.shared.baseUrl + "/master/balance"
+        static let statistics = NetworkManager.shared.baseUrl + "/statistics"
+        static let getLoyalty = NetworkManager.shared.baseUrl + "/loyalty"
         static let addToCard = NetworkManager.shared.baseUrl + "/order/entry/add"
         static let currentShoppingCart = NetworkManager.shared.baseUrl + "/order/current"
         static let productCategories = NetworkManager.shared.baseUrl + "/product/categories/"

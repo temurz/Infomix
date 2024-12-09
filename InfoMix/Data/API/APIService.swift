@@ -14,7 +14,7 @@ final class API: APIBase {
     static var shared = API()
     
     override func handleResponseError(dataResponse: DataResponse<Data, AFError>, json: JSONDictionary?) -> Error {
-        if let json = json, let message = json["message"] as? String {
+        if let json = json, let message = json["msg"] as? String {
             return APIResponseError(statusCode: dataResponse.response?.statusCode, message: message)
         }
         return super.handleResponseError(dataResponse: dataResponse, json: json)

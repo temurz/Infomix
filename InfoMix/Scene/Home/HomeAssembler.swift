@@ -16,6 +16,8 @@ protocol HomeAssembler {
     func resolve() -> CurrentUserUseCaseType
     func resolve() -> LastEventsUseCaseType
     func resolve() -> FcmTokenUseCaseType
+    func resolve() -> GetLoyaltyViewUseCaseType
+    func resolve() -> GetStatisticsViewUseCaseType
 }
 
 extension HomeAssembler {
@@ -28,8 +30,15 @@ extension HomeAssembler {
     }
     
     func resolve(navigationController: UINavigationController, cardConfig: CardConfig) -> HomeViewModel {
-        return HomeViewModel(homeNavigator: resolve(navigationController: navigationController),
-                             currentUserUseCase: resolve(), lastEventsUseCase: resolve(), fcmTokenUseCase: resolve(), cardConfig: cardConfig)
+        return HomeViewModel(
+            homeNavigator: resolve(navigationController: navigationController),
+            currentUserUseCase: resolve(),
+            lastEventsUseCase: resolve(),
+            fcmTokenUseCase: resolve(),
+            getStatisticsUseCase: resolve(),
+            getLoyaltyUseCase: resolve(),
+            cardConfig: cardConfig
+        )
     }
     
 }
@@ -52,6 +61,14 @@ extension HomeAssembler where Self: DefaultAssembler {
     }
     func resolve() -> FcmTokenUseCaseType{
         return FcmTokenUseCase(authGateway: resolve())
+    }
+    
+    func resolve() -> GetLoyaltyViewUseCaseType {
+        return GetLoyaltyViewUseCase(gateway: resolve())
+    }
+    
+    func resolve() -> GetStatisticsViewUseCaseType {
+        return GetStatisticsViewUseCase(gateway: resolve())
     }
 }
 
@@ -77,4 +94,11 @@ extension HomeAssembler where Self: PreviewAssembler {
         return FcmTokenUseCase(authGateway: resolve())
     }
   
+    func resolve() -> GetLoyaltyViewUseCaseType {
+        return GetLoyaltyViewUseCase(gateway: resolve())
+    }
+    
+    func resolve() -> GetStatisticsViewUseCaseType {
+        return GetStatisticsViewUseCase(gateway: resolve())
+    }
 }

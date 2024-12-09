@@ -8,6 +8,18 @@
 
 import Foundation
 
+struct TitleTranslation: Codable {
+    let value: String?
+    let locale: String?
+}
+
+struct ResumeField: Codable {
+    let field: String?
+    let required: Bool?
+    let enabled: Bool?
+
+}
+
 struct CardConfig : Identifiable {
     
     
@@ -20,6 +32,7 @@ struct CardConfig : Identifiable {
     var showConfirmation: Bool = false
     var titleRu: String?
     var titleUz: String?
+    var titleTranslations: TitleTranslation?
     var title: String = ""
     var minExchange: Int = 0
     var hasPayment = false
@@ -31,6 +44,11 @@ struct CardConfig : Identifiable {
     var installedDate: Date = Date()
     var longitude: Double? = nil
     var latitude: Double? = nil
+    
+    var getCityType: String?
+    var showStock: Bool?
+    var resumeFields: Bool?
+    
 }
 
 

@@ -11,16 +11,16 @@ import Alamofire
 
 extension API {
     func getCardConfigsList(input: APIInput) ->Observable<[CardConfig]>{
-        requestList(input)
+        requestListWithBase64(input)
     }
     
     final class GetCardConfigsList : APIInput{
         init(){
-            let params : Parameters = [
-                "asString" : false
-            ]
+//            let params : Parameters = [
+//                "asString" : false
+//            ]
             super.init(urlString: API.Urls.configs,
-                       parameters:params,
+                       parameters:nil,
                        method: .get,
                        requireAccessToken: true)
         }

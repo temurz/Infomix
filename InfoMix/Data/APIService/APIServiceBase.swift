@@ -98,6 +98,34 @@ open class APIBase {
             .eraseToAnyPublisher()
     }
     
+    open func requestWithBase64<T: Decodable>(_ input: APIInputBase) -> AnyPublisher<APIResponse<T>, Error> {
+        let response: AnyPublisher<APIResponse<JSONDictionary>, Error> = requestJSON(input)
+        let appResponce: AnyPublisher<APIResponse<JSONArray>,Error> = postProcessWithBase64(response)
+        return appResponce
+            .tryMap { apiResponse -> APIResponse<T> in
+                do {
+                    let jsonData = try JSONSerialization.data(withJSONObject: apiResponse.data,
+                                                              options: .prettyPrinted)
+                    let t = try JSONDecoder().decode([T].self, from: jsonData)
+                    if let first = t.first {
+                        return APIResponse(header: apiResponse.header, data: first)
+                    } else {
+                        throw APIInvalidResponseError()
+                    }
+                    
+                } catch {
+                    throw APIInvalidResponseError()
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    open func requestWithBase64<T: Decodable>(_ input: APIInputBase) -> AnyPublisher<T, Error> {
+        requestWithBase64(input)
+            .map { $0.data }
+            .eraseToAnyPublisher()
+    }
+    
     open func request<T: Decodable>(_ input: APIInputBase) -> AnyPublisher<T, Error> {
         request(input)
             .map { $0.data }
@@ -147,6 +175,32 @@ open class APIBase {
                     throw APIInvalidResponseError()
                 }
             }
+            .eraseToAnyPublisher()
+    }
+    
+    open func requestListWithBase64<T: Decodable>(_ input: APIInputBase) -> AnyPublisher<APIResponse<[T]>, Error> {
+        let response: AnyPublisher<APIResponse<JSONDictionary>, Error> = requestJSON(input)
+        let appResponce: AnyPublisher<APIResponse<JSONArray>,Error> = postProcessWithBase64(response)
+        return appResponce
+            .tryMap { apiResponse -> APIResponse<[T]> in
+                do {
+                    
+                    let jsonData = try JSONSerialization.data(withJSONObject: apiResponse.data,
+                                                              options: .prettyPrinted)
+
+                    let items = try JSONDecoder().decode([T].self, from: jsonData)
+                    return APIResponse(header: apiResponse.header,
+                                       data: items)
+                } catch {
+                    throw APIInvalidResponseError()
+                }
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    open func requestListWithBase64<T: Decodable>(_ input: APIInputBase) -> AnyPublisher<[T], Error> {
+        requestListWithBase64(input)
+            .map { $0.data }
             .eraseToAnyPublisher()
     }
     
@@ -307,6 +361,30 @@ open class APIBase {
                     }
                     
                
+            }
+            .eraseToAnyPublisher()
+    }
+    
+    open func postProcessWithBase64<U:JSONData>(_ response: AnyPublisher<APIResponse<JSONDictionary>, Error>)-> AnyPublisher<APIResponse<U>, Error>{
+        return response
+            .tryMap { (apiResponse) -> APIResponse<U> in
+                
+                let json = apiResponse.data
+                let success = json["success"] as? Bool ?? false
+                let base64Encoded = json["obj"] as? String
+                
+                let decodedData = Data(base64Encoded: base64Encoded ?? "") ?? Data()
+                let jsonArray = try JSONSerialization.jsonObject(with: decodedData)
+                
+                let object = jsonArray as? U
+                if success {
+                    return APIResponse(header: apiResponse.header,
+                                       data: object ?? U.init())
+                }
+                else {
+                    throw self.handleResponseError( json:  json)
+                }
+                
             }
             .eraseToAnyPublisher()
     }

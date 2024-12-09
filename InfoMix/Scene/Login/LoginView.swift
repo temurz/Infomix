@@ -145,6 +145,7 @@ struct LoginView: View {
                         HStack{
                             Text("Ru")
                                 .padding(.horizontal)
+                                .padding(.top)
                                 .font(.system(size: 18))
                                 .onTapGesture {
                                     self.languageTrigger.send("ru")
@@ -152,6 +153,7 @@ struct LoginView: View {
                                 }
                             
                             Text("Uz")
+                                .padding(.top)
                                 .padding(.horizontal)
                                 .font(.system(size: 18))
                                 .onTapGesture {

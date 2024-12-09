@@ -26,9 +26,9 @@ struct SplashView: View {
                    .resizable()
                    .scaledToFit()
                    .frame(width: 220, height: 220)
-                   .onAppear {
-                    self.startTrigger.send()
-                }
+//                   .onAppear {
+//                    self.startTrigger.send()
+//                }
             }
            
         } .alert(isPresented: $output.alert.isShowing) {
@@ -50,9 +50,11 @@ struct SplashView: View {
         
         self.output = viewModel.transform(input, cancelBag: cancelBag)
         if let configCode = UserDefaults.standard.string(forKey: "configCode"),
-           let _ = UserDefaults.standard.string(forKey: "token"){
+           let _ = UserDefaults.standard.string(forKey: "token") {
             let configVersion = UserDefaults.standard.string(forKey: "configVersion")
             loadTrigger.send(CardConfigInput(configCode: configCode, configVersion: configVersion))
+        } else {
+            startTrigger.send(())
         }
         
     }

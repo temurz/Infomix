@@ -47,6 +47,12 @@ extension SplashViewModel: ViewModel {
             })
             .store(in: cancelBag)
         
+        input.startTrigger
+            .sink {
+                self.startTrigger.send()
+            }
+            .store(in: cancelBag)
+        
         error
             .receive(on: RunLoop.main)
             .map { AlertMessage(error: $0) }

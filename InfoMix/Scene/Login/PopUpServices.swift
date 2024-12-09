@@ -37,7 +37,7 @@ struct PopUpServices: View {
                     .background(Color.white)
                     .padding([.horizontal,.top])
                     VStack(alignment: .leading){
-                        ForEach(configs, id: \.id){
+                        ForEach(configs, id: \.title){
                             config in
                             Button {
                                 show = false

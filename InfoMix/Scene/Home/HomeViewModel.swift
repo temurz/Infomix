@@ -16,6 +16,8 @@ struct HomeViewModel {
     let currentUserUseCase: CurrentUserUseCaseType
     let lastEventsUseCase: LastEventsUseCaseType
     let fcmTokenUseCase: FcmTokenUseCaseType
+    let getStatisticsUseCase: GetStatisticsViewUseCaseType
+    let getLoyaltyUseCase: GetLoyaltyViewUseCaseType
     let cardConfig: CardConfig
 
     private let loadLastEventsTrigger = PassthroughSubject<Void,Never>()
@@ -37,6 +39,8 @@ extension HomeViewModel: ViewModel {
         let selectEventTrigger: Driver<EventItemViewModel>
         let closeAdEventTrigger: Driver<Void>
         let sendFcmTokenTrigger: Driver<String>
+        let getLoyaltyTrigger: Driver<Void>
+        let getStatisticsTrigger: Driver<Void>
     }
 
     final class Output: ObservableObject {
@@ -48,6 +52,8 @@ extension HomeViewModel: ViewModel {
         @Published var adEvent: EventItemViewModel? = nil
         @Published var alert = AlertMessage()
         @Published var cardConfig: CardConfig
+        @Published var loyalty: Loyalty?
+        @Published var statistics: Statistics?
         
         init(cardConfig: CardConfig){
             self.cardConfig = cardConfig
@@ -58,6 +64,7 @@ extension HomeViewModel: ViewModel {
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
         let output = Output(cardConfig: self.cardConfig)
+        
         
         let getItemInput = GetItemInput(loadTrigger: input.loadTrigger,
                                         reloadTrigger: input.reloadTrigger,
@@ -148,6 +155,27 @@ extension HomeViewModel: ViewModel {
         
         fcmSuccess.sink().store(in: cancelBag)
         
+        input.getLoyaltyTrigger
+            .sink {
+                getLoyaltyUseCase.getLoyalty()
+                    .asDriver()
+                    .sink { it in
+                        output.loyalty = it
+                    }
+                    .store(in: cancelBag)
+            }
+            .store(in: cancelBag)
+        
+        input.getStatisticsTrigger
+            .sink {
+                getStatisticsUseCase.getStatistics()
+                    .asDriver()
+                    .sink { it in
+                        output.statistics = it
+                    }
+                    .store(in: cancelBag)
+            }
+            .store(in: cancelBag)
         
         return output
     }

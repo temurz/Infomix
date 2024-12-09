@@ -11,7 +11,7 @@ import Alamofire
 
 extension API{
     func getCardConfig(input: APIInput) -> Observable<CardConfig>{
-        request(input)
+        requestWithBase64(input)
     }
     
     final class GetCardConfigInput : APIInput{

@@ -29,6 +29,8 @@ struct HomeView: View {
     private let selectEventTrigger = PassthroughSubject<EventItemViewModel, Never>()
     private let closeAdEventTrigger = PassthroughSubject<Void,Never>()
     private let sendTokentoServerTrigger = PassthroughSubject<String,Never>()
+    private let getLoyaltyTrigger = PassthroughSubject<Void,Never>()
+    private let getStatisticsTrigger = PassthroughSubject<Void,Never>()
     
     let icuView: ICUView
     
@@ -229,7 +231,12 @@ struct HomeView: View {
             }
             
             
-        } .onReceive(timer) { _ in
+        } 
+        .onAppear(perform: {
+            getLoyaltyTrigger.send(())
+            getStatisticsTrigger.send(())
+        })
+        .onReceive(timer) { _ in
             guard !output.shownAdEvent else {
                 return
             }
@@ -247,13 +254,18 @@ struct HomeView: View {
         self.viewModel = viewModel
         let input = HomeViewModel.Input(
             showLocalUsersTrigger: self.showLocalUsersTrigger.asDriver(),
-                                        showTransactionHistoryTrigger: showTransactionHistoryTrigger.asDriver(),
-                                        showExchangeTrigger: showExchangeTrigger.asDriver(),
-                                        loadTrigger: loadTrigger.asDriver(),
-                                        reloadTrigger: reloadTrigger.asDriver(),
-                                        showEventsTrigger: showEventsTrigger.asDriver(), showMyCardsTrigger: showMyCardsTrigger.asDriver(),
-                                        countDownTrigger: countDownTrigger.asDriver(),
-            selectEventTrigger: selectEventTrigger.asDriver(), closeAdEventTrigger: closeAdEventTrigger.asDriver(), sendFcmTokenTrigger: sendTokentoServerTrigger.asDriver()
+            showTransactionHistoryTrigger: showTransactionHistoryTrigger.asDriver(),
+            showExchangeTrigger: showExchangeTrigger.asDriver(),
+            loadTrigger: loadTrigger.asDriver(),
+            reloadTrigger: reloadTrigger.asDriver(),
+            showEventsTrigger: showEventsTrigger.asDriver(),
+            showMyCardsTrigger: showMyCardsTrigger.asDriver(),
+            countDownTrigger: countDownTrigger.asDriver(),
+            selectEventTrigger: selectEventTrigger.asDriver(), 
+            closeAdEventTrigger: closeAdEventTrigger.asDriver(),
+            sendFcmTokenTrigger: sendTokentoServerTrigger.asDriver(),
+            getLoyaltyTrigger: getLoyaltyTrigger.asDriver(),
+            getStatisticsTrigger: getStatisticsTrigger.asDriver()
         )
         self.output = viewModel.transform(input, cancelBag: cancelBag)
         self.icuView = iv

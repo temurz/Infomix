@@ -11,13 +11,14 @@ import Then
 import Localize_Swift
 
 struct AddCardStep: Identifiable{
-      var id: Int
-      var autoComplete: Bool = true
-      var items = [AddCardStepItem]()
-      var titleUz: String?
-      var titleRu: String?
-      var cardConfig: CardConfig?
-   
+    var id: Int
+    var autoComplete: Bool = true
+    var items = [AddCardStepItem]()
+    var titleUz: String?
+    var titleRu: String?
+    var cardConfig: CardConfig?
+    var title: String?
+    var titleTranslations: [TitleTranslation]?
 }
 
 
@@ -27,6 +28,8 @@ extension AddCardStep: Codable {
         case items = "items"
         case titleRu = "titleRu"
         case titleUz = "titleUz"
+        case title = "title"
+        case titleTranslations = "titleTranslations"
     }
     
     init(from decoder: Decoder) throws {
@@ -36,18 +39,21 @@ extension AddCardStep: Codable {
         titleUz = try values.decodeIfPresent(String.self, forKey: .titleUz)
         items = try values.decodeIfPresent([AddCardStepItem].self, forKey: .items) ?? [AddCardStepItem]()
         id = Int.random(in: 2...Int.max)
-        
+        title = try values.decodeIfPresent(String.self, forKey: .title)
+        titleTranslations = try values.decodeIfPresent([TitleTranslation].self, forKey: .titleTranslations)
     }
     
     func encode(to encoder: Encoder) throws {
-      // 2
-      var container = encoder.container(keyedBy: CodingKeys.self)
-      // 3
-      try container.encode(autoComplete, forKey: .autoComplete)
-      try container.encode(titleRu, forKey: .titleRu)
+        // 2
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        // 3
+        try container.encode(autoComplete, forKey: .autoComplete)
+        try container.encode(titleRu, forKey: .titleRu)
         try container.encode(titleUz, forKey: .titleUz)
-      // 4
-      try container.encode(items, forKey: .items)
+        // 4
+        try container.encode(items, forKey: .items)
+        try container.encode(title, forKey: .title)
+        try container.encode(titleTranslations, forKey: .titleTranslations)
     }
 }
 
