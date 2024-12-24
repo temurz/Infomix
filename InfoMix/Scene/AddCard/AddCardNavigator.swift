@@ -10,9 +10,10 @@ import SwiftUI
 protocol AddCardNavigatorType{
     func showSendingTimeline(cardConfig:CardConfig)
     func showScanner(onFound: @escaping (_ code: String)->Void)
+    func popView()
 }
 
-struct AddCardNavigator: AddCardNavigatorType , ShowingSendingTimeline, ShowingScanner {
+struct AddCardNavigator: AddCardNavigatorType , ShowingSendingTimeline, ShowingScanner, PopNavigator {
    
     unowned let assembler: Assembler
     unowned let navigationController: UINavigationController

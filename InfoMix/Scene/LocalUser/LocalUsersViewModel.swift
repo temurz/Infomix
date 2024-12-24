@@ -22,6 +22,7 @@ extension LocalUsersViewModel: ViewModel {
         let reloadUsersTrigger: Driver<Void>
         let activeTrigger: Driver<LocalUser>
         let addAccountTrigger: Driver<Void>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output: ObservableObject {
@@ -65,7 +66,13 @@ extension LocalUsersViewModel: ViewModel {
         input.addAccountTrigger.sink { localUser in
             self.navigator.showLogin(cardConfig: self.cardConfig)
         }.store(in: cancelBag)
-        
+
+        input.popViewTrigger
+            .sink {
+                navigator.popView()
+            }
+            .store(in: cancelBag)
+
         return output
     }
 }

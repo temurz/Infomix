@@ -20,6 +20,7 @@ extension NotificationsViewModel : ViewModel {
         let loadNotificationsTrigger: Driver<Void>
         let reloadNotificationsTrigger: Driver<Void>
         let loadMoreNotificationsTrigger: Driver<Void>
+        let popViewTrigger: Driver<Void>
         let moreActionTrigger: Driver<NotificationsItemViewModel>
     }
     
@@ -88,7 +89,12 @@ extension NotificationsViewModel : ViewModel {
                 break
             }
         }.store(in: cancelBag)
-        
+
+        input.popViewTrigger.sink {
+            navigator.popView()
+        }
+        .store(in: cancelBag)
+
         return output
     }
 }

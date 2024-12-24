@@ -18,3 +18,8 @@ extension UIApplication {
     
     
 }
+extension UIScreen {
+    static var screenWidth: CGFloat {
+        return self.main.bounds.width
+    }
+}

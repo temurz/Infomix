@@ -10,25 +10,35 @@ import SwiftUI
 import Combine
 
 struct AddCardView: View {
-    
+
     @ObservedObject var output: AddCardViewModel.Output
     @State private var keyboardHeight: CGFloat = 0
-    
+
     let nextStepTrigger = PassthroughSubject<Void, Error>()
     let prevStepTrigger = PassthroughSubject<Void, Error>()
     let sendCardTrigger = PassthroughSubject<Void, Error>()
     let loadCardTrigger = PassthroughSubject<Void, Error>()
+    let popViewTrigger = PassthroughSubject<Void, Error>()
     let scanTrigger = PassthroughSubject<AddCardStepItem, Error>()
     let cancelBag = CancelBag()
-    
+
     var body: some View {
         VStack(spacing: 0) {
-            StepView(addCardStep: $output.currentCardStep, scanTrigger: self.scanTrigger)
-                .frame(maxWidth: .infinity,maxHeight: .infinity)
-            
-            
+            CustomNavigationBar(title: "Add Card".localized()) {
+                popViewTrigger.send(())
+            }
+            if output.change {
+                StepView(addCardStep: $output.currentCardStep, scanTrigger: self.scanTrigger)
+                    .frame(maxWidth: .infinity,maxHeight: .infinity)
+            }else {
+                StepView(addCardStep: $output.currentCardStep, scanTrigger: self.scanTrigger)
+                    .frame(maxWidth: .infinity,maxHeight: .infinity)
+            }
+
+
+
             HStack{
-                
+
                 Spacer()
                 if output.hasPrevStep{
                     Button(action: {
@@ -46,12 +56,13 @@ struct AddCardView: View {
                 if output.hasNextStep {
                     if AddCardStep.isValid(output.currentCardStep)(){
                         Button(action: {
+                            UIApplication.shared.endEditing(true)
                             self.nextStepTrigger.send()
                         }, label: {
                             HStack{
                                 Text("Next".localized())
                                 Image(systemName: "arrow.right")
-                                
+
                             }
                         }).padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
                             .background(Color.white)
@@ -60,14 +71,14 @@ struct AddCardView: View {
                     }
                 }
                 if output.enabledSendButton {
-                    if output.currentCardStep.isValid() {
+                    if AddCardStep.isValid(output.currentCardStep)(){
                         Button(action: {
                             self.sendCardTrigger.send()
                         }, label: {
                             HStack{
-                                Text("Sent".localized())
+                                Text("Send".localized())
                                 Image(systemName: "paperplane")
-                                
+
                             }
                         }).padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
                             .background(Color.white)
@@ -83,17 +94,22 @@ struct AddCardView: View {
                 .frame(maxWidth: .infinity)
                 .background(RoundedCorner(color: Color.green, tl: 32, tr: 0, bl: 0, br: 0))
             
-        }.navigationBarTitle("Add Card".localized())
-            .edgesIgnoringSafeArea(.bottom)
+        }
+        .edgesIgnoringSafeArea(.bottom)
     }
-    
+
     init(viewModel: AddCardViewModel){
-        let input = AddCardViewModel.Input(nextStepTrigger: self.nextStepTrigger.asDriver(), prevStepTrigger: self.prevStepTrigger.asDriver(), sendCardTrigger: self.sendCardTrigger.asDriver(), scanTrigger: self.scanTrigger.asDriver())
-        
+        let input = AddCardViewModel.Input(
+            nextStepTrigger: self.nextStepTrigger.asDriver(),
+            prevStepTrigger: self.prevStepTrigger.asDriver(),
+            sendCardTrigger: self.sendCardTrigger.asDriver(),
+            popViewTrigger: self.popViewTrigger.asDriver(),
+            scanTrigger: self.scanTrigger.asDriver())
+
         self.output = viewModel.transform(input, cancelBag: self.cancelBag)
-        
+
         self.nextStepTrigger.send()
-        
+
     }
 }
 
@@ -103,10 +119,10 @@ extension Publishers {
         // 2.
         let willShow = NotificationCenter.default.publisher(for: UIApplication.keyboardWillShowNotification)
             .map { $0.keyboardHeight }
-        
+
         let willHide = NotificationCenter.default.publisher(for: UIApplication.keyboardWillHideNotification)
             .map { _ in CGFloat(0) }
-        
+
         // 3.
         return MergeMany(willShow, willHide)
             .eraseToAnyPublisher()

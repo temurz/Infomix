@@ -23,31 +23,31 @@ struct ProductCategoryView: View {
         let categories = output.categories.enumerated().map{$0}
         
         return LoadingView(isShowing: $output.isLoading, text: .constant("")) {
-            List(categories, id: \.element.id){ index, category in
-                
-                Button(action: {
-                    self.selectTrigger.send(IndexPath(row: index, section: 0))
-                }) {
-                    HStack{
-                        Text(category.name)
-                            .foregroundColor(.black)
-                        Spacer()
-                        Image(systemName: "arrow.right")
-                            .foregroundColor(.green)
+            VStack {
+                CustomNavigationBar(title: output.filteredCategory != nil ? "Choose category".localized() : "Shop by department".localized(), rightBarTitle: "Cancel".localized()) {
+                    backTrigger.send(())
+                } onRightBarButtonTapAction: {
+                    closeTrigger.send(())
+                }
+
+                List(categories, id: \.element.id){ index, category in
+
+                    Button(action: {
+                        self.selectTrigger.send(IndexPath(row: index, section: 0))
+                    }) {
+                        HStack{
+                            Text(category.name)
+                                .foregroundColor(.black)
+                            Spacer()
+                            Image(systemName: "arrow.right")
+                                .foregroundColor(.green)
+                        }
                     }
+                }.pullToRefresh(isShowing: self.$output.isReloading) {
+                    self.reloadTrigger.send()
                 }
-            }.pullToRefresh(isShowing: self.$output.isReloading) {
-                self.reloadTrigger.send()
+
             }
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action : { self.backTrigger.send() }){
-                HStack{
-                    Image(systemName: "chevron.left")
-                    Text("Back")
-                }
-            },trailing: Button("Cancel") {
-                self.closeTrigger.send()
-            })
         }
         .alert(isPresented: $output.alert.isShowing) {
             Alert(

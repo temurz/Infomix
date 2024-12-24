@@ -18,7 +18,6 @@ extension ShowingProductList {
     func showProductList(category: ProductCategory?) {
         let view: ProductsView = assembler.resolve(navigationController: navigationController, category: category)
         let vc = UIHostingController(rootView: view)
-        vc.title = "Product List"
     
         var viewControllers = navigationController.viewControllers
 

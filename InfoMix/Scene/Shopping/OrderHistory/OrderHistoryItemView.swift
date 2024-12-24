@@ -25,7 +25,7 @@ struct OrderHistoryItemView: View {
                 Spacer(minLength: 10)
                 HStack(alignment: .center, spacing: 5) {
                     
-                    Text("\(self.order.statusText)")
+                    Text("\(self.order.status ?? "")")
                         .font(.system(size: 12))
                         .foregroundColor(.white)
                         .padding(.horizontal, 6)
@@ -42,7 +42,7 @@ struct OrderHistoryItemView: View {
             HStack {
                 HStack {
                     
-                    Text(String(self.order.entryCount) + " items".localized())
+                    Text(String(self.order.totalProducts) + " items".localized())
                         .font(.system(size: 13))
                         .foregroundColor(.black)
                         .padding(5)
@@ -58,11 +58,5 @@ struct OrderHistoryItemView: View {
             
         }
         .padding(.init(top: 8, leading: 6, bottom: 0, trailing: 8))
-    }
-}
-
-struct OrderHistoryItemView_Previews: PreviewProvider {
-    static var previews: some View {
-        OrderHistoryItemView(order: .constant(Order(id: 1, entryCount: 10, totalAmount: 100, entries: [ProductEntry](), createdDate: Date(), closedDate: Date(), status: "Draft", statusText: "Draft")))
     }
 }

@@ -21,6 +21,7 @@ extension API {
         static let currentShoppingCart = NetworkManager.shared.baseUrl + "/order/current"
         static let productCategories = NetworkManager.shared.baseUrl + "/product/categories/"
         static let products = NetworkManager.shared.baseUrl + "/products"
+        static let productsTop = NetworkManager.shared.baseUrl + "/products/top"
         static let eventDetail = NetworkManager.shared.baseUrl+"/events/%d"
         static let transactionHistory = NetworkManager.shared.baseUrl+"/scores/history"
         static let transactionTypes = NetworkManager.shared.baseUrl+"/scores/types"

@@ -10,10 +10,10 @@ import UIKit
 
 
 protocol EventDetailNavigatorType {
-
+    func popView()
 }
 
-struct EventDetailNavigator: EventDetailNavigatorType {
+struct EventDetailNavigator: EventDetailNavigatorType, PopNavigator {
     unowned let assembler: Assembler
     unowned let navigationController: UINavigationController
 }

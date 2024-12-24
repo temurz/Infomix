@@ -13,7 +13,7 @@ protocol DeletingProductEnrty {
 
 extension DeletingProductEnrty {
     
-    func deleteProductEntry(entryId: Int) -> Observable<Order> {
+    func deleteProductEntry(entryId: Int) -> Observable<ProductEntry> {
         shoppingGateway.deleteProductEntry(entryId: entryId)
     }
     

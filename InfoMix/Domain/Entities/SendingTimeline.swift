@@ -15,7 +15,7 @@ enum SendingTimelineStatus{
 }
 
 enum SendingTimelineId: String {
-    case connect, serialNumbers, additionalData, calculateBonus, done, dispute
+    case connect, serialNumbers, additionalData, calculateBonus, done, dispute, imageValue
 }
 
 struct SendingTimeline: Identifiable {

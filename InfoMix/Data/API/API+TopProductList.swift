@@ -20,14 +20,9 @@ extension API {
     final class TopProductListInput: APIInput {
         init(){
             
-            let parameters: Parameters = [
-                "page": 1,
-                "rows": 4
-                ]
-            
-            super.init(urlString: Urls.products,
-                       parameters: parameters,
-                       method: .post,
+            super.init(urlString: Urls.productsTop,
+                       parameters: nil,
+                       method: .get,
                        requireAccessToken: true)
             
         }

@@ -16,10 +16,13 @@ struct ChangePasswordView: View {
     let cancelBag = CancelBag()
     
     let changePasswordTrigger = PassthroughSubject<Void, Never>()
+    let popViewTrigger = PassthroughSubject<Void, Never>()
     var body: some View {
         LoadingView(isShowing: $output.isChangingPassword, text: .constant("")) {
             VStack {
-                ChangePasswordHeaderView()
+                CustomNavigationBar(title: "Change password".localized()) {
+                    popViewTrigger.send(())
+                }
                 VStack(alignment: .leading){
                     SecureField("Password".localized(), text: self.$input.password)
                                  .padding()
@@ -31,7 +34,8 @@ struct ChangePasswordView: View {
                         .lineLimit(nil)
                         .frame(maxHeight: .infinity)
                         .fixedSize()
-                }.padding(.bottom,15)
+                }
+                .padding()
                 VStack(alignment: .leading){
                     SecureField("New password".localized(), text: self.$input.newPassword)
                                  .padding()
@@ -43,7 +47,9 @@ struct ChangePasswordView: View {
                         .lineLimit(nil)
                         .frame(maxHeight: .infinity)
                         .fixedSize()
-                }.padding(.bottom,15)
+                }
+                .padding(.bottom,15)
+                .padding(.horizontal)
                 HStack{
                     Spacer()
                     Button(action: {self.changePasswordTrigger.send(())}) {
@@ -54,7 +60,6 @@ struct ChangePasswordView: View {
                 Spacer()
                 
             }
-            .padding()
         }
         .alert(isPresented: $output.alert.isShowing) {
             Alert(
@@ -66,7 +71,10 @@ struct ChangePasswordView: View {
     }
     
     init(viewModel: ChangePasswordViewModel){
-        let input = ChangePasswordViewModel.Input(changePasswordTrigger: self.changePasswordTrigger.asDriver())
+        let input = ChangePasswordViewModel.Input(
+            changePasswordTrigger: self.changePasswordTrigger.asDriver(),
+            popViewTrigger: popViewTrigger.asDriver()
+        )
         self.output = viewModel.transform(input, cancelBag: cancelBag)
         self.input = input
     }

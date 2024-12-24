@@ -12,7 +12,7 @@ import Combine
 
 extension API {
     
-    func updateProductEntry(_ input: UpdateProductEntryApiInput) -> Observable<Order> {
+    func updateProductEntry(_ input: UpdateProductEntryApiInput) -> Observable<ProductEntry> {
         return request(input)
     }
     

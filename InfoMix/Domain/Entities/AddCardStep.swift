@@ -68,7 +68,7 @@ extension AddCardStep{
     static func none()-> AddCardStep{
         AddCardStep(id: -1)
     }
-    
+
     static func confirmation(cardConfig: CardConfig) -> AddCardStep{
         AddCardStep(id: -2, cardConfig: cardConfig)
     }
@@ -80,7 +80,7 @@ extension AddCardStep{
             return titleRu
         }
     }
-    
+
     func enabledCloneButton(addCardStepItem: AddCardStepItem) -> Bool{
         if addCardStepItem.limit<=0 {
             return false
@@ -91,30 +91,37 @@ extension AddCardStep{
         let cloneCount = items.filter { it in
             it.originaltemId == itemId
         }.count
-        
+
         if cloneCount == 0{
             return true
         }
-        
+
         if cloneCount >= addCardStepItem.limit {
             return false
         }
-        
+
         let lastCloneIndex = items.lastIndex { it in
             it.originaltemId == itemId
         }
-        
+
         return items.firstIndex(of: addCardStepItem)==lastCloneIndex
-        
-        
+
+
     }
     func isValid() -> Bool{
-        guard items.count != 0 else {
-            return false
+        var result = false
+        if self.items[0].skip || self.items[0].valueString.count > 0{
+            return true
         }
-        return self.items[0].skip || self.items[0].valueString.count > 0
+        for i in items{
+            if i.valid() == false{
+                return false
+            }
+
+        }
+        return true
     }
-    
+
     func isPhoneValid() -> Bool{
         if items.count != 0 {
             return self.items[0].valueString.count == 12
@@ -132,19 +139,19 @@ extension AddCardStep{
     func isStep() -> Bool {
         !isNone() && !isConfirmation()
     }
-    
+
     mutating func cloneStepItem(_ addCardStepItem: AddCardStepItem){
-        
+
         if let index = items.lastIndex (of: addCardStepItem) {
             self.items.insert(addCardStepItem.clone(), at: index+1)
         }
     }
-    
+
     mutating func removeCloneStepItem(_ addCardStepItem: AddCardStepItem){
         if addCardStepItem.originaltemId == nil {
             return
         }
-        
+
         if let index = items.lastIndex(of: addCardStepItem){
             self.items.remove(at: index)
         }

@@ -10,7 +10,7 @@ import Combine
 import SwiftUI
 
 struct AboutViewModel {
-    
+    let navigator: PopNavigator
 }
 
 extension AboutViewModel : ViewModel {
@@ -18,6 +18,7 @@ extension AboutViewModel : ViewModel {
     struct Input {
         let callTrigger: Driver<Void>
         let openTelegramTrigger: Driver<Void>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output: ObservableObject {
@@ -64,8 +65,12 @@ extension AboutViewModel : ViewModel {
             }
         }.store(in: cancelBag)
         
-        
-        
+        input.popViewTrigger
+            .sink {
+                navigator.popView()
+            }
+            .store(in: cancelBag)
+
         return output
     }
     

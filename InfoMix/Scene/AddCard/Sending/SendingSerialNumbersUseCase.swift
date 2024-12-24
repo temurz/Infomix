@@ -18,5 +18,5 @@ struct SendingSerialNumbersUseCase: SendingSerialNumbersUseCaseType, SendingSeri
 
 struct SerialNumbersInput {
     let serialCardId: Int
-    let serialNumbers: String
+    let serialNumbers: [SerialNumberInput]
 }

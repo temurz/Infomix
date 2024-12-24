@@ -28,6 +28,7 @@ extension OrderHistoryViewModel: ViewModel {
         let reloadOrderListTrigger: Driver<Void>
         let loadMoreOrderListTrigger: Driver<Void>
         let selectOrderTrigger: Driver<Int>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output: ObservableObject {
@@ -108,7 +109,12 @@ extension OrderHistoryViewModel: ViewModel {
                 
                 
             }.store(in: cancelBag)
-        
+
+        input.popViewTrigger.sink {
+            navigator.popView()
+        }
+        .store(in: cancelBag)
+
         return output
     }
 }

@@ -36,6 +36,7 @@ extension TransactionHistoryViewModel : ViewModel{
         let selectCalendarTrigger : Driver<Void>
         let loadTransactionTypesListTrigger : Driver<Void>
         let loadTransactionStatisticTrigger : Driver<Void>
+        let popViewTrigger : Driver<Void>
     }
     
     final class Output : ObservableObject {
@@ -57,7 +58,13 @@ extension TransactionHistoryViewModel : ViewModel{
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
         
         let output = Output()
-        
+
+        input.popViewTrigger
+            .sink {
+                navigator.popView()
+            }
+            .store(in: cancelBag)
+
         input.loadTransactionHistoryTrigger.handleEvents(receiveOutput: {
             self.loadHistoryTrigger.send(TransactionHistoryInput(from: output.from, to: output.to, type: output.type == "All" ? nil : output.type))
         }).sink().store(in: cancelBag)

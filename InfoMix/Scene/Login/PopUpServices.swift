@@ -16,11 +16,11 @@ struct PopUpServices: View {
         ZStack{
             if show{
                 Color.black.opacity(0.3).ignoresSafeArea(.all)
-                    
+
                 VStack(alignment: .leading, spacing: 0){
                     VStack(alignment: .leading){
                         HStack{
-                            
+
                             Text("Choose a service".localized())
                                 .padding(.horizontal)
                             Spacer()
@@ -37,39 +37,66 @@ struct PopUpServices: View {
                     .background(Color.white)
                     .padding([.horizontal,.top])
                     VStack(alignment: .leading){
-                        ForEach(configs, id: \.title){
+                        ForEach(configs.indices){
                             config in
                             Button {
                                 show = false
-                                action(config)
+                                action(configs[config])
                             } label: {
-                                if UserDefaults.standard.object(forKey: "LCLCurrentLanguageKey") as?	 String == "ru"{
-                                    if let title = config.titleRu {
-                                        HStack{
-                                            Text(title)
-                                                .foregroundColor(.black)
-                                                .padding()
-                                            Spacer()
-                                        }
-                                    }else {
-                                        HStack{
-                                            Text(config.title)
-                                                .foregroundColor(.black)
-                                                .padding()
-                                            Spacer()
-                                        }
+                                if let title = configs[config].title, configs[config].titleTranslations?.count ?? 0 < 1 {
+                                    HStack{
+                                        Text(title)
+                                            .foregroundColor(.black)
+                                            .padding()
+                                        Spacer()
                                     }
-                                }else{
-                                    if let title = config.titleUz{
-                                        HStack{
-                                            Text(title)
-                                                .foregroundColor(.black)
-                                                .padding()
-                                            Spacer()
+                                }else {
+                                    switch UserDefaults.standard.object(forKey: "LCLCurrentLanguageKey") as?     String {
+                                    case "ru":
+                                        var title: String?
+                                        if let translations = configs[config].titleTranslations {
+                                            let _ = translations.forEach { translation in
+                                                if translation.locale == "ru" {
+                                                    title = translation.value
+                                                }
+                                            }
+                                            if let title = title {
+                                                HStack{
+                                                    Text(title)
+                                                        .foregroundColor(.black)
+                                                        .padding()
+                                                    Spacer()
+                                                }
+                                            }
                                         }
-                                    }else {
-                                        HStack{
-                                            Text(config.title)
+                                    case "uz":
+                                        var title: String?
+                                        if let translations = configs[config].titleTranslations {
+                                            let _ = translations.forEach { translation in
+                                                if translation.locale == "uz" {
+                                                    title = translation.value
+                                                }
+                                            }
+                                            if let title = title {
+                                                HStack{
+                                                    Text(title)
+                                                        .foregroundColor(.black)
+                                                        .padding()
+                                                    Spacer()
+                                                }
+                                            }
+                                        }
+                                    default:
+                                        var title: String?
+                                        if let translations = configs[config].titleTranslations {
+                                            let _ = translations.forEach { translation in
+                                                if translation.locale == "en" {
+                                                    title = translation.value
+                                                }
+                                            }
+                                        }
+                                        HStack {
+                                            Text(title ?? "")
                                                 .foregroundColor(.black)
                                                 .padding()
                                             Spacer()
@@ -91,8 +118,8 @@ struct PopUpServices: View {
 
 struct PopUpServices_Previews: PreviewProvider {
     static var previews: some View {
-        PopUpServices(configs: .constant([CardConfig]()), show: .constant(false), action: {config in 
-            
+        PopUpServices(configs: .constant([CardConfig]()), show: .constant(false), action: {config in
+
         })
     }
 }

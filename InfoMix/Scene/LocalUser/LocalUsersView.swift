@@ -15,6 +15,7 @@ struct LocalUsersView: View {
     private let reloadUsersTrigger = PassthroughSubject<Void, Never>()
     private let loadUsersTrigger = PassthroughSubject<Void,Never>()
     private let addAccountTrigger = PassthroughSubject<Void,Never>()
+    private let popViewTrigger = PassthroughSubject<Void,Never>()
     private let activeTrigger = PassthroughSubject<LocalUser, Never>()
     private let token = UserDefaults.standard.string(forKey: "token") ?? ""
     var body: some View {
@@ -23,6 +24,9 @@ struct LocalUsersView: View {
         return LoadingView(isShowing: $output.isLoading, text: .constant("")){
             
             VStack{
+                CustomNavigationBar(title: "Local user List".localized()) {
+                    popViewTrigger.send(())
+                }
                 List(output.certificates.enumerated().map { $0 }, id: \.element.id){ index, localUser in
                     LocalUserRow(localUser: localUser, currentUserToken: token) {
                         localUser in
@@ -34,7 +38,6 @@ struct LocalUsersView: View {
                 }
                 
             }
-            .navigationTitle("Local user List".localized())
             
         }
         .toolbar{
@@ -62,8 +65,14 @@ struct LocalUsersView: View {
     
     
     init(viewModel: LocalUsersViewModel) {
-        let input = LocalUsersViewModel.Input(loadUsersTrigger: self.loadUsersTrigger.asDriver(), reloadUsersTrigger: self.reloadUsersTrigger.asDriver(), activeTrigger: self.activeTrigger.eraseToAnyPublisher(), addAccountTrigger: self.addAccountTrigger.asDriver())
-        
+        let input = LocalUsersViewModel.Input(
+            loadUsersTrigger: self.loadUsersTrigger.asDriver(),
+            reloadUsersTrigger: self.reloadUsersTrigger.asDriver(),
+            activeTrigger: self.activeTrigger.eraseToAnyPublisher(),
+            addAccountTrigger: self.addAccountTrigger.asDriver(),
+            popViewTrigger: popViewTrigger.asDriver()
+        )
+
         self.output = viewModel.transform(input, cancelBag: cancelBag)
        
     }

@@ -9,7 +9,7 @@
 import SwiftUI
 import UIKit
 import Combine
-
+import Localize_Swift
 struct HomeView: View {
     
     @ObservedObject var output: HomeViewModel.Output
@@ -31,154 +31,186 @@ struct HomeView: View {
     private let sendTokentoServerTrigger = PassthroughSubject<String,Never>()
     private let getLoyaltyTrigger = PassthroughSubject<Void,Never>()
     private let getStatisticsTrigger = PassthroughSubject<Void,Never>()
-    
+    private let showAddCardTrigger = PassthroughSubject<Void,Never>()
+    private let showShoppingViewTrigger = PassthroughSubject<Void,Never>()
+    private let showNotificationsTrigger = PassthroughSubject<Void,Never>()
+
     let icuView: ICUView
     
     var body: some View {
         ZStack(alignment: .top) {
-            
-            Color(.systemGray6)
-            
-            RoundedCorner(color: .green, tl: 0, tr: 0, bl: 0, br: 60)
-                .frame(maxWidth: .infinity, maxHeight: 240)
-            
-            
-            ScrollView(.vertical, showsIndicators: false) {
-                HStack{
-                    VStack{
+            Colors.appMainColor
+                .frame(maxWidth: .infinity)
+                .frame(maxHeight: .infinity)
+            VStack {
+                HStack {
+                    Button {
                         
+                    } label: {
+                        if let iconUrl = output.loyalty?.icon {
+                            if let url = URL(string: iconUrl) {
+                                AsyncImage(url: url) { image in
+                                    image
+                                        .resizable()
+                                        .centerCropped()
+                                        .frame(width: 36, height: 36)
+                                        .cornerRadius(radius: 18, corners: .allCorners)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                            }
+                        } else {
+                            Image("na_icon")
+                                .resizable()
+                                .centerCropped()
+                                .frame(width: 36, height: 36)
+                                .cornerRadius(radius: 18, corners: .allCorners)
+                        }
+                    }
+                    .frame(width: 36, height: 36)
+                    .background(.white)
+                    .cornerRadius(radius: 18, corners: .allCorners)
+                    .padding(.vertical)
+                    VStack {
                         Text(output.certificate.agentFullName)
-                            .font(.title2)
+                            .font(.headline)
                             .foregroundColor(.white)
                             .frame(maxWidth:.infinity,alignment: .leading)
-                            .padding([.horizontal,.top], 20)
-                        
                         Text(String(format: "Certificate: %@".localized(), output.certificate.certificateCode))
                             .font(.subheadline)
                             .foregroundColor(.white)
                             .frame(maxWidth:.infinity,alignment: .leading)
-                            .padding(.horizontal, 20)
-                        
                     }
-                    VStack{
-                        Spacer()
-                        Button {
-                            self.showLocalUsersTrigger.send()
-                        } label: {
-                            HStack (spacing: 4){
-                                Image(systemName: "rectangle.stack.person.crop")
-                                Text("Accounts".localized())
-                                    .font(.system(size: 12))
-                            }
-                            .font(.caption)
-                            .foregroundColor(.white)
-                            .padding(4)
-                            .overlay(RoundedRectangle(cornerRadius: 14).stroke().foregroundColor(Color.white))
-                        }
-                    }.padding(.horizontal,20)
-                    
+                    Button {
+                        showNotificationsTrigger.send(())
+                    } label: {
+                        Image(systemName: "bell.fill")
+                            .resizable()
+                            .foregroundStyle(Colors.appMainColor)
+                            .padding(8)
+                    }
+                    .frame(width: 36, height: 36)
+                    .background(.white)
+                    .cornerRadius(radius: 18, corners: .allCorners)
+                    .padding(.vertical)
                 }
-                VStack(spacing: 5) {
-                    HStack{
-                        Text(String(output.certificate.serviceName).localized())
-                            .frame(maxWidth:.infinity,alignment: .leading)
-                        Spacer()
-                        
-                        Button(action: {
-                            self.showMyCardsTrigger.send()
-                        }, label: {
-                            HStack{
-                                Text("My cards".localized())
+                .padding()
+                Text("My balance".localized())
+                    .font(.subheadline)
+                    .foregroundColor(.white)
+                
+                icuView
+                    .onReceive(icuView.output.$icu, perform: { icu in
+                        output.certificate.balance = icu
+                        updateIcuTrigger.send(icu)
+                    })
+                
+                    .frame(maxWidth:.infinity)
+                
+                HStack(alignment: .top) {
+                    Spacer()
+                    VStack(spacing: 0) {
+                        Button {
+                            showAddCardTrigger.send(())
+                        } label: {
+                            Image("plus")
+                                .renderingMode(.template)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .foregroundStyle(.white)
+                                .padding()
+                        }
+                        .frame(width: 60, height: 60)
+                        .background(Color.black.opacity(0.2))
+                        .cornerRadius(radius: 30, corners: .allCorners)
+                        .padding([.horizontal, .top])
+                        Text("Add Card".localized())
+                            .font(.callout)
+                            .bold()
+                            .multilineTextAlignment(.center)
+                            .lineLimit(2)
+                            .foregroundStyle(.white)
+                    }
+                    .frame(width: UIScreen.screenWidth/3 - 8)
+                    if output.cardConfig.hasShop {
+                        VStack(spacing: 0) {
+                            Button {
+                                showShoppingViewTrigger.send(())
+                            } label: {
+                                Image("shopping_bag")
+                                    .renderingMode(.template)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundStyle(.white)
+                                    .padding()
                             }
-                            .font(.caption)
-                            .foregroundColor(.green)
-                            .padding(4)
-                            .overlay(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(Color.green))
-                            
-                        })
+                            .frame(width: 60, height: 60)
+                            .background(Color.black.opacity(0.2))
+                            .cornerRadius(radius: 30, corners: .allCorners)
+                            .padding([.horizontal, .top])
+                            Text("Shop".localized())
+                                .font(.callout)
+                                .bold()
+                                .multilineTextAlignment(.center)
+                                .lineLimit(2)
+                                .foregroundStyle(.white)
+                        }
+                        .frame(width: UIScreen.screenWidth/3 - 8)
+                    }
+//                    if output.cardConfig.hasPayment {
+//                        VStack(spacing: 0) {
+//                            Button {
+//                                showShoppingViewTrigger.send(())
+//                            } label: {
+//                                Image("shopping_bag")
+//                                    .renderingMode(.template)
+//                                    .resizable()
+//                                    .aspectRatio(contentMode: .fit)
+//                                    .foregroundStyle(.white)
+//                                    .padding()
+//                            }
+//                            .frame(width: 60, height: 60)
+//                            .background(Color.black.opacity(0.2))
+//                            .cornerRadius(radius: 30, corners: .allCorners)
+//                            .padding([.horizontal, .top])
+//                            Text("Shop".localized())
+//                                .font(.callout)
+//                                .bold()
+//                                .lineLimit(2)
+//                                .foregroundStyle(.white)
+//                        }
+//                        .frame(width: UIScreen.screenWidth/3 - 8)
+//
+//                    }
 
-                    }.padding(12)
-                    
-                    
-                    Image("logo")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 96, height: 96)
-                    
-                    Text("You have".localized())
-                        .font(.subheadline)
-                        .foregroundColor(.gray)
-                    
-                    icuView
-                        .onReceive(icuView.output.$icu, perform: { icu in
-                            updateIcuTrigger.send(icu)
-                        })
-                    
-                        .frame(maxWidth:.infinity)
-                    
-                    
-                    HStack{
-                        Button(action: {
-                            self.showTransactionHistoryTrigger.send()
-                        }) {
-                            HStack {
-                                Text("History".localized())
-                                Image(systemName: "arrow.up.arrow.down.circle")
+                    Spacer()
+                }
+                
+                
+                
+                
+                VStack(spacing: 5) {
+                    ScrollView {
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: UIScreen.screenWidth/2, maximum: UIScreen.screenWidth/2)), GridItem(.adaptive(minimum: UIScreen.screenWidth/2, maximum: UIScreen.screenWidth/2))]) {
+                            ForEach(output.items, id: \.subtitle) { item in
+                                MainCellView(model: item)
+                                    .frame(maxWidth: .infinity)
+                                    .cornerRadius(8)
+                                    .padding(4)
+                                    .onTapGesture {
+                                        cellTapped(item.type)
+                                    }
                             }
                         }
-                        .padding(8)
-                        .foregroundColor(.white)
-                        .background(Color.gray)
-                        .cornerRadius(.greatestFiniteMagnitude)
-                        
-                        
                     }
-                    
-                    .padding()
-                    
+                    .scrollIndicators(.hidden)
+                    .padding(8)
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
+                .frame(maxHeight: .infinity)
                 .background(Color.white)
-                .cornerRadius(10)
+                .cornerRadius(radius: 10, corners: [.topLeft, .topRight])
                 .shadow(radius: 4)
-                .padding(20)
-                
-                HStack{
-                    Text("Last events".localized())
-                        .font(.system(size: 20.0))
-                        .bold()
-                    Spacer()
-                    
-                    Button(action: {
-                        self.showEventsTrigger.send()
-                    }){
-                        HStack{
-                            Text("All events".localized())
-                            Image(systemName: "arrow.right")
-                        }
-                        .font(.caption)
-                        .foregroundColor(.green)
-                        .padding(4)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(Color.green))
-                    }
-                    
-                }.padding(.horizontal)
-                ScrollView (.horizontal, showsIndicators: false) {
-                    LazyHStack {
-                        ForEach(output.lastEvents.enumerated().map{ $0 }, id: \.element.title) {
-                            index, event in
-                            Button(action: {
-                                self.selectEventTrigger.send(event)
-                            }) {
-                                EventRow(viewModel: event)
-                                    .frame(width: UIScreen.main.bounds.width * 2 / 3)
-                            }.padding(4)
-                        }
-                    }
-                }.padding(.horizontal)
-                    .padding(.bottom, 40)
-                
-                
             }.padding(.top, 40)
             
             
@@ -231,7 +263,7 @@ struct HomeView: View {
             }
             
             
-        } 
+        }
         .onAppear(perform: {
             getLoyaltyTrigger.send(())
             getStatisticsTrigger.send(())
@@ -246,7 +278,16 @@ struct HomeView: View {
         }
         
     }
-    
+
+    private func cellTapped(_ type: MainCellType)  {
+        switch type {
+        case .confirmed:
+            showMyCardsTrigger.send(())
+        default:
+            break
+        }
+    }
+
     init(viewModel: HomeViewModel, homeAttechedViews: HomeAttachedViewType) {
         
         let iv =  homeAttechedViews.getICUView()
@@ -265,7 +306,10 @@ struct HomeView: View {
             closeAdEventTrigger: closeAdEventTrigger.asDriver(),
             sendFcmTokenTrigger: sendTokentoServerTrigger.asDriver(),
             getLoyaltyTrigger: getLoyaltyTrigger.asDriver(),
-            getStatisticsTrigger: getStatisticsTrigger.asDriver()
+            getStatisticsTrigger: getStatisticsTrigger.asDriver(),
+            showAddCardTrigger: showAddCardTrigger.asDriver(),
+            showShoppingViewTrigger: showShoppingViewTrigger.asDriver(),
+            showNotificationsTrigger: showNotificationsTrigger.asDriver()
         )
         self.output = viewModel.transform(input, cancelBag: cancelBag)
         self.icuView = iv

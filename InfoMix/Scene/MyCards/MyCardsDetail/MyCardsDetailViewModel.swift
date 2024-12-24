@@ -17,6 +17,7 @@ extension MyCardsDetailViewModel: ViewModel{
     
     struct Input{
         let loadTrigger: Driver<Int>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output: ObservableObject{

@@ -11,8 +11,9 @@ import UIKit
 
 protocol MyCardsNavigatorType {
     func toCardDetail(card: SerialCard)
+    func popView()
 }
-struct MyCardsNavigator: MyCardsNavigatorType, ShowingCardsHistory, ShowingCardDetail{
+struct MyCardsNavigator: MyCardsNavigatorType, ShowingCardsHistory, ShowingCardDetail, PopNavigator {
     func toCardDetail(card: SerialCard) {
         goToCardDetail(card: card)
     }

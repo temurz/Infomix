@@ -11,7 +11,7 @@ import Combine
 
 extension API {
     
-    func deleteProductEntry(_ input: DeleteProductEntryApiInput) -> Observable<Order> {
+    func deleteProductEntry(_ input: DeleteProductEntryApiInput) -> Observable<ProductEntry> {
         return request(input)
     }
     

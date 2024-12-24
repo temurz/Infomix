@@ -15,13 +15,15 @@ struct ShoppingCartEntryView: View {
         ZStack() {
             HStack(alignment: .top) {
                 ZStack{
-                if let imageUrl =  entry.product.images?.first?.originalImage {
+                if let imageUrl =  entry.productImage {
                     if let url = URL(string: imageUrl) {
                         if #available(iOS 15.0, *) {
                             AsyncImage(url: url) { image in
                                 image
                                     .resizable()
-                                    .scaledToFit()
+                                    .centerCropped()
+                                    .frame(width: 96, height: 96)
+                                    .cornerRadius(radius: 8, corners: .allCorners)
                             } placeholder: {
                                 ProgressView()
                             }
@@ -43,16 +45,12 @@ struct ShoppingCartEntryView: View {
                 
                 VStack(alignment: .leading, spacing: 0) {
                     HStack(alignment: .top) {
-                        Text(entry.product.name)
-                            .font(.headline)
+                        Text(entry.productName ?? "")
+                            .font(.body)
                             .foregroundColor(.black)
-                            .lineLimit(1)
+                            .lineLimit(2)
                         Spacer()
                     }
-                    
-                    Text(entry.product.brandName)
-                        .font(.system(size: 14))
-                        .foregroundColor(Color.init(.systemGray))
                     
                     Spacer()
                     HStack {
@@ -67,8 +65,9 @@ struct ShoppingCartEntryView: View {
                         .background(Color.init(.systemGray6))
                         .cornerRadius(5)
                         Spacer()
-                        Text("\((Double(self.entry.quantity) * self.entry.salesPrice).groupped(fractionDigits: 0, groupSeparator: " ")) ball")
+                        Text("\((Double(self.entry.quantity) * (self.entry.price ?? 0)).groupped(fractionDigits: 0, groupSeparator: " ")) ball")
                             .font(.body)
+                            .bold()
                             .foregroundColor(.black)
                     }
                     
@@ -83,10 +82,10 @@ struct ShoppingCartEntryView: View {
     
     
 }
-
-struct ShoppingCartEntryView_Previews: PreviewProvider {
-    static var previews: some View {
-        ShoppingCartEntryView(entry: .constant(ProductEntry(id: 1, salesPrice: 10.0, quantity: 6, product: Product(id: 1, name: "Product 1", price: 10.0, brandName: "ArtMaster", inStock: 1, description: "", content: "")))) 
-
-    }
-}
+//
+//struct ShoppingCartEntryView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ShoppingCartEntryView(entry: .constant(ProductEntry(id: 1, salesPrice: 10.0, quantity: 6, product: Product(id: 1, name: "Product 1", price: 10.0, brandName: "ArtMaster", inStock: 1, description: "", content: "")))) 
+//
+//    }
+//}

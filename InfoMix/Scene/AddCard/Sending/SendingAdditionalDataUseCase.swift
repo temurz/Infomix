@@ -11,18 +11,19 @@ import Foundation
 
 protocol SendingAdditionalDataUseCaseType {
     func sendAdditionData(_ input: AdditionalDataInput) -> Observable<SerialCard>
+    func sendImageValue(input: ImageValueInput) -> Observable<SerialCard>
 }
 
-struct SendingAdditionalDataUseCase: SendingAdditionalDataUseCaseType, SendingAdditionalData {
+struct SendingAdditionalDataUseCase: SendingAdditionalDataUseCaseType, SendingAdditionalData, SendingImageValue {
     let cardGateway: CardGatewayType
-  
+
 }
 
 
 struct AdditionalDataInput{
     let serialCardId: Int
     let installedDate: Date
-    let phone: String?
+    let data: [AddCardStepItem]
     let latitude: Double?
     let longitude: Double?
 }

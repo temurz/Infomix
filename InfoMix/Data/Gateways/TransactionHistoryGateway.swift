@@ -73,7 +73,8 @@ struct PreviewTransactionHistoryGateway : TransactionHistoryGatewayType{
                            amountMethod: 1,
                            comment: "",
                            createDate: Date(),
-                           typeText: "")
+                            typeText: "",
+                            entityStatus: nil)
             ]
             
             let page = PagingInfo<Transaction>(page: 1, items: transactions)

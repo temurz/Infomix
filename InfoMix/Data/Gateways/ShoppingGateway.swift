@@ -10,10 +10,10 @@ import Combine
 import Foundation
 
 protocol ShoppingGatewayType {
-    func addToCart(product: Product, quantity: Int) -> Observable<Order>
+    func addToCart(product: Product, quantity: Int) -> Observable<ProductEntry>
     func currentShoppingCart() -> Observable<Order>
-    func deleteProductEntry(entryId: Int) -> Observable<Order>
-    func updateProductEntry(entryId: Int, quantity: Int) -> Observable<Order>
+    func deleteProductEntry(entryId: Int) -> Observable<ProductEntry>
+    func updateProductEntry(entryId: Int, quantity: Int) -> Observable<ProductEntry>
     func checkout(orderId: Int) -> Observable<Order>
     func clearShoppingCart(orderId: Int) -> Observable<Order>
     func cancelOrder(orderId: Int) -> Observable<Order>
@@ -71,7 +71,7 @@ struct ShoppingGateway: ShoppingGatewayType {
             .eraseToAnyPublisher()
     }
     
-    func updateProductEntry(entryId: Int, quantity: Int) -> Observable<Order> {
+    func updateProductEntry(entryId: Int, quantity: Int) -> Observable<ProductEntry> {
         let input = API.UpdateProductEntryApiInput(entryId: entryId, quantity: quantity)
         
         return API.shared.updateProductEntry(input)
@@ -79,7 +79,7 @@ struct ShoppingGateway: ShoppingGatewayType {
     }
     
     
-    func deleteProductEntry(entryId: Int) -> Observable<Order> {
+    func deleteProductEntry(entryId: Int) -> Observable<ProductEntry> {
         let input = API.DeleteProductEntryApiInput(entryId: entryId)
         
         return API.shared.deleteProductEntry(input)
@@ -91,11 +91,15 @@ struct ShoppingGateway: ShoppingGatewayType {
         let input = API.CurrentShoppingCartInput()
         
         return API.shared.currentShoppingCart(input)
+            .map { order in
+                ShoppingCart.shared.orderId = order.id
+                return order
+            }
             .eraseToAnyPublisher()
     }
     
     
-    func addToCart(product: Product, quantity: Int) -> Observable<Order> {
+    func addToCart(product: Product, quantity: Int) -> Observable<ProductEntry> {
         let input = API.AddToCartInput(product: product, quantity: quantity)
         
         return API.shared.addToCard(input)
@@ -118,9 +122,9 @@ struct PreviewShoppingGateway: ShoppingGatewayType {
     func getOrders(dto: GetPageDto, from: String?, to: String?, status: String?) -> Observable<PagingInfo<Order>> {
         Future<PagingInfo<Order>, Error> { promise in
             let orders = [
-               Order(id: 1, entryCount: 10, totalAmount: 10, entries: [ProductEntry](), createdDate: Date(), closedDate: Date(), status: "Draft", statusText: "Draft")
+                Order(id: 0, entries: [], createdDate: nil, closedDate: nil, status: nil, totalPrice: 0.0, totalProducts: 0, notice: nil, cancelable: false, discount: nil),
             ]
-            
+
             let page = PagingInfo<Order>(page: 1, items: orders)
             promise(.success(page))
         }
@@ -156,16 +160,16 @@ struct PreviewShoppingGateway: ShoppingGatewayType {
         .eraseToAnyPublisher()
     }
     
-    func deleteProductEntry(entryId: Int) -> Observable<Order> {
-        Future<Order, Error> { promise in
-            promise(.success(Order()))
+    func deleteProductEntry(entryId: Int) -> Observable<ProductEntry> {
+        Future<ProductEntry, Error> { promise in
+            promise(.success(ProductEntry()))
         }
         .eraseToAnyPublisher()
     }
     
-    func updateProductEntry(entryId: Int, quantity: Int) -> Observable<Order> {
-        Future<Order, Error> { promise in
-            promise(.success(Order()))
+    func updateProductEntry(entryId: Int, quantity: Int) -> Observable<ProductEntry> {
+        Future<ProductEntry, Error> { promise in
+            promise(.success(ProductEntry()))
         }
         .eraseToAnyPublisher()
     }
@@ -177,9 +181,9 @@ struct PreviewShoppingGateway: ShoppingGatewayType {
         .eraseToAnyPublisher()
     }
     
-    func addToCart(product: Product, quantity: Int) -> Observable<Order> {
-        Future<Order, Error> { promise in
-            promise(.success(Order()))
+    func addToCart(product: Product, quantity: Int) -> Observable<ProductEntry> {
+        Future<ProductEntry, Error> { promise in
+            promise(.success(ProductEntry()))
         }
         .eraseToAnyPublisher()
     }

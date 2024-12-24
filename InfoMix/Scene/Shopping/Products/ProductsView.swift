@@ -35,12 +35,16 @@ struct ProductsView: View {
     private let showShoppingCartTrigger = PassthroughSubject<Void, Never>()
     private let showProductCategoryList = PassthroughSubject<Void, Never>()
     private let clearProductCategoryFilter = PassthroughSubject<Void, Never>()
+    private let popViewTrigger = PassthroughSubject<Void, Never>()
     
     
     var body: some View {
         
         return LoadingView(isShowing: $output.isLoading, text: .constant("")) {
             VStack {
+                CustomNavigationBar(title: "Product List".localized()) {
+                    popViewTrigger.send(())
+                }
                 ScrollView{
                     VStack(alignment: .leading, spacing: 6) {
                         // Search view
@@ -79,19 +83,19 @@ struct ProductsView: View {
                         
                         HStack{
                             
-//                            Button {
-//                                self.showProductCategoryList.send()
-//                            } label: {
-//                                HStack{
-//                                    Text(output.category?.name ?? "Choose category".localized())
-//                                    
-//                                    if output.category == nil {
-//                                        Image(systemName: "chevron.compact.down")
-//                                    }
-//                                }.font(.caption2)
-//                                    .foregroundColor(.gray)
-//                                    .padding(6)
-//                            }
+                            Button {
+                                self.showProductCategoryList.send()
+                            } label: {
+                                HStack{
+                                    Text(output.category?.name ?? "Choose category".localized())
+                                    
+                                    if output.category == nil {
+                                        Image(systemName: "chevron.compact.down")
+                                    }
+                                }.font(.caption2)
+                                    .foregroundColor(.gray)
+                                    .padding(6)
+                            }
                             
                             if output.category != nil {
                                 
@@ -143,7 +147,7 @@ struct ProductsView: View {
                 })
                 
                 
-                if output.shoppingCart.entries.count > 0 {
+                if output.shoppingCart.totalProducts > 0 {
                     HStack{
                         Button {
                             self.showShoppingCartTrigger.send()
@@ -153,7 +157,7 @@ struct ProductsView: View {
                                 Text("Cart".localized())
                                 
                                 HStack{
-                                    Text(String(output.shoppingCart.entryCount)+" items".localized())
+                                    Text(String(output.shoppingCart.totalProducts)+" items".localized())
                                         .padding(.horizontal, 6)
                                         .font(.caption2)
                                 }.frame(height: 20)
@@ -209,7 +213,8 @@ struct ProductsView: View {
             addToCartTrigger: self.addToCartTrigger.asDriver(),
             showShoppingCartTrigger: self.showShoppingCartTrigger.asDriver(),
             showProductCategoryTrigger: self.showProductCategoryList.asDriver(),
-            clearProductCategoryFilter: self.clearProductCategoryFilter.asDriver()
+            clearProductCategoryFilter: self.clearProductCategoryFilter.asDriver(),
+            popViewTrigger: self.popViewTrigger.asDriver()
         )
         
         self.output = viewModel.transform(input, cancelBag: cancelBag)

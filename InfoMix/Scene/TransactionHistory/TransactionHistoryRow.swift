@@ -81,7 +81,7 @@ struct TransactionHistoryRow: View {
 
 struct HistoryRow_Previews: PreviewProvider {
     static var previews: some View {
-        let transaction = Transaction(id: 1, transactionType: "", amount: 1, amountMethod: 1, comment: "", createDate: Date(), typeText: "")
+        let transaction = Transaction(id: 1, transactionType: "", amount: 1, amountMethod: 1, comment: "", createDate: Date(), typeText: "", entityStatus: nil)
         TransactionHistoryRow(transactionRow: .constant(TransactionHistoryItemViewModel(transaction: transaction)))
     }
 }

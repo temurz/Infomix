@@ -13,9 +13,10 @@ protocol NotificationsNavigatorType {
     func toEventDetail(id: Int32)
     func toOrder(id: Int)
     func toTransactionList()
+    func popView()
 }
 
-struct NotificationsNavigator : NotificationsNavigatorType, ShowingEventDetail,ShowingShoppingCart ,ShowingTransactionHistory{
+struct NotificationsNavigator : NotificationsNavigatorType, ShowingEventDetail,ShowingShoppingCart ,ShowingTransactionHistory, PopNavigator {
     func toEventDetail(id: Int32) {
         toEventDetail(event: Event(id: id))
     }

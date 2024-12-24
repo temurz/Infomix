@@ -23,10 +23,12 @@ extension ChangePasswordViewModel : ViewModel {
          @Published var password: String = ""
          @Published var newPassword: String = ""
         let changePasswordTrigger: Driver<Void>
+        let popViewTrigger: Driver<Void>
+
         
-        
-        init(changePasswordTrigger: Driver<Void>) {
+        init(changePasswordTrigger: Driver<Void>, popViewTrigger: Driver<Void>) {
             self.changePasswordTrigger = changePasswordTrigger
+            self.popViewTrigger = popViewTrigger
         }
     }
     
@@ -106,7 +108,13 @@ extension ChangePasswordViewModel : ViewModel {
             .receive(on: RunLoop.main)
             .assign(to: \.isChangingPassword, on: output)
             .store(in: cancelBag)
-        
+
+        input.popViewTrigger
+            .sink {
+                navigator.back()
+            }
+            .store(in: cancelBag)
+
         return output
     }
     

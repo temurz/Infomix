@@ -10,50 +10,56 @@ import SwiftUI
 import Combine
 
 struct SendingTimelineView: View {
-    
+
     // change these to visually style the timeline
     private static let lineWidth: CGFloat = 2
     private static let dotDiameter: CGFloat = 8
     @State private var dispute: OpenDisputeInput?
     @State private var disputeNote: String = ""
-    
-    
+
+
     private let dateFormatter: DateFormatter
-    
+
     @ObservedObject var output: SendingTimelineViewModel.Output
-    
+
     let sendTrigger = PassthroughSubject<Void, Error>()
     let resendTrigger = PassthroughSubject<SendingTimeline, Error>()
     let finishTrigger = PassthroughSubject<Void, Error>()
+    let popViewTrigger = PassthroughSubject<Void, Error>()
     let openDisputeTrigger = PassthroughSubject<OpenDisputeInput, Error>()
     let openDisputeNoteTrigger = PassthroughSubject<OpenDisputeInput, Error>()
     let cancelBag = CancelBag()
-    
+
     var body: some View {
-        VStack{
+        VStack {
+            CustomNavigationBar(title: "") {
+                if !output.isSending {
+                    popViewTrigger.send(())
+                }
+            }
             ScrollViewReader { value in
                 ScrollView {
                     LazyVStack(spacing: 0) {
                         ForEach(Array(output.timelines.enumerated()), id: \.offset) { index, timeline in
-                            
+
                             rowAt(index, item: timeline)
                                 .frame(maxWidth:.infinity, alignment: .leading)
                                 .padding(.horizontal, 12)
-                            
+
                         }
                     }
                 }
                 .onAppear {
                     value.scrollTo(output.timelines.last?.id, anchor: .center)
                 }
-                
+
             }
-        }.navigationBarBackButtonHidden(output.isSending)
-        
+        }
+
     }
-    
-    
-    
+
+
+
     @ViewBuilder private func rowAt(_ index: Int, item: SendingTimeline) -> some View {
         let calendar = Calendar.current
         let date = item.date
@@ -61,7 +67,7 @@ struct SendingTimelineView: View {
         let hasNext = index < output.timelines.count - 1
         let isPreviousSameDate = hasPrevious
         && calendar.dateComponents([.second], from: output.timelines[index-1].date, to: date).second ?? 0 > 0
-        
+
         HStack {
             ZStack {
                 Color.clear // effectively centers the text
@@ -72,7 +78,7 @@ struct SendingTimelineView: View {
                 }
             }
             .frame(width: 56)
-            
+
             GeometryReader { geo in
                 ZStack {
                     Color.clear
@@ -86,13 +92,13 @@ struct SendingTimelineView: View {
             VStack(alignment: .leading,spacing: 0){
                 HStack {
                     Text(item.title)
-                    
+
                     Spacer()
-                    
+
                     if item.status == .loading{
                         ProgressView().progressViewStyle(CircularProgressViewStyle())
                     }
-                    
+
                 }.padding(6)
                 VStack(alignment: .leading){
                     if let content = item.content {
@@ -106,13 +112,13 @@ struct SendingTimelineView: View {
                             .textFieldStyle(.roundedBorder)
                             .frame(maxWidth: .infinity, minHeight: 50, maxHeight: 100, alignment: .topLeading)
                             .padding()
-                        
+
                     }
                     if item.status == .error || item.status == .dispute || item.status == .done || item.status == .note {
                         HStack (spacing: 4){
                             Spacer()
                             if item.status == .error  {
-                                
+
                                 Button {
                                     self.resendTrigger.send(item)
                                 } label: {
@@ -126,12 +132,12 @@ struct SendingTimelineView: View {
                                     .overlay(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(Color.black))
                                 }
                             }
-                            
+
                             if item.status == .dispute && item.disputeInput != nil {
-                                
+
                                 Button {
                                     self.openDisputeNoteTrigger.send(item.disputeInput!)
-                                    
+
                                 } label: {
                                     HStack{
                                         Image(systemName: "exclamationmark.bubble")
@@ -145,13 +151,13 @@ struct SendingTimelineView: View {
                                 }
                             }
                             if item.status == .note {
-                                
+
                                 Button {
                                     if var disputeInput = item.input as? OpenDisputeInput {
                                         disputeInput.disputeNote  = self.disputeNote
                                         self.openDisputeTrigger.send(disputeInput)
                                     }
-                                    
+
                                 } label: {
                                     HStack{
                                         Image(systemName: "exclamationmark.bubble")
@@ -165,7 +171,7 @@ struct SendingTimelineView: View {
                                 }
                             }
                             if item.status == .done {
-                                
+
                                 Button {
                                     self.finishTrigger.send()
                                 } label: {
@@ -182,18 +188,18 @@ struct SendingTimelineView: View {
                         }.frame(maxWidth:.infinity)
                             .padding(4)
                     }
-                    
+
                 }.background( Color.init(red: 0.92, green: 0.92, blue: 0.92))
                     .frame(maxWidth: .infinity)
                     .cornerRadius(10)
-                
+
             }.frame(maxWidth:.infinity)
                 .background(item.status == .loading ? Color.init(red: 0.98, green: 0.98, blue: 0.98) : item.status == .error ? Color.init(red: 0.94, green: 0.6, blue: 0.6) : item.status == .dispute || item.status == .note ? Color.init(red: 1, green: 0.88, blue: 0.51): item.status == .warning ? Color.init(red: 1, green: 0.93, blue: 0.34) : Color.init(red: 0.65, green: 0.84, blue: 0.65))
                 .cornerRadius(10)
                 .padding(6)
         }
     }
-    
+
     // this methods implements the rules for showing dots in the
     // timeline, which might differ based on requirements
     @ViewBuilder private func line(height: CGFloat,
@@ -228,17 +234,23 @@ struct SendingTimelineView: View {
             dot
         }
     }
-    
-    
+
+
     init(viewModel: SendingTimelineViewModel){
-        let input = SendingTimelineViewModel.Input(sendTrigger: self.sendTrigger.asDriver(), resendTrigger: self.resendTrigger.asDriver(), openDisputeNoteTrigger: self.openDisputeNoteTrigger.asDriver(), openDisputeTrigger: self.openDisputeTrigger.asDriver(), finishTrigger: self.finishTrigger.asDriver())
-        
+        let input = SendingTimelineViewModel.Input(
+            sendTrigger: self.sendTrigger.asDriver(),
+            resendTrigger: self.resendTrigger.asDriver(),
+            openDisputeNoteTrigger: self.openDisputeNoteTrigger.asDriver(),
+            openDisputeTrigger: self.openDisputeTrigger.asDriver(),
+            finishTrigger: self.finishTrigger.asDriver(),
+            popViewTrigger: self.popViewTrigger.asDriver())
+
         self.output = viewModel.transform(input, cancelBag: self.cancelBag)
-        
+
         dateFormatter = DateFormatter()
         // the format of the dates on the timeline
         dateFormatter.dateFormat = "HH:mm:ss"
-        
+
         self.sendTrigger.send()
     }
 }

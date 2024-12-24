@@ -17,34 +17,32 @@ struct MyCardsView: View {
     private let loadMoreCardsHistoryTrigger = PassthroughSubject<Void,Never>()
     private let loadCardsHistoryTrigger = PassthroughSubject<Void,Never>()
     private let showDatePickerTrigger = PassthroughSubject<Void,Never>()
+    private let popViewTrigger = PassthroughSubject<Void,Never>()
     private let selectCardRowTrigger = PassthroughSubject<IndexPath,Never>()
     var body: some View {
         
-        return LoadingView(isShowing: $output.isLoading, text: .constant("")){
-            LazyVStack{
-                ForEach(output.serialCards.enumerated().map{ $0}, id: \.element.id){index, card in
-                    
-                    Button {
-                        self.selectCardRowTrigger.send(IndexPath(row: index, section: 0))
-                    } label: {
-                        MyCardsRow(viewModel: card)
-                    }
-                }
-               
-
-            }
-        }
-        .toolbar(content: {
-            ToolbarItem {
-                Button {
+        return LoadingView(isShowing: $output.isLoading, text: .constant("")) {
+            VStack {
+                CustomNavigationBar(title: "My cards".localized(), rightBarTitle: "Filter".localized()) {
+                    popViewTrigger.send(())
+                } onRightBarButtonTapAction: {
                     self.showDatePickerTrigger.send()
-                } label: {
-                    Text("Filter".localized())
                 }
+                LazyVStack {
+                    ForEach(output.serialCards.enumerated().map{ $0}, id: \.element.id){index, card in
 
-                
+                        Button {
+                            self.selectCardRowTrigger.send(IndexPath(row: index, section: 0))
+                        } label: {
+                            MyCardsRow(viewModel: card)
+                        }
+                    }
+
+
+                }
             }
-        })
+
+        }
         .bottomSheet(bottomSheetPosition: $output.bottomSheetPosition, options: [.swipeToDismiss, .tapToDissmiss, .noBottomPosition, .background(AnyView(Color.white)), .backgroundBlur(effect: .dark)],
                      headerContent:{
             HStack(){
@@ -88,8 +86,15 @@ struct MyCardsView: View {
     
     
     init(viewModel: MyCardsViewModel){
-        let input = MyCardsViewModel.Input(loadCardsHistoryTrigger: self.loadCardsHistoryTrigger.asDriver(), reloadCardsHistoryTrigger: self.reloadCardsHistoryTrigger.asDriver(), loadMoreCardsHistorytrigger: self.loadMoreCardsHistoryTrigger.asDriver(), showDatePickerTrigger: self.showDatePickerTrigger.asDriver(), selectCardRowTrigger: self.selectCardRowTrigger.asDriver())
-        
+        let input = MyCardsViewModel.Input(
+            loadCardsHistoryTrigger: self.loadCardsHistoryTrigger.asDriver(),
+            reloadCardsHistoryTrigger: self.reloadCardsHistoryTrigger.asDriver(),
+            loadMoreCardsHistorytrigger: self.loadMoreCardsHistoryTrigger.asDriver(),
+            showDatePickerTrigger: self.showDatePickerTrigger.asDriver(),
+            selectCardRowTrigger: self.selectCardRowTrigger.asDriver(),
+            popViewTrigger: popViewTrigger.asDriver()
+        )
+
         self.output = viewModel.transform(input, cancelBag: cancelBag)
     }
 }

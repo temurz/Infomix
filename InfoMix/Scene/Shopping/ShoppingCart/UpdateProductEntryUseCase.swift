@@ -9,7 +9,7 @@
 import Foundation
 
 protocol UpdateProductEntryUseCaseType{
-    func updateProductEntry(input: UpdateProductEntryInput) -> Observable<Order>
+    func updateProductEntry(input: UpdateProductEntryInput) -> Observable<ProductEntry>
 }
 
 struct UpdateProductEntryUseCase: UpdateProductEntryUseCaseType, UpdatingProductEntry {

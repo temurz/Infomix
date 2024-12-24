@@ -13,11 +13,11 @@ struct StepView: View {
     @Binding var addCardStep: AddCardStep
     @State var editableCardStep: AddCardStep
     let scanTrigger: PassthroughSubject<AddCardStepItem,Error>
-    
+
     var body: some View {
         ScrollView {
-            LazyVStack{
-                
+            VStack{
+
                     ForEach($addCardStep.items) { item in
                         VStack(alignment: .trailing) {
                             switch (item.type.wrappedValue) {
@@ -25,6 +25,7 @@ struct StepView: View {
                                 BarcodeEditableStepView(cardStepItem: item, scanTrigger: self.scanTrigger) { addCardStepItem in
                                     self.addCardStep.removeCloneStepItem(addCardStepItem)
                                 }
+
                             case AddCardStepItemType.CHOOSE_PHOTO:
                                 ImageFieldStepView(cardStepItem: item)
                                     .onAppear {
@@ -34,10 +35,10 @@ struct StepView: View {
                                 EditFieldStepView(cardStepItem: item) { addCardStepItem in
                                     self.addCardStep.removeCloneStepItem(addCardStepItem)
                                 }
-                                
+
                             }
                             if addCardStep.enabledCloneButton(addCardStepItem: item.wrappedValue) {
-                                
+
                                 Button(action: {
                                     addCardStep.cloneStepItem(item.wrappedValue)
                                 }, label: {
@@ -47,20 +48,13 @@ struct StepView: View {
                                     }
                                 })
                                     .padding(EdgeInsets(top: 6, leading: 12, bottom: 6, trailing: 12))
-                                    .background(Color.green)
                                     .font(.caption)
                                     .cornerRadius(.infinity)
                                     .foregroundColor(Color.white)
                             }
-                            
+
                         }.buttonStyle(PlainButtonStyle())
                             .padding(12)
-//                        HStack{
-//                            Color.white
-//                                .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-//                        }.onTapGesture {
-//                            hideKeyboard()
-//                        }
                     }
             }
         }

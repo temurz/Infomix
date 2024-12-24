@@ -14,9 +14,14 @@ protocol HomeNavigatorType{
     func showLocalUsers(cardConfig: CardConfig)
     func toEventDetail(event: Event)
     func showCardsHistory()
+    func showAddCard()
+    func showShoppingView(certificate: CertificateItemViewModel)
+    func showNotifications()
 }
 
-struct HomeNavigator: HomeNavigatorType, ShowingTransactionHistory , ShowingExchange, ShowingEventList, ShowingEventDetail, ShowingLocalUsers, ShowingCardsHistory {
+struct HomeNavigator: HomeNavigatorType, ShowingTransactionHistory , ShowingExchange, ShowingEventList, ShowingEventDetail, ShowingLocalUsers, ShowingCardsHistory, ShowingAddCard, ShowingShoppingView, ShowingNotifications {
+    var cardConfig: CardConfig
+    
     func showLocalUsers(cardConfig: CardConfig) {
         self.showLocalUsers(cardConfig: cardConfig, forceActiveUser: false)
     }

@@ -44,7 +44,7 @@ extension HomeAssembler {
 }
 extension HomeAssembler where Self: DefaultAssembler {
     func resolve(navigationController: UINavigationController) -> HomeNavigatorType {
-        return HomeNavigator(assembler: self, navigationController: navigationController)
+        return HomeNavigator(cardConfig: CardConfig.shared, assembler: self, navigationController: navigationController)
     }
   
     
@@ -74,7 +74,7 @@ extension HomeAssembler where Self: DefaultAssembler {
 
 extension HomeAssembler where Self: PreviewAssembler {
     func resolve(navigationController: UINavigationController) -> HomeNavigatorType {
-        return HomeNavigator(assembler: self, navigationController: navigationController)
+        return HomeNavigator(cardConfig: CardConfig.shared, assembler: self, navigationController: navigationController)
     }
     
     

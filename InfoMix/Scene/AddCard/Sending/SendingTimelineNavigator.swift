@@ -10,9 +10,10 @@ import SwiftUI
 
 protocol SendingTimelineNavigatorType{
     func toRoot()
+    func popView()
 }
 
-struct SendingTimelineNavigator: SendingTimelineNavigatorType , ShowingRoot {
+struct SendingTimelineNavigator: SendingTimelineNavigatorType , ShowingRoot, PopNavigator {
 
     unowned let assembler: Assembler
     unowned let navigationController: UINavigationController

@@ -20,7 +20,8 @@ extension ChangeLanguageViewModel : ViewModel {
     struct Input {
         
         let selectLanguageTrigger: Driver<IndexPath>
-        
+        let popViewTrigger: Driver<Void>
+
     }
     
     final class Output: ObservableObject {
@@ -50,8 +51,12 @@ extension ChangeLanguageViewModel : ViewModel {
             
         }).sink().store(in: cancelBag)
         
-        
-        
+        input.popViewTrigger
+            .sink {
+                navigator.back()
+            }
+            .store(in: cancelBag)
+
         return output
     }
     

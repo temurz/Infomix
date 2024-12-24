@@ -11,14 +11,26 @@ import Foundation
 
 protocol CardGatewayType {
     func connect() -> Observable<Int>
-    func sendSerialNumbers(serialCardId: Int, serialNumbers: String)->Observable<SerialCard>
-    func sendAdditionData(serialCardId: Int, installedDate: Date, phone: String?, latitude: Double?, longitude: Double?) -> Observable<SerialCard>
+    func sendSerialNumbers(serialCardId: Int, serialNumbers: [SerialNumberInput])->Observable<SerialCard>
+    func sendAdditionData(serialCardId: Int, installedDate: Date, data: [AddCardStepItem], latitude: Double?, longitude: Double?) -> Observable<SerialCard>
     func calculateBonuses(serialCardId: Int) -> Observable<Transaction>
     func getCardsHistory(dto: GetPageDto) -> Observable<PagingInfo<SerialCard>>
     func getCardsDetail(id: Int) -> Observable<SerialCard>
+    func sendImageValue(inputData: ImageValueInput) -> Observable<SerialCard>
 }
 
 struct CardGateway: CardGatewayType {
+    func sendImageValue(inputData: ImageValueInput) -> Observable<SerialCard> {
+        let input = API.SendingImageValueInput(imageValueInput: inputData)
+        return API.shared.sendImageValue(input: input)
+            .eraseToAnyPublisher()
+    }
+    
+    func sendSerialNumbers(serialCardId: Int, serialNumbers: [SerialNumberInput]) -> Observable<SerialCard> {
+        let input = API.SendingSerialNumbers(serialCardId: serialCardId,serialNumbers: serialNumbers)
+        return API.shared.sendSerialNumbers(input)
+    }
+    
     func getCardsDetail(id: Int) -> Observable<SerialCard> {
         let input = API.GetCardsDetailInput(id: id)
         
@@ -44,15 +56,10 @@ struct CardGateway: CardGatewayType {
         return API.shared.done(input)
     }
     
-    func sendAdditionData(serialCardId: Int, installedDate: Date, phone: String?, latitude: Double?, longitude: Double?) -> Observable<SerialCard> {
-        let input = API.SendingAdditionalData(serialCardId: serialCardId, phone: phone, installedDate: installedDate, longitude: longitude, latitude: latitude)
-        
+    func sendAdditionData(serialCardId: Int, installedDate: Date, data: [AddCardStepItem], latitude: Double?, longitude: Double?) -> Observable<SerialCard> {
+        let input = API.SendingAdditionalData(serialCardId: serialCardId, data: data, installedDate: installedDate, longitude: longitude, latitude: latitude)
+
         return API.shared.sendAddtionalData(input)
-    }
-    
-    func sendSerialNumbers(serialCardId: Int, serialNumbers: String) -> Observable<SerialCard> {
-        let input = API.SendingSerialNumbers(serialCardId: serialCardId,serialNumbers: serialNumbers)
-        return API.shared.sendSerialNumbers(input)
     }
     
     
@@ -60,7 +67,7 @@ struct CardGateway: CardGatewayType {
         let input = API.SendingConnectInput()
         
         return API.shared.connect(input).map { it in
-            Int(truncatingIfNeeded: it)
+            it.id
         }.eraseToAnyPublisher()
     }
  
@@ -69,6 +76,10 @@ struct CardGateway: CardGatewayType {
 }
 
 struct PreviewCardGateway: CardGatewayType {
+    func sendImageValue(inputData: ImageValueInput) -> Observable<SerialCard> {
+        return .empty()
+    }
+    
     func getCardsDetail(id: Int) -> Observable<SerialCard> {
         Future<SerialCard,Error> {promise in
             let card = SerialCard(id: 0, status: "", serialNumbers: [SerialNumber](), createDate: Date(), modifyDate: Date(), customer: Customer(phone: ""))
@@ -88,12 +99,12 @@ struct PreviewCardGateway: CardGatewayType {
     
     func calculateBonuses(serialCardId: Int) -> Observable<Transaction> {
         Future<Transaction, Error> { promise in
-            promise(.success(Transaction(id: 1, transactionType: nil, amount: nil, amountMethod: nil, comment: nil, createDate: nil, typeText: nil)))
+            promise(.success(Transaction(id: 1, transactionType: nil, amount: nil, amountMethod: nil, comment: nil, createDate: nil, typeText: nil, entityStatus: nil)))
         }
         .eraseToAnyPublisher()
     }
     
-    func sendAdditionData(serialCardId: Int, installedDate: Date, phone: String?, latitude: Double?, longitude: Double?) -> Observable<SerialCard> {
+    func sendAdditionData(serialCardId: Int, installedDate: Date, data: [AddCardStepItem], latitude: Double?, longitude: Double?) -> Observable<SerialCard> {
         Future<SerialCard, Error> { promise in
             promise(.success(SerialCard(id: 1, status: "Done", serialNumbers: [SerialNumber](),createDate: Date(),modifyDate: Date(), customer: Customer(phone: ""))))
         }
@@ -101,7 +112,7 @@ struct PreviewCardGateway: CardGatewayType {
     }
     
     
-    func sendSerialNumbers(serialCardId: Int, serialNumbers: String) -> Observable<SerialCard> {
+    func sendSerialNumbers(serialCardId: Int, serialNumbers: [SerialNumberInput]) -> Observable<SerialCard> {
         Future<SerialCard, Error> { promise in
             promise(.success(SerialCard(id: 1, status: "Done", serialNumbers: [SerialNumber](),createDate: Date(),modifyDate: Date(), customer: Customer(phone: ""))))
         }

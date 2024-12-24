@@ -18,6 +18,7 @@ struct EventDetailViewModel {
 extension EventDetailViewModel: ViewModel {
     struct Input {
         let loadTrigger: Driver<Int32>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output: ObservableObject {
@@ -58,8 +59,13 @@ extension EventDetailViewModel: ViewModel {
         
         isLoading.assign(to: \.isLoading, on: output)
             .store(in: cancelBag)
-        
-        
+
+        input.popViewTrigger
+            .sink {
+                navigator.popView()
+            }
+            .store(in: cancelBag)
+
         return output
     }
 }

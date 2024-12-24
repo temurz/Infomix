@@ -18,7 +18,7 @@ enum MainPage: String{
 }
 
 
-class MainViewRouter: ViewRouter, ShowingEventList, ShowingAddCard{
+class MainViewRouter: ViewRouter, ShowingEventList, ShowingAddCard {
     let navigationController: UINavigationController
     let assembler: Assembler
     let homeView: HomeView
@@ -26,11 +26,11 @@ class MainViewRouter: ViewRouter, ShowingEventList, ShowingAddCard{
     let cardConfig: CardConfig
     
     
-    var pages: [TabBarItem] = [TabBarItem(imageName: "homekit", title: "Home", id: MainPage.home.rawValue),
-                               TabBarItem(imageName: "wand.and.stars", title: "Bonus", id: MainPage.bonus.rawValue),
-                               TabBarItem(imageName: "bell.fill", title: "Notification", id: MainPage.notification.rawValue),
-                               TabBarItem(imageName: "person.circle", title: "Profile", id: MainPage.profile.rawValue)]
-    
+    var pages: [TabBarItem] = [TabBarItem(imageName: "house_tab_icon", title: "Home", id: MainPage.home.rawValue),
+                               TabBarItem(imageName: "news_tab_icon", title: "Event List", id: MainPage.bonus.rawValue),
+                               TabBarItem(imageName: "chat_tab_icon", title: "Chat", id: MainPage.notification.rawValue),
+                               TabBarItem(imageName: "user_tab_icon", title: "Profile", id: MainPage.profile.rawValue)]
+
     @Published var selectedPageId: String = MainPage.home.rawValue
     @Published var body: AnyView
     
@@ -42,13 +42,13 @@ class MainViewRouter: ViewRouter, ShowingEventList, ShowingAddCard{
             body = AnyView(homeView)
             break
         case MainPage.bonus.rawValue:
-            var certificate = homeView.output.certificate
-            certificate.balance = homeView.icuView.output.icu
-            let v:ShoppingView = assembler.resolve(navigationController: navigationController, certificate: certificate)
+//            var certificate = homeView.output.certificate
+//            certificate.balance = homeView.icuView.output.icu
+            let v:EventsView = assembler.resolve(navigationController: navigationController)
             body = AnyView(v)
             break
         case MainPage.notification.rawValue:
-            let v:NotificationsView = assembler.resolve(navigationController: navigationController)
+            let v:PollView = PollView()
             body = AnyView(v)
             break
         case MainPage.profile.rawValue:

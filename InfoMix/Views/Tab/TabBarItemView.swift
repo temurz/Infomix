@@ -28,7 +28,8 @@ struct TabBarItemView<Router>: View where Router: ViewRouter{
   
   var body: some View {
     VStack {
-      Image(systemName: tabBarItem.imageName)
+      Image(tabBarItem.imageName)
+        .renderingMode(.template)
         .resizable()
         .foregroundColor(displayColor)
         .aspectRatio(contentMode: .fit)

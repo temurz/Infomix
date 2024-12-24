@@ -34,10 +34,15 @@ extension ProductCategoryViewModel : ViewModel {
         @Published var isReloading: Bool = false
         @Published var alert: AlertMessage = AlertMessage()
         @Published var categories = [ProductCategory]()
+        var filteredCategory: ProductCategory?
+
+        init(filteredCategory: ProductCategory?) {
+            self.filteredCategory = filteredCategory
+        }
     }
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
-        let output = Output()
+        let output = Output(filteredCategory: self.filteredCategory)
         
         let getListInput = GetListInput(loadTrigger: self.loadTrigger.asDriver(), reloadTrigger: self.reloadTrigger.asDriver(), getItems: self.productCategoryUseCase.getProductCategoryList)
         

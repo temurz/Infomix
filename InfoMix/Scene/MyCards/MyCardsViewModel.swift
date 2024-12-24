@@ -23,6 +23,7 @@ extension MyCardsViewModel : ViewModel {
         let loadMoreCardsHistorytrigger: Driver<Void>
         let showDatePickerTrigger: Driver<Void>
         let selectCardRowTrigger: Driver<IndexPath>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output : ObservableObject {
@@ -75,7 +76,12 @@ extension MyCardsViewModel : ViewModel {
             let serialCard = output.serialCards[indexPath.row].serialCard
             self.navigator.toCardDetail(card: serialCard)
         }.store(in: cancelBag)
-        
+
+        input.popViewTrigger.sink {
+            navigator.popView()
+        }
+        .store(in: cancelBag)
+
         return output
     }
 }

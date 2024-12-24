@@ -22,7 +22,8 @@ struct ShoppingCartView: View {
     let cancelOrderTrigger = PassthroughSubject<Void,Never>()
     let loadOrderTrigger = PassthroughSubject<Void,Never>()
     let showAllProductsTrigger = PassthroughSubject<Void,Never>()
-    
+    let popViewTrigger = PassthroughSubject<Void,Never>()
+
     let cancelBag = CancelBag()
     
     fileprivate func CheckOutButton() -> some View {
@@ -73,136 +74,167 @@ struct ShoppingCartView: View {
                 
             })
         return LoadingView(isShowing: _isLoading, text: _loadingMessage){
-            ZStack{
-                if (self.output.checkedOut) {
-                    VStack(alignment: .center) {
-                        Image(systemName: "cube.box.fill")
-                            .resizable()
-                            .frame(width: 160, height: 160)
-                            .foregroundColor(.green)
-                            .aspectRatio(contentMode: .fit)
-                        Text("Success!".localized())
-                            .font(.largeTitle)
-                            .padding(.vertical, 10)
-                        Text("Your order has been placed. Thank you for choosing our app.".localized())
-                            .multilineTextAlignment(.center)
-                            .padding(.horizontal, 20)
-                    }.frame(maxHeight: .infinity)
+            VStack {
+                if output.shoppingCart.isEditable() {
+                    CustomNavigationBar(title: "Order detail".localized(), rightBarTitle: "Clear".localized()) {
+                        popViewTrigger.send(())
+                    } onRightBarButtonTapAction: {
+                        clearShoppingCartTrigger.send(())
+                    }
                 } else {
-                    VStack(spacing: 0) {
-                        if self.output.shoppingCart.entries.isEmpty && self.output.shoppingCart.status == "Draft" {
-                            Text("Cart is empty".localized())
+                    CustomNavigationBar(title: "Order detail".localized()) {
+                        popViewTrigger.send(())
+                    }
+                }
+
+                ZStack{
+                    if (self.output.checkedOut) {
+                        VStack(alignment: .center) {
+                            Image(systemName: "cube.box.fill")
+                                .resizable()
+                                .frame(width: 160, height: 160)
+                                .foregroundColor(.green)
+                                .aspectRatio(contentMode: .fit)
+                            Text("Success!".localized())
                                 .font(.largeTitle)
-                                .foregroundColor(.gray)
-                            
-                            Spacer().frame(height: 18)
-                            
-                            Button("Search".localized()){
-                                self.showAllProductsTrigger.send()
-                            }
-                        } else {
-                            ScrollView(.vertical, showsIndicators: false, content: {
-                                
-                                LazyVStack(alignment: .leading, spacing: 0) {
-                                    HStack {
-                                        Text("Order: " + "\(self.output.shoppingCart.id)")
-                                            .font(.system(size: 18))
-                                            .bold()
-                                            .foregroundColor(.black)
-                                        Spacer(minLength: 10)
-                                        HStack(alignment: .center, spacing: 5) {
-                                            
-                                            Text("\(self.output.shoppingCart.statusText)")
-                                                .font(.system(size: 12))
-                                                .foregroundColor(.white)
-                                                .padding(.horizontal, 6)
-                                        }.frame(height: 20)
-                                            .background(Color.gray)
-                                            .cornerRadius(10)
-                                    }
-                                    .padding([.horizontal], 15)
-                                    .padding(.top, 8)
-                                    
-                                    Text(String(format: "Created date: %@", self.output.shoppingCart.createdDate?.toShortFormat() ?? ""))
-                                        .font(.system(size: 13))
-                                        .foregroundColor(Color(.secondaryLabel))
-                                        .lineLimit(nil)
-                                        .padding([.horizontal], 15)
-                                        .padding(.bottom, 5)
-                                    
-                                    Divider()
-                                        .padding(.top)
-                                    
-                                    
-                                    
-                                    ForEach($output.shoppingCart.entries, id: \.id) { entry in
-                                        if self.output.shoppingCart.isEditable() {
-                                            ShoppingCartEntryEditableView(entry: entry, updating: $output.isUpdating) { entryId, newQuantity in
-                                                self.updateEntryTrigger.send(UpdateProductEntryInput(entryId: entryId, quantity: newQuantity))
-                                            } delete: { entryId in
-                                                self.deleteEntryTrigger.send(entryId)
-                                            }
-                                        } else {
-                                            ShoppingCartEntryView(entry: entry)
+                                .padding(.vertical, 10)
+                            Text("Your order has been placed. Thank you for choosing our app.".localized())
+                                .multilineTextAlignment(.center)
+                                .padding(.horizontal, 20)
+                        }.frame(maxHeight: .infinity)
+                    } else {
+                        VStack(spacing: 0) {
+                            if self.output.shoppingCart.entries.isEmpty && self.output.shoppingCart.status == "Draft" {
+                                Text("Cart is empty".localized())
+                                    .font(.largeTitle)
+                                    .foregroundColor(.gray)
+
+                                Spacer().frame(height: 18)
+
+                                Button("Search".localized()){
+                                    self.showAllProductsTrigger.send()
+                                }
+                            } else {
+                                ScrollView(.vertical, showsIndicators: false, content: {
+
+                                    LazyVStack(alignment: .leading, spacing: 0) {
+                                        HStack {
+                                            Text("Order: " + "\(self.output.shoppingCart.id)")
+                                                .font(.system(size: 18))
+                                                .bold()
+                                                .foregroundColor(.black)
+                                            Spacer(minLength: 10)
+                                            HStack(alignment: .center, spacing: 5) {
+
+                                                Text("\(self.output.shoppingCart.status ?? "")")
+                                                    .font(.system(size: 12))
+                                                    .foregroundColor(.white)
+                                                    .padding(.horizontal, 6)
+                                            }.frame(height: 20)
+                                                .background(Color.gray)
+                                                .cornerRadius(10)
                                         }
+                                        .padding([.horizontal], 15)
+                                        .padding(.top, 8)
+
+                                        Text(String(format: "Created date: %@", self.output.shoppingCart.createdDate?.toShortFormat() ?? ""))
+                                            .font(.system(size: 13))
+                                            .foregroundColor(Color(.secondaryLabel))
+                                            .lineLimit(nil)
+                                            .padding([.horizontal], 15)
+                                            .padding(.bottom, 5)
+
                                         Divider()
+                                            .padding(.vertical)
+
+
+
+                                        ForEach($output.shoppingCart.entries, id: \.id) { entry in
+                                            if self.output.shoppingCart.isEditable() {
+                                                ShoppingCartEntryEditableView(entry: entry, updating: $output.isUpdating) { entryId, newQuantity in
+                                                    self.updateEntryTrigger.send(UpdateProductEntryInput(entryId: entryId, quantity: newQuantity))
+                                                } delete: { entryId in
+                                                    self.deleteEntryTrigger.send(entryId)
+                                                }
+                                            } else {
+                                                ShoppingCartEntryView(entry: entry)
+                                            }
+                                            Divider()
+                                        }
                                     }
+                                    .padding(.horizontal, 15)
+                                }).frame(maxHeight: .infinity)
+
+                                Divider()
+                                    .padding(.horizontal, 15)
+
+                                VStack {
+
+                                    HStack {
+                                        Text("Subtotal:".localized())
+                                            .font(.footnote)
+                                            .foregroundColor(Color(.secondaryLabel))
+                                        Spacer()
+                                        Text("\(self.output.shoppingCart.totalPrice.groupped(fractionDigits: 0, groupSeparator: " ")) ball")
+                                            .font(.footnote)
+                                            .foregroundColor(Color(.secondaryLabel))
+                                    }
+                                    .padding(.horizontal, 15)
+
+                                    HStack {
+                                        Text("Discount:".localized())
+                                            .font(.footnote)
+                                            .foregroundColor(Color(.secondaryLabel))
+                                        Spacer()
+                                        Text(String(format: "%.2f", self.output.shoppingCart.discount ?? 0) + " %")
+                                            .font(.footnote)
+                                            .foregroundColor(Color(.secondaryLabel))
+                                    }
+                                    .padding(.horizontal, 15)
+
+
+                                    HStack {
+                                        Text("Total:".localized())
+                                            .font(.body)
+                                            .bold()
+                                            .foregroundColor(Color.primary)
+                                        Spacer()
+                                        Text("\(self.output.shoppingCart.totalAmount.groupped(fractionDigits: 0, groupSeparator: " ")) ball")
+                                            .font(.body)
+                                            .bold()
+                                            .foregroundColor(Color.primary)
+                                    }
+                                    .padding(.horizontal, 15)
+                                    .padding(.bottom, 5)
+
+                                }.padding(.vertical)
+                                if self.output.shoppingCart.isEditable() {
+                                    CheckOutButton()
+                                } else if self.output.shoppingCart.cancelable {
+                                    CancelButton()
                                 }
-                                .padding(.horizontal, 15)
-                            }).frame(maxHeight: .infinity)
-                            
-                            Divider()
-                                .padding(.horizontal, 15)
-                            
-                            VStack {
-                                
-                                HStack {
-                                    Text("Total Amount".localized())
-                                        .font(.system(size: 16))
-                                        .bold()
-                                        .foregroundColor(Color(.secondaryLabel))
-                                    Spacer()
-                                    Text("\(self.output.shoppingCart.totalAmount.groupped(fractionDigits: 0, groupSeparator: " ")) ball")
-                                        .font(.system(size: 16))
-                                        .bold()
-                                        .foregroundColor(Color(.secondaryLabel))
-                                }
-                                .padding(.horizontal, 15)
-                                .padding(.bottom, 5)
-                                
-                            }.padding(.vertical)
-                            if self.output.shoppingCart.status=="Draft"{
-                                CheckOutButton()
-                            } else if self.output.shoppingCart.status == "Pending" {
-                                CancelButton()
                             }
                         }
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .alert(isPresented: $output.alert.isShowing) {
-                        Alert(
-                            title: Text(output.alert.title),
-                            message: Text(output.alert.message),
-                            dismissButton: .default(Text("OK"))
-                        )
-                    }
-                    .navigationBarTitle("Order detail".localized())
-                    .navigationBarItems(trailing: HStack{
-                        if self.output.shoppingCart.isEditable(){
-                            Button("Clear".localized()){
-                                self.clearShoppingCartTrigger.send()
-                            }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .alert(isPresented: $output.alert.isShowing) {
+                            Alert(
+                                title: Text(output.alert.title),
+                                message: Text(output.alert.message),
+                                dismissButton: .default(Text("OK"))
+                            )
                         }
-                    })
+
+                    }
                 }
             }
+
         }
         
     }
     
     init(viewModel: ShoppingCartViewModel){
         
-        self.output = viewModel.transform(ShoppingCartViewModel.Input(loadOrderTrigger: self.loadOrderTrigger.asDriver(), updateEntryTrigger: self.updateEntryTrigger.asDriver(), deleteEntryTrigger: self.deleteEntryTrigger.asDriver(), checkoutTrigger: self.checkoutTrigger.asDriver(), clearShoppingCartTrigger: self.clearShoppingCartTrigger.asDriver(), cancelOrderTrigger: self.cancelOrderTrigger.asDriver(), showAllProductsTrigger: self.showAllProductsTrigger.asDriver()), cancelBag: self.cancelBag)
+        self.output = viewModel.transform(ShoppingCartViewModel.Input(loadOrderTrigger: self.loadOrderTrigger.asDriver(), updateEntryTrigger: self.updateEntryTrigger.asDriver(), deleteEntryTrigger: self.deleteEntryTrigger.asDriver(), checkoutTrigger: self.checkoutTrigger.asDriver(), clearShoppingCartTrigger: self.clearShoppingCartTrigger.asDriver(), cancelOrderTrigger: self.cancelOrderTrigger.asDriver(), showAllProductsTrigger: self.showAllProductsTrigger.asDriver(), popViewTrigger: popViewTrigger.asDriver()), cancelBag: self.cancelBag)
         
         
         self.loadOrderTrigger.send()
@@ -213,6 +245,6 @@ struct ShoppingCartView: View {
 
 struct BagView_Previews: PreviewProvider {
     static var previews: some View {
-        ShoppingCartView(viewModel: PreviewAssembler().resolve(navigationController: UINavigationController(), order: Order(id: 1, entryCount: 5, totalAmount: 10, entries: [ProductEntry(id: 1, salesPrice: 10, quantity: 10, product: Product(id: 1, name: "Product 1", price: 10, brandName: "Test", inStock: 10, description: "", content: ""))], createdDate: Date(), closedDate: Date(), status: "Pending", statusText: "Draft")))
+        ShoppingCartView(viewModel: PreviewAssembler().resolve(navigationController: UINavigationController(), order: Order(id: 0, entries: [], createdDate: nil, closedDate: nil, status: nil, totalPrice: 0, totalProducts: 0, notice: nil, cancelable: false, discount: nil)))
     }
 }

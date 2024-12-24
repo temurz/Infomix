@@ -18,10 +18,10 @@ struct MainView: View {
                viewRouter.body
                     .frame(maxHeight: .infinity)
                     .background(Color(.systemGray6))
-                 TabBarView(viewRouter: viewRouter, prominentItemImageName: "plus") {
-                     self.viewRouter.showAddCard()
+                 TabBarView(viewRouter: viewRouter, prominentItemImageName: "") {
+//                     self.viewRouter.showAddCard()
                  }
-                 .frame(width: geometry.size.width, height: geometry.size.height/8)
+                 .frame(width: geometry.size.width, height: geometry.size.height/10)
                  .background(Color("tabBarColor").shadow(radius: 2))
                 
             }
@@ -31,7 +31,7 @@ struct MainView: View {
                 self.viewRouter.route(selectedPageId: self.viewRouter.selectedPageId)
             }
         })
-//        .navigationBarHidden(true)
+        .navigationBarHidden(true)
 //            .statusBar(hidden: true)
             .edgesIgnoringSafeArea(.all)
          

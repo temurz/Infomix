@@ -13,22 +13,32 @@ struct ChangeLanguageView: View {
     
     @ObservedObject var output: ChangeLanguageViewModel.Output
     let selectTrigger = PassthroughSubject<IndexPath, Never>()
+    let popViewTrigger = PassthroughSubject<Void, Never>()
     let cancelBag = CancelBag()
     var body: some View {
-        List{
-            ForEach(output.languages.enumerated().map{ $0 }, id: \.element.locale){ index, language in
-                Button {
-                    selectTrigger.send(IndexPath(row: index, section: 0))
-                } label: {
-                    LanguageRow(language: language, selectedLanguageCode: $output.selectedLanguageCode)
+        VStack {
+            CustomNavigationBar(title: "Change language".localized()) {
+                popViewTrigger.send(())
+            }
+            List{
+                ForEach(output.languages.enumerated().map{ $0 }, id: \.element.locale){ index, language in
+                    Button {
+                        selectTrigger.send(IndexPath(row: index, section: 0))
+                    } label: {
+                        LanguageRow(language: language, selectedLanguageCode: $output.selectedLanguageCode)
+                    }
                 }
             }
-        }.navigationTitle("Change language".localized())
+        }
+
     }
     
     init(viewModel: ChangeLanguageViewModel){
-        let input = ChangeLanguageViewModel.Input(selectLanguageTrigger: self.selectTrigger.asDriver())
-        
+        let input = ChangeLanguageViewModel.Input(
+            selectLanguageTrigger: self.selectTrigger.asDriver(),
+            popViewTrigger: popViewTrigger.asDriver()
+        )
+
         self.output = viewModel.transform(input, cancelBag: cancelBag)
     }
 }

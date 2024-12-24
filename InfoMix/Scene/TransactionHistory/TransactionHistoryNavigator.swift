@@ -10,10 +10,10 @@ import Foundation
 import UIKit
 
 protocol TransactionHistoryNavigatorType {
-    
+    func popView()
 }
 
-struct TransactionHistoryNavigator : TransactionHistoryNavigatorType{
+struct TransactionHistoryNavigator : TransactionHistoryNavigatorType, PopNavigator {
     
     
     unowned let assembler: Assembler

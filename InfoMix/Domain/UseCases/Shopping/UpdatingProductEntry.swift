@@ -14,7 +14,7 @@ protocol UpdatingProductEntry {
 
 extension UpdatingProductEntry {
     
-    func updateProductEntry(input: UpdateProductEntryInput) -> Observable<Order> {
+    func updateProductEntry(input: UpdateProductEntryInput) -> Observable<ProductEntry> {
         shoppingGateway.updateProductEntry(entryId: input.entryId, quantity: input.quantity)
     }
     

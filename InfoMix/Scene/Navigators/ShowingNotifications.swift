@@ -18,7 +18,7 @@ extension ShowingNotifications {
     func showNotifications() {
         let view: NotificationsView = assembler.resolve(navigationController: navigationController)
         let vc = UIHostingController(rootView: view)
-        vc.title = "Notifications"
+//        vc.title = "Notifications"
         navigationController.pushViewController(vc, animated: true)
     }
     

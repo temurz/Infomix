@@ -11,8 +11,8 @@ import Combine
 
 extension API {
     
-    func connect(_ input: SendingConnectInput) -> Observable<Int64> {
-        return requestPrimitive(input)
+    func connect(_ input: SendingConnectInput) -> Observable<SerialCard> {
+        return request(input)
     }
     
     final class SendingConnectInput: APIInput {

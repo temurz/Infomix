@@ -9,7 +9,7 @@
 import Foundation
 
 protocol DeleteProductEntryUseCaseType{
-    func deleteProductEntry(entryId: Int) -> Observable<Order>
+    func deleteProductEntry(entryId: Int) -> Observable<ProductEntry>
 }
 
 struct DeleteProductEntryUseCase: DeleteProductEntryUseCaseType, DeletingProductEnrty {

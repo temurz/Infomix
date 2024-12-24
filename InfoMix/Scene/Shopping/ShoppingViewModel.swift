@@ -29,6 +29,7 @@ extension ShoppingViewModel : ViewModel {
         let showShoppingCartTrigger: Driver<Void>
         let showProductDetailTrigger: Driver<Int>
         let loadTopProductListTrigger: Driver<Void>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output: ObservableObject {
@@ -145,6 +146,10 @@ extension ShoppingViewModel : ViewModel {
                 output.bottomSheetPosition = .hidden
             }
         })
+        .map({ entry in
+            output.shoppingCart.addOrUpdate(entry: entry)
+            return output.shoppingCart
+        })
         .assign(to: \.shoppingCart, on: output)
         .store(in: cancelBag)
 
@@ -155,6 +160,12 @@ extension ShoppingViewModel : ViewModel {
             .receive(on: RunLoop.main)
             .map { AlertMessage(error: $0) }
             .assign(to: \.alert, on: output)
+            .store(in: cancelBag)
+
+        input.popViewTrigger
+            .sink {
+                navigator.popView()
+            }
             .store(in: cancelBag)
 
         return output

@@ -40,6 +40,7 @@ extension ProductsViewModel: ViewModel {
         let showShoppingCartTrigger: Driver<Void>
         let showProductCategoryTrigger: Driver<Void>
         let clearProductCategoryFilter: Driver<Void>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output: ObservableObject {
@@ -80,7 +81,13 @@ extension ProductsViewModel: ViewModel {
             .map { AlertMessage(error: $0) }
             .assign(to: \.alert, on: output)
             .store(in: cancelBag)
-        
+
+        input.popViewTrigger
+            .sink {
+                navigator.popView()
+            }
+            .store(in: cancelBag)
+
         input.loadTrigger.handleEvents(receiveOutput: { _ in
             self.loadTrigger.send(GetProductsInput(categoryId: output.category?.id, query: output.query))
         }).sink().store(in: cancelBag)
@@ -168,6 +175,10 @@ extension ProductsViewModel: ViewModel {
                 withAnimation(.easeOut(duration: 0.2)) {
                     output.bottomSheetPosition = .hidden
                 }
+            })
+            .map({ entry in
+                output.shoppingCart.addOrUpdate(entry: entry)
+                return output.shoppingCart
             })
             .assign(to: \.shoppingCart, on: output)
             .store(in: cancelBag)

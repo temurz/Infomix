@@ -14,7 +14,7 @@ protocol AddingToCart {
 
 extension AddingToCart {
     
-    func addToCart(input: AddToCartInput) -> Observable<Order> {
+    func addToCart(input: AddToCartInput) -> Observable<ProductEntry> {
         shoppingGateway.addToCart(product: input.product, quantity: input.quantity)
     }
     

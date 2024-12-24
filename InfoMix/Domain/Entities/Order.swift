@@ -10,53 +10,95 @@ import Foundation
 
 struct Order : Identifiable {
     var id = 0
-    var entryCount: Int = 0
-    var totalAmount: Double = 0.0
     var entries = [ProductEntry]()
     var createdDate: Date?
     var closedDate: Date?
-    var status: String = ""
-    var statusText: String = ""
+    var status: String?
+    var totalPrice: Double = 0
+    var totalProducts: Int = 0
+    var notice: String?
+    var cancelable: Bool = false
+    var discount: Double?
+
+//    var current: Boolean = false
+//    var id: Int = 0
+//    var createDate: Date? = null
+//    var modifyDate: Date? = null
+//    var status: String? = null
+//    var items: List<OrderItem>? = null
+//    var closedDate: Date? = null
+//    var totalPrice: Double? = null
+//    var totalProducts: Int = 0
+//    var notice: String? = null
+//    var cancelable: Boolean = false
+//    var discount: Double? = null
+//
+//    fun totalAmount():Double? = totalPrice?.times(1.00 - (discount ?: 0.0) / 100.00)
 }
 
 extension Order : Decodable {
     enum CodingKeys: String, CodingKey {
         case id="id"
-        case entryCount = "totalProducts"
-        case totalAmount = "totalScore"
-        case entries = "productEntries"
+        case entries = "items"
         case createdDate = "createDate"
         case closedDate = "closedDate"
         case status = "status"
-        case statusText = "statusText"
+        case totalPrice = "totalPrice"
+        case totalProducts = "totalProducts"
+        case cancelable = "cancelable"
+        case discount = "discountInPercentage"
     }
     
     init(from decoder: Decoder) throws {
         let values = try decoder.container(keyedBy: CodingKeys.self)
         id = try values.decodeIfPresent(Int.self, forKey: .id) ?? 0
-        status = try values.decodeIfPresent(String.self, forKey: .status) ?? ""
-        statusText = try values.decodeIfPresent(String.self, forKey: .statusText) ?? ""
+        status = try values.decodeIfPresent(String.self, forKey: .status)
         entries  = try values.decodeIfPresent([ProductEntry].self, forKey: .entries) ?? [ProductEntry]()
-        
-        entryCount = try values.decodeIfPresent(Int.self, forKey: .entryCount) ?? 0
-        totalAmount = try values.decodeIfPresent(Double.self, forKey: .totalAmount) ?? 0.0
-        if entries.count > 0 && entryCount==0{
-            entryCount = entries.reduce(0) { $0 + $1.quantity}
-        }
-        if entries.count > 0 && totalAmount == 0.0 {
-            totalAmount = entries.reduce(0) { $0 + ($1.salesPrice * Double($1.quantity))}
-        }
-        
+        createdDate = try values.decodeIfPresent(Double.self, forKey: .createdDate)?.toWindowsDate()
+        closedDate = try values.decodeIfPresent(Double.self, forKey: .closedDate)?.toWindowsDate()
+        totalPrice = try values.decodeIfPresent(Double.self, forKey: .totalPrice) ?? 0
+        totalProducts = try values.decodeIfPresent(Int.self, forKey: .totalProducts) ?? 0
+        cancelable = try values.decodeIfPresent(Bool.self, forKey: .cancelable) ?? false
+        discount = try values.decodeIfPresent(Double.self, forKey: .discount)
+
+
     
     }
     
     func contains(product: Product) -> Bool{
         self.entries.contains { entry in
-            entry.product.id == product.id
+            entry.productId == product.id
         }
     }
     
     func isEditable()->Bool {
-        self.status == "Draft" && self.entries.count > 0
+        self.id == ShoppingCart.shared.orderId && self.totalProducts > 0
+    }
+
+    var subTotalAmount: Double {
+        totalPrice
+    }
+
+    var totalAmount: Double {
+        totalPrice * (1.0 - (discount ?? 0.0) / 100.0)
+    }
+
+    mutating func addOrUpdate(entry: ProductEntry) {
+        let newEntry = self.entries.first { $0.id == entry.id }
+        if var newEntry {
+            newEntry.quantity = entry.quantity
+            self.entries.removeAll { $0.id == entry.id }
+            self.entries.append(newEntry)
+        } else {
+            self.entries.append(entry)
+        }
+        self.totalProducts = self.entries.reduce(0) { $0 + $1.quantity }
+        self.totalPrice = self.entries.reduce(0) { $0 + (Double($1.quantity) * ($1.price ?? 0)) }
+    }
+
+    mutating func delete(entry: ProductEntry) {
+        self.entries.removeAll { $0.id == entry.id }
+        self.totalProducts = self.entries.reduce(0) { $0 + $1.quantity }
+        self.totalPrice = self.entries.reduce(0) { $0 + (Double($1.quantity) * ($1.price ?? 0)) }
     }
 }

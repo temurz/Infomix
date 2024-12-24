@@ -10,7 +10,7 @@ import Combine
 import Alamofire
 import Foundation
 import SwiftUI
-
+import Localize_Swift
 struct HomeViewModel {
     let homeNavigator: HomeNavigatorType
     let currentUserUseCase: CurrentUserUseCaseType
@@ -41,6 +41,9 @@ extension HomeViewModel: ViewModel {
         let sendFcmTokenTrigger: Driver<String>
         let getLoyaltyTrigger: Driver<Void>
         let getStatisticsTrigger: Driver<Void>
+        let showAddCardTrigger: Driver<Void>
+        let showShoppingViewTrigger: Driver<Void>
+        let showNotificationsTrigger: Driver<Void>
     }
 
     final class Output: ObservableObject {
@@ -54,6 +57,7 @@ extension HomeViewModel: ViewModel {
         @Published var cardConfig: CardConfig
         @Published var loyalty: Loyalty?
         @Published var statistics: Statistics?
+        @Published var items = [MainCellModel]()
         
         init(cardConfig: CardConfig){
             self.cardConfig = cardConfig
@@ -161,6 +165,7 @@ extension HomeViewModel: ViewModel {
                     .asDriver()
                     .sink { it in
                         output.loyalty = it
+                        output.certificate.loyalty = it
                     }
                     .store(in: cancelBag)
             }
@@ -172,11 +177,70 @@ extension HomeViewModel: ViewModel {
                     .asDriver()
                     .sink { it in
                         output.statistics = it
+                        output.items = generateModels(from: it)
                     }
                     .store(in: cancelBag)
             }
             .store(in: cancelBag)
-        
+
+        input.showAddCardTrigger
+            .sink {
+                homeNavigator.showAddCard()
+            }
+            .store(in: cancelBag)
+
+        input.showShoppingViewTrigger
+            .sink {
+                homeNavigator.showShoppingView(certificate: output.certificate)
+            }
+            .store(in: cancelBag)
+
+        input.showNotificationsTrigger
+            .sink {
+                homeNavigator.showNotifications()
+            }
+            .store(in: cancelBag)
+
         return output
+    }
+    
+    func generateModels(from stats: Statistics) -> [MainCellModel] {
+        var items = [MainCellModel]()
+        let confirmed = stats.confirmed
+        items.append(MainCellModel(
+            type: .confirmed,
+            title: confirmed != 0 ? "\(confirmed ?? 0)" : "No card".localized(),
+            subtitle: "Confirmed cards".localized(),
+            leftImage: "list_check"))
+        items.append(MainCellModel(
+            type: .earned,
+            title: String(format: "%.0f ball".localized(), stats.earned ?? 0.0),
+            subtitle: "Earned".localized(),
+            leftImage: "data"))
+        let checking = stats.checking
+        items.append(MainCellModel(
+            type: .checking,
+            title: checking != 0 ? "\(checking ?? 0)" : "No card".localized(),
+            subtitle: "Checking...".localized(),
+            leftImage: "list_play"))
+        let dispute = stats.dispute
+        items.append(MainCellModel(
+            type: .dispute,
+            title: dispute != 0 ? "\(dispute ?? 0)" : "No card".localized(),
+            subtitle: "Dispute cards".localized(),
+            leftImage: "square_help"))
+        let rejected = stats.rejected
+        items.append(MainCellModel(
+            type: .rejected,
+            title: rejected != 0 ? "\(rejected ?? 0)" : "No card".localized(),
+            subtitle: "Rejected cards".localized(),
+            leftImage: "list_close"))
+        let products = stats.products
+        items.append(MainCellModel(
+            type: .products,
+            title: products != 0 ? "\(products ?? 0)" : "Don't have for now".localized(),
+            subtitle: "Bought products".localized(),
+            leftImage: "shopping_cart"))
+        return items
     }
 }

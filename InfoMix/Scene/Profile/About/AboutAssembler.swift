@@ -25,7 +25,7 @@ extension AboutAssembler {
     }
     
     func resolve(navigationController: UINavigationController) -> AboutViewModel {
-        return AboutViewModel()
+        return AboutViewModel(navigator: AboutViewNavigator(navigationController: navigationController))
     }
     
 }

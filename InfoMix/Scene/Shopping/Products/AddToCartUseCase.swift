@@ -10,7 +10,7 @@
 import Combine
 
 protocol AddToCartUseCaseType {
-    func addToCart(input: AddToCartInput) -> Observable<Order>
+    func addToCart(input: AddToCartInput) -> Observable<ProductEntry>
 }
 
 struct AddToCartUseCase: AddToCartUseCaseType, AddingToCart {

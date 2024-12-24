@@ -11,9 +11,10 @@ import UIKit
 
 protocol OrderHistoryNavigatorType {
     func showShoppingCart(order: Order)
+    func popView()
 }
 
-struct OrderHistoryNavigator: OrderHistoryNavigatorType, ShowingShoppingCart {
+struct OrderHistoryNavigator: OrderHistoryNavigatorType, ShowingShoppingCart, PopNavigator {
     unowned let assembler: Assembler
     unowned let navigationController: UINavigationController
     

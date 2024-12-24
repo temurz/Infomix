@@ -7,11 +7,11 @@
 //
 
 
-struct ICU{
+struct ICU {
     let balance: Double
 }
 
-extension ICU : Decodable{
+extension ICU : Decodable {
     enum CodingKeys: String, CodingKey {
         case balance
     }

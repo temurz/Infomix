@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "Square_Help.pdf",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

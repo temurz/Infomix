@@ -7,6 +7,7 @@
 //
 import Alamofire
 import Combine
+import Foundation
 
 extension API {
     
@@ -15,22 +16,38 @@ extension API {
     }
     
     final class SendingSerialNumbers: APIInput {
-        init(serialCardId: Int, serialNumbers: String){
+        init(serialCardId: Int, serialNumbers: [SerialNumberInput]){
+            let encoder = JSONEncoder()
+            encoder.outputFormatting = .prettyPrinted
+            let json = try? encoder.encode(serialNumbers)
+            let string = String(data: json ?? Data(), encoding: .utf8)
+            print(string)
             let parameters: Parameters = [
-                "serial_card_id": serialCardId,
-                "serialNumbers": serialNumbers
+                "serialCardId": serialCardId,
+                "serialNumbers": serialNumbers.map { [
+                    "serialNumber": $0.serialNumber,
+                    "input": $0.input
+                ]
+                }
             ]
             
             super.init(urlString: "\(NetworkManager.shared.baseUrl)/cards/add/part/serials",
                        parameters: parameters,
                        method: .post,
-                       requireAccessToken: true)
-            
-            self.headers = [
-                "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"
-            ]
-            self.encoding = URLEncoding.httpBody
+                       requireAccessToken: true,
+                       encoding: JSONEncoding.default)
+
+//            self.headers = [
+//                "Content-Type": "application/json; charset=UTF-8"
+//            ]
+//            self.encoding = URLEncoding.httpBody
         }
     }
     
+}
+
+struct SerialNumberInput: Codable {
+    var serialNumber: String
+//    let serialNumberId: Int
+    var input: String = "Scanner"
 }

@@ -36,7 +36,7 @@ extension API {
             
             super.init(urlString: Urls.products,
                        parameters: parameters,
-                       method: .post,
+                       method: .get,
                        requireAccessToken: true)
             
         }

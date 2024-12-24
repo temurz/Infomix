@@ -19,6 +19,7 @@ struct ICUView: View {
             if output.isLoading || output.isReloading {
                 ProgressView()
                 Text("Loading...".localized())
+                    .foregroundStyle(.white)
             } else if output.alert.isShowing{
                 Text("Error".localized())
                     .foregroundColor(.red)
@@ -27,18 +28,20 @@ struct ICUView: View {
                 }){
                     Image(systemName: "goforward")
                         .resizable()
-                        .foregroundColor(.gray)
+                        .foregroundColor(.white)
                 }.frame(width: 18, height: 18)
                     
             }else{
-                Text(String(format: "%.0f ball".localized(), output.icu))
-                    .font(.largeTitle)
+                Text(String(format: "%.2f ball".localized(), output.icu))
+                    .font(.title)
+                    .bold()
+                    .foregroundStyle(.white)
                 Button(action: {
                     self.loadTrigger.send()
                 }){
                     Image(systemName: "goforward")
                         .resizable()
-                        .foregroundColor(.gray)
+                        .foregroundColor(.white)
                 }.frame(width: 18, height: 18)
             }
         }.onAppear {

@@ -22,11 +22,16 @@ open class APIInputBase {
     public init(urlString: String,
                 parameters: Parameters?,
                 method: HTTPMethod,
-                requireAccessToken: Bool) {
+                requireAccessToken: Bool,
+                encoding: ParameterEncoding? = nil) {
         self.urlString = urlString
         self.parameters = parameters
         self.method = method
-        self.encoding = method == .get ? URLEncoding.default : JSONEncoding.default
+        if let encoding {
+            self.encoding = encoding
+        } else {
+            self.encoding = method == .get ? URLEncoding.default : JSONEncoding.default
+        }
         self.requireAccessToken = requireAccessToken
     }
 }

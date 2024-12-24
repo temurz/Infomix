@@ -18,7 +18,8 @@ struct CertificateItemViewModel {
     var phoneNumber: String = ""
     var balance: Double = 0.0
     var url: URL?
-    
+    var loyalty: Loyalty? = nil
+
     init(certificate: Certificate) {
         self.certificate = certificate
         self.certificateCode = certificate.certificate ?? ""

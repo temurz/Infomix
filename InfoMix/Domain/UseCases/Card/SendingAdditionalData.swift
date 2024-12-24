@@ -18,7 +18,7 @@ protocol SendingAdditionalData {
 
 extension SendingAdditionalData {
     func sendAdditionData(_ input: AdditionalDataInput) -> Observable<SerialCard> {
-        cardGateway.sendAdditionData(serialCardId: input.serialCardId, installedDate: input.installedDate, phone: input.phone, latitude: input.latitude, longitude: input.longitude)
+        cardGateway.sendAdditionData(serialCardId: input.serialCardId, installedDate: input.installedDate, data: input.data, latitude: input.latitude, longitude: input.longitude)
     }
 }
 

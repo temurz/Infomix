@@ -11,9 +11,10 @@ import UIKit
 protocol LocalUsersNavigatorType {
     func showMain(cardConfig: CardConfig)
     func showLogin(cardConfig: CardConfig)
+    func popView()
 }
 
-struct LocalUsersNavigator: LocalUsersNavigatorType, ShowingMain, ShowingLogin {
+struct LocalUsersNavigator: LocalUsersNavigatorType, ShowingMain, ShowingLogin, PopNavigator {
     func showLogin(cardConfig: CardConfig) {
         self.showLogin(cardConfig: cardConfig, primaryAccount: false)
     }

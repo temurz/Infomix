@@ -36,6 +36,7 @@ extension ShoppingCartViewModel: ViewModel {
         let clearShoppingCartTrigger: Driver<Void>
         let cancelOrderTrigger: Driver<Void>
         let showAllProductsTrigger: Driver<Void>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output: ObservableObject {
@@ -76,15 +77,24 @@ extension ShoppingCartViewModel: ViewModel {
         
         isLoading.assign(to: \.isLoading, on: output).store(in: cancelBag)
         
-        
-      
+        input.popViewTrigger
+            .sink {
+                navigator.popView()
+            }
+            .store(in: cancelBag)
+
         //Delete Order
         let deleteEntryInput = GetItemInput(loadTrigger: input.deleteEntryTrigger, reloadTrigger: Driver.empty(), getItem: self.deleteProductEntryUseCase.deleteProductEntry)
         
         let (shoppingCartAfterDelete, errorDeleteProductEntry, isDeletingProductEntry, _) = getItem(input: deleteEntryInput).destructured
         
-        shoppingCartAfterDelete.assign(to: \.shoppingCart, on: output).store(in: cancelBag)
-        
+        shoppingCartAfterDelete
+            .map({ entry in
+                output.shoppingCart.delete(entry: entry)
+                return output.shoppingCart
+            })
+            .assign(to: \.shoppingCart, on: output).store(in: cancelBag)
+
         errorDeleteProductEntry
             .receive(on: RunLoop.main)
             .map { AlertMessage(error: $0) }
@@ -99,8 +109,13 @@ extension ShoppingCartViewModel: ViewModel {
         
         let (shoppingCartAfterUpdate, errorUpdateProductEntry, isUpdatingProductEntry, _) = getItem(input: updateEntryInput).destructured
         
-        shoppingCartAfterUpdate.assign(to: \.shoppingCart, on: output).store(in: cancelBag)
-        
+        shoppingCartAfterUpdate
+            .map({ entry in
+                output.shoppingCart.addOrUpdate(entry: entry)
+                return output.shoppingCart
+            })
+            .assign(to: \.shoppingCart, on: output).store(in: cancelBag)
+
         errorUpdateProductEntry
             .receive(on: RunLoop.main)
             .map { AlertMessage(error: $0) }
@@ -164,7 +179,6 @@ extension ShoppingCartViewModel: ViewModel {
         
         canceledOrder.handleEvents(receiveOutput: { order in
             output.shoppingCart.status = order.status
-            output.shoppingCart.statusText = order.statusText
         }).sink().store(in: cancelBag)
         
         errorCancelOrder

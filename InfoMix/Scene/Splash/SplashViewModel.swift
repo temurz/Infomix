@@ -59,6 +59,14 @@ extension SplashViewModel: ViewModel {
             .assign(to: \.alert, on: output)
             .store(in: cancelBag)
         
+        error
+            .receive(on: RunLoop.main)
+            .map { _ in
+                self.startTrigger.send(())
+            }
+            .sink()
+            .store(in: cancelBag)
+        
         isLoading
             .assign(to: \.isLoading, on: output)
             .store(in: cancelBag)

@@ -16,6 +16,7 @@ struct Transaction{
     let comment : String?
     let createDate : Date?
     let typeText : String?
+    let entityStatus: String?
 }
 
 extension Transaction: Decodable {
@@ -27,6 +28,7 @@ extension Transaction: Decodable {
         case comment = "comment"
         case createDate = "createDate"
         case typeText = "typeText"
+        case entityStatus = "entityStatus"
     }
     
     init(from decoder: Decoder) throws {
@@ -38,5 +40,10 @@ extension Transaction: Decodable {
         comment = try values.decodeIfPresent(String.self, forKey: .comment)
         createDate = try values.decodeIfPresent(Double.self, forKey: .createDate)?.toWindowsDate()
         typeText = try values.decodeIfPresent(String.self, forKey: .typeText)
+        entityStatus = try? values.decodeIfPresent(String.self, forKey: .entityStatus)
+    }
+
+    var confirmed: Bool {
+        entityStatus == "Active"
     }
 }

@@ -53,7 +53,7 @@ struct TabBarView<Router>: View where Router: ViewRouter {
                                        width: 30,
                                        height: 30,
                                        font: .caption2)
-                            .frame(width: geo.size.width/5.5, height: geo.size.height/28)
+                            .frame(width: geo.size.width/5)
                     }
             
                 
@@ -71,7 +71,7 @@ struct TabBarView<Router>: View where Router: ViewRouter {
                                    width: 30,
                                    height: 30,
                                    font: .caption2)
-                        .frame(width: geo.size.width/6, height: geo.size.height/28)
+                        .frame(width: geo.size.width/5)
                 }
                 Spacer()
                 

@@ -1,29 +1,30 @@
 //
 //  ImageFieldStepView.swift
-//  InfoMix
+//  Viessmann
 //
-//  Created by Temur on 05/04/2024.
-//  Copyright © 2024 InfoMix. All rights reserved.
+//  Created by Temur on 10/04/22.
+//  Copyright © 2022 Viessmann. All rights reserved.
 //
 
 import SwiftUI
 
 struct ImageFieldStepView: AbstractStepView {
     @Binding var cardStepItem: AddCardStepItem
-    
+    @State var imageData: Data? = nil
     @State private var showImagePicker = false
     @State var imageChooserType: PickerImage.Source = .library
     var onDelete: ((AddCardStepItem) -> Void)?
-    
+
     var body: some View {
             VStack {
-                
+
                 HStack{
                     Text(cardStepItem.titleLocalization())
                     Spacer()
                     Menu{
                         Button("Clear".localized(), action: {
                             cardStepItem.imageValue = nil
+                            imageData = nil
                         })
                     }label: {
                         Image(systemName: "ellipsis")
@@ -31,13 +32,13 @@ struct ImageFieldStepView: AbstractStepView {
                     }
                 }
                 .padding([.horizontal,.top])
-                
-                if let image = cardStepItem.imageValue {
+
+                if imageData != nil, let image = imageData {
                     Image(uiImage: UIImage(data: image)!)
                         .resizable()
                         .scaledToFit()
                         .frame(minWidth: 0, maxWidth: .infinity)
-                        
+
                 } else {
                     ZStack{
                         Color.black.opacity(0.6).ignoresSafeArea(.all)
@@ -54,7 +55,7 @@ struct ImageFieldStepView: AbstractStepView {
                                     print("There is no camera on this device")
                                     return
                                 }
-                                
+
                                 imageChooserType = .camera
                                 showImagePicker = true
                             } label: {
@@ -98,20 +99,26 @@ struct ImageFieldStepView: AbstractStepView {
                             Spacer()
                         }
                     }
-                    
+
                 }
-                
+
             }
         .frame(maxWidth: .infinity,maxHeight: 200, alignment: .center)
         .background(Color.white)
         .cornerRadius(10)
         .shadow(radius: 2)
             .sheet(isPresented: $showImagePicker) {
-                ImagePicker(sourceType: self.imageChooserType == .library ? .photoLibrary : .camera, selectedImage: $cardStepItem.imageValue)
+                ImagePicker(sourceType: self.imageChooserType == .library ? .photoLibrary : .camera, selectedImage: $cardStepItem.imageValue, bindedImage: $imageData)
                     .ignoresSafeArea()
             }
-            
+
     }
-    
-    
+
+
+}
+
+struct ImageFieldStepView_Previews: PreviewProvider {
+    static var previews: some View {
+        ImageFieldStepView(cardStepItem: .constant(AddCardStepItem(id: "", titleRu: "", value: "", remoteName: "", type: .CHOOSE_PHOTO, minLength: 0, maxLength: 0, cardStepId: 0, hasValidationError: true, titleUz: "", skip: true, productionCode: "", limit: 0, editable: true, valueString: "", originaltemId: "")))
+    }
 }

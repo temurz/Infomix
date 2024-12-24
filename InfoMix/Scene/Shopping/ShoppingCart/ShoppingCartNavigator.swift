@@ -11,9 +11,10 @@ import SwiftUI
 
 protocol ShoppingCartNavigatorType {
     func showProductList()
+    func popView()
 }
 
-struct ShoppingCartNavigator: ShoppingCartNavigatorType, ShowingProductList {
+struct ShoppingCartNavigator: ShoppingCartNavigatorType, ShowingProductList, PopNavigator {
     unowned let assembler: Assembler
     unowned let navigationController: UINavigationController
 }

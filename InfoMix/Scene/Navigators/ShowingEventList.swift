@@ -18,7 +18,7 @@ extension ShowingEventList {
     func showEvents() {
         let view: EventsView = assembler.resolve(navigationController: navigationController)
         let vc = UIHostingController(rootView: view)
-        vc.title = "Event List"
+        vc.title = "Event List".localized()
         navigationController.pushViewController(vc, animated: true)
     }
 }

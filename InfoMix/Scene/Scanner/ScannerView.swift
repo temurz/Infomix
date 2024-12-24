@@ -14,55 +14,62 @@ struct ScannerView: View {
     
     let foundQrCodeTrigger = PassthroughSubject<String, Never>()
     let torchToggleTrigger = PassthroughSubject<Void, Never>()
+    let popViewTrigger = PassthroughSubject<Void, Never>()
     let scanInterval: Double
     let cancelBag = CancelBag()
     
     var body: some View {
-        ZStack {
-            
-            QrCodeScannerView()
-                .found{ r in
-                    foundQrCodeTrigger.send(r)
-                }
-            .torchLight(isOn: self.output.torchIsOn)
-            .interval(delay: self.scanInterval)
-            
-            Text("Scanner goes here...".localized())
-                 
-            
-                 
-                 VStack {
+        VStack {
+            CustomNavigationBar(title: "") {
+                popViewTrigger.send(())
+            }
+            ZStack {
+
+                QrCodeScannerView()
+                    .found{ r in
+                        foundQrCodeTrigger.send(r)
+                    }
+                .torchLight(isOn: self.output.torchIsOn)
+                .interval(delay: self.scanInterval)
+
+                Text("Scanner goes here...".localized())
+
+
+
                      VStack {
-                         Text("Serial number:".localized())
-                             .font(.subheadline)
-                         Text(self.output.lastQrCode)
-                             .bold()
-                             .lineLimit(5)
-                             .padding()
-                     }
-                     .padding(.vertical, 20)
-                     
-                     Spacer()
-                     HStack {
-                         Button(action: {
-                             self.torchToggleTrigger.send()
-                         }, label: {
-                             Image(systemName: self.output.torchIsOn ? "bolt.fill" : "bolt.slash.fill")
-                                 .imageScale(.large)
-                                 .foregroundColor(self.output.torchIsOn ? Color.yellow : Color.blue)
+                         VStack {
+                             Text("Serial number:".localized())
+                                 .font(.subheadline)
+                             Text(self.output.lastQrCode)
+                                 .bold()
+                                 .lineLimit(5)
                                  .padding()
-                         })
-                     }
-                     .background(Color.white)
-                     .cornerRadius(10)
-                     
-                 }.padding()
-             }
+                         }
+                         .padding(.vertical, 20)
+
+                         Spacer()
+                         HStack {
+                             Button(action: {
+                                 self.torchToggleTrigger.send()
+                             }, label: {
+                                 Image(systemName: self.output.torchIsOn ? "bolt.fill" : "bolt.slash.fill")
+                                     .imageScale(.large)
+                                     .foregroundColor(self.output.torchIsOn ? Color.yellow : Color.blue)
+                                     .padding()
+                             })
+                         }
+                         .background(Color.white)
+                         .cornerRadius(10)
+
+                     }.padding()
+                 }
+        }
+
     }
     
     init(viewModel: ScannerViewModel){
-        self.output = viewModel.transform(ScannerViewModel.Input(foundQrCodeTrigger: self.foundQrCodeTrigger.asDriver(), torchToggleTrigger: self.torchToggleTrigger.asDriver()), cancelBag: self.cancelBag)
-        
+        self.output = viewModel.transform(ScannerViewModel.Input(foundQrCodeTrigger: self.foundQrCodeTrigger.asDriver(), torchToggleTrigger: self.torchToggleTrigger.asDriver(), popViewTrigger: popViewTrigger.asDriver()), cancelBag: self.cancelBag)
+
         self.scanInterval = viewModel.scanInterval
     }
 }

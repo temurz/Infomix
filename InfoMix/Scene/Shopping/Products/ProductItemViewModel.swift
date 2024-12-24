@@ -20,10 +20,10 @@ struct ProductItemViewModel : Identifiable {
     init(product: Product) {
         self.product = product
         self.id = product.id
-        self.name = product.name
+        self.name = product.name ?? ""
         self.price = product.price.groupped(fractionDigits: 0, groupSeparator: " ")
-        self.image = product.images?.first?.originalImage
-        self.brandName = product.brandName
+        self.image = product.image
+        self.brandName = product.brandName ?? ""
         self.inStock = product.inStock > 0.0 && product.price > 0.0
         self.images = product.images?.filter{$0.originalImage != nil }.map{$0.originalImage!} ?? [String]()
         

@@ -25,6 +25,7 @@ extension ScannerViewModel: ViewModel{
     struct Input{
         let foundQrCodeTrigger: Driver<String>
         let torchToggleTrigger: Driver<Void>
+        let popViewTrigger: Driver<Void>
     }
     
     final class Output: ObservableObject{
@@ -45,8 +46,14 @@ extension ScannerViewModel: ViewModel{
         input.torchToggleTrigger.handleEvents(receiveOutput: {
             output.torchIsOn.toggle()
         }).sink().store(in: cancelBag)
-        
-        
+
+
+        input.popViewTrigger
+            .sink {
+                navigationController.popViewController(animated: true)
+            }
+            .store(in: cancelBag)
+
         return output
     }
 }

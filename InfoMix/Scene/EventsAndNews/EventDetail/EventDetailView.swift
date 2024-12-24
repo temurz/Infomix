@@ -16,92 +16,96 @@ struct EventDetailView: View {
     private let viewModel: EventDetailViewModel
     private let cancelBag = CancelBag()
     private let loadTrigger = PassthroughSubject<Int32, Never>()
+    private let popViewTrigger = PassthroughSubject<Void, Never>()
     @State private var webViewHeight: CGFloat = .zero
     var body: some View {
         let url = URL(string: output.event.imageUrl ?? "")
         LoadingView(isShowing: $output.isLoading, text: .constant("")) {
-            
-            ScrollView{
-                VStack {
-                    if let urlImage = url {
-                        URLImage(urlImage){image in
-                            image
-                                .resizable()
-                                .scaledToFit()
-                        }
-                        
-                    }
-                    VStack{
-                        Spacer().frame(height: 15.0)
-                        HStack{
-                            Spacer().frame(width: 10.0)
-                            Text(output.event.title ?? "")
-                                .foregroundColor(Color.white)
-                                .font(.system(size: 20))
-                                .bold()
-                            
-                            
-                            Spacer()
-                        }
-                        Spacer().frame(height: 10.0)
-                    }.background(Color.gray)
-                    
-                    
-                    HStack{
-                        
-                        Spacer().frame(width:10.0)
-                        if let createDate = output.event.createDate {
-                            VStack{
-                                Spacer().frame(height: 10.0)
-                                HStack{
-                                    Text("Date of start".localized())
-                                        .bold()
-                                        .foregroundColor(Color.gray)
-                                    Spacer()
-                                }
-                                HStack{
-                                    Text(createDate.toShortFormat())
-                                        .bold()
-                                    Spacer()
-                                }
-                                Spacer().frame(height: 10.0)
-                            }
-                        }
-                        
-                        Spacer()
-                        if let endDate = output.event.endEventDate {
-                            VStack{
-                                Spacer().frame(height: 10.0)
-                                HStack{
-                                    Spacer()
-                                    Text("Date of end".localized())
-                                        .bold()
-                                        .foregroundColor(Color.gray)
-                                    Spacer().frame(width:10.0)
-                                }
-                                
-                                
-                                HStack{
-                                    Spacer()
-                                    
-                                    Text(endDate.toShortFormat())
-                                        .bold()
-                                    Spacer().frame(width:10.0)
-                                }
-                                Spacer().frame(height: 10.0)
-                            }
-                        }
-                        
-                        Spacer().frame(width:10.0)
-                    }.border(Color.red)
-                     
-                    
+            VStack {
+                CustomNavigationBar(title: "Event detail".localized()) {
+                    popViewTrigger.send(())
                 }
-                
-                WebView(dynamicHeight: $webViewHeight, html:output.event.content ?? "")
-                    .frame(height: webViewHeight)
-            }.edgesIgnoringSafeArea([.bottom, .trailing, .leading])
-            
+                ScrollView{
+                    VStack {
+                        if let urlImage = url {
+                            URLImage(urlImage){image in
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                            }
+
+                        }
+                        VStack{
+                            Spacer().frame(height: 15.0)
+                            HStack{
+                                Spacer().frame(width: 10.0)
+                                Text(output.event.title ?? "")
+                                    .foregroundColor(Color.white)
+                                    .font(.system(size: 20))
+                                    .bold()
+
+
+                                Spacer()
+                            }
+                            Spacer().frame(height: 10.0)
+                        }.background(Color.gray)
+
+
+                        HStack{
+
+                            Spacer().frame(width:10.0)
+                            if let createDate = output.event.createDate {
+                                VStack{
+                                    Spacer().frame(height: 10.0)
+                                    HStack{
+                                        Text("Date of start".localized())
+                                            .bold()
+                                            .foregroundColor(Color.gray)
+                                        Spacer()
+                                    }
+                                    HStack{
+                                        Text(createDate.toShortFormat())
+                                            .bold()
+                                        Spacer()
+                                    }
+                                    Spacer().frame(height: 10.0)
+                                }
+                            }
+
+                            Spacer()
+                            if let endDate = output.event.endEventDate {
+                                VStack{
+                                    Spacer().frame(height: 10.0)
+                                    HStack{
+                                        Spacer()
+                                        Text("Date of end".localized())
+                                            .bold()
+                                            .foregroundColor(Color.gray)
+                                        Spacer().frame(width:10.0)
+                                    }
+
+
+                                    HStack{
+                                        Spacer()
+
+                                        Text(endDate.toShortFormat())
+                                            .bold()
+                                        Spacer().frame(width:10.0)
+                                    }
+                                    Spacer().frame(height: 10.0)
+                                }
+                            }
+
+                            Spacer().frame(width:10.0)
+                        }.border(Color.red)
+
+
+                    }
+
+                    WebView(dynamicHeight: $webViewHeight, html:output.event.content ?? "")
+                        .frame(height: webViewHeight)
+                }.edgesIgnoringSafeArea([.bottom, .trailing, .leading])
+            }
             
         }
         .alert(isPresented: $output.alert.isShowing) {
@@ -111,12 +115,11 @@ struct EventDetailView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
-        .navigationTitle("Event detail".localized())
     }
     
     init(viewModel: EventDetailViewModel) {
         self.viewModel = viewModel
-        let input = EventDetailViewModel.Input(loadTrigger: loadTrigger.asDriver())
+        let input = EventDetailViewModel.Input(loadTrigger: loadTrigger.asDriver(), popViewTrigger: popViewTrigger.asDriver())
         self.output = viewModel.transform(input, cancelBag: cancelBag)
         loadTrigger.send(viewModel.event.id ?? 0)
         
