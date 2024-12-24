@@ -34,6 +34,7 @@ struct HomeView: View {
     private let showAddCardTrigger = PassthroughSubject<Void,Never>()
     private let showShoppingViewTrigger = PassthroughSubject<Void,Never>()
     private let showNotificationsTrigger = PassthroughSubject<Void,Never>()
+    private let showStatusViewTrigger = PassthroughSubject<Void,Never>()
 
     let icuView: ICUView
     
@@ -45,7 +46,7 @@ struct HomeView: View {
             VStack {
                 HStack {
                     Button {
-                        
+                        showStatusViewTrigger.send(())
                     } label: {
                         if let iconUrl = output.loyalty?.icon {
                             if let url = URL(string: iconUrl) {
@@ -309,7 +310,8 @@ struct HomeView: View {
             getStatisticsTrigger: getStatisticsTrigger.asDriver(),
             showAddCardTrigger: showAddCardTrigger.asDriver(),
             showShoppingViewTrigger: showShoppingViewTrigger.asDriver(),
-            showNotificationsTrigger: showNotificationsTrigger.asDriver()
+            showNotificationsTrigger: showNotificationsTrigger.asDriver(),
+            showStatusViewTrigger: showStatusViewTrigger.asDriver()
         )
         self.output = viewModel.transform(input, cancelBag: cancelBag)
         self.icuView = iv

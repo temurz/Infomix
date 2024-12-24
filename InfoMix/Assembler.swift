@@ -36,8 +36,10 @@ ProfileAssembler,
 ChangePasswordAssembler,
 ChangeLanguageAssembler,
 AboutAssembler,
-LocalUsersAssembler {
-    
+LocalUsersAssembler,
+StatusViewAssembler
+{
+
 }
 
 final class DefaultAssembler: Assembler {

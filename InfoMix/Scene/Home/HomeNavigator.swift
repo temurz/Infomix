@@ -17,9 +17,10 @@ protocol HomeNavigatorType{
     func showAddCard()
     func showShoppingView(certificate: CertificateItemViewModel)
     func showNotifications()
+    func showStatusView(_ loyalty: Loyalty?)
 }
 
-struct HomeNavigator: HomeNavigatorType, ShowingTransactionHistory , ShowingExchange, ShowingEventList, ShowingEventDetail, ShowingLocalUsers, ShowingCardsHistory, ShowingAddCard, ShowingShoppingView, ShowingNotifications {
+struct HomeNavigator: HomeNavigatorType, ShowingTransactionHistory , ShowingExchange, ShowingEventList, ShowingEventDetail, ShowingLocalUsers, ShowingCardsHistory, ShowingAddCard, ShowingShoppingView, ShowingNotifications, ShowingStatusView {
     var cardConfig: CardConfig
     
     func showLocalUsers(cardConfig: CardConfig) {

@@ -44,6 +44,7 @@ extension HomeViewModel: ViewModel {
         let showAddCardTrigger: Driver<Void>
         let showShoppingViewTrigger: Driver<Void>
         let showNotificationsTrigger: Driver<Void>
+        let showStatusViewTrigger: Driver<Void>
     }
 
     final class Output: ObservableObject {
@@ -198,6 +199,12 @@ extension HomeViewModel: ViewModel {
         input.showNotificationsTrigger
             .sink {
                 homeNavigator.showNotifications()
+            }
+            .store(in: cancelBag)
+
+        input.showStatusViewTrigger
+            .sink {
+                homeNavigator.showStatusView(output.loyalty)
             }
             .store(in: cancelBag)
 

@@ -43,5 +43,6 @@ extension API {
         static let getCardConfigByCode = NetworkManager.shared.baseUrl + "/config"
         static let onlineApplication = NetworkManager.shared.baseUrl + "/auth/resume"
         static let markets = NetworkManager.shared.baseUrl + "/market/"
+        static let leaderboard = NetworkManager.shared.baseUrl + "/loyalty/leaderboard"
     }
 }
