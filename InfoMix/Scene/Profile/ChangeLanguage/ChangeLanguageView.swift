@@ -20,15 +20,17 @@ struct ChangeLanguageView: View {
             CustomNavigationBar(title: "Change language".localized()) {
                 popViewTrigger.send(())
             }
-            List{
+            ScrollView {
                 ForEach(output.languages.enumerated().map{ $0 }, id: \.element.locale){ index, language in
                     Button {
                         selectTrigger.send(IndexPath(row: index, section: 0))
                     } label: {
                         LanguageRow(language: language, selectedLanguageCode: $output.selectedLanguageCode)
+                        Divider()
                     }
                 }
             }
+            .background(.clear)
         }
 
     }

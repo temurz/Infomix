@@ -262,7 +262,7 @@ struct ShoppingView: View {
                                     }
                                 }
                             }
-                            .resignKeyboardOnDragGesture()
+//                            .resignKeyboardOnDragGesture()
                             .padding(.horizontal, 6)
                         }
 

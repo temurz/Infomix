@@ -12,7 +12,15 @@ import AVFoundation
 
 struct QrCodeScannerView: UIViewRepresentable {
     
-    var supportedBarcodeTypes: [AVMetadataObject.ObjectType] = [.qr, .code39]
+    var supportedBarcodeTypes: [AVMetadataObject.ObjectType] = [
+        .qr,
+        .ean8,           
+        .ean13,          
+        .pdf417,         
+        .code39,         
+        .code93,         
+        .code128
+    ]
     typealias UIViewType = CameraPreview
     
     private let session = AVCaptureSession()

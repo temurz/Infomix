@@ -35,7 +35,7 @@ struct CustomNavigationBar: View {
                                     .resizable()
                                     .foregroundStyle(backButtonColor)
                                     .aspectRatio(contentMode: .fit)
-                                    .background(Color.white)
+//                                    .background(Color.white)
                                     .padding(2)
                             }
                             .frame(width: 24, height: 24)
@@ -57,7 +57,7 @@ struct CustomNavigationBar: View {
                                         onRightBarButtonTapAction?()
                                     }
                                     .padding()
-                                    .background(Color.white)
+//                                    .background(Color.white)
                             } else if let rightBarTitle {
                                 Text(rightBarTitle)
                                     .foregroundStyle(Colors.appMainColor)
@@ -68,7 +68,7 @@ struct CustomNavigationBar: View {
                                         onRightBarButtonTapAction?()
                                     }
                                     .padding(.trailing)
-                                    .background(Color.white)
+//                                    .background(Color.white)
                             }
                         }
                     }
@@ -176,11 +176,10 @@ struct ViewWithShadowOnBottom<Content: View>: View {
             content()
             Spacer()
             Colors.borderGrayColor2
-                .frame(height: 2)
-                .shadow(color: .black.opacity(0.1),radius: 1, x: 0, y: 2)
-
+                .frame(height: 1)
+                .shadow(color: .black.opacity(0.1),radius: 1, x: 0, y: 1)
         }
-        .frame(height: 74)
+        .frame(height: 62)
 
     }
 }

@@ -87,17 +87,25 @@ struct LoginView: View {
                     }.padding(.bottom,15)
 
                     VStack(alignment: .leading){
-                        TextFieldTyped(keyboardType: .default, returnVal: .next, tag: 0,   isSecure: false, text: $input.username, isfocusAble: $focused)
-                            .placeholderText(when: input.username.isEmpty, placeholder: {
-                                Text("Certificate".localized())
-                                    .foregroundColor(.gray)
-                            })
-                            .padding(10)
-                            .background(lightGreyColor)
-                            .frame(height: 50)
-                            .cornerRadius(5.0).onTapGesture {
-                                self.focused = [true, false]
-                            }
+
+                        HStack {
+                            TextField("Certificate".localized(), text: $input.username)
+                                .padding()
+                        }
+                        .background(lightGreyColor)
+                        .frame(height: 50)
+                        .cornerRadius(5.0)
+//                        TextFieldTyped(keyboardType: .default, returnVal: .done, tag: 0,   isSecure: false, text: $input.username, isfocusAble: $focused)
+//                            .placeholderText(when: input.username.isEmpty, placeholder: {
+//                                Text("Certificate".localized())
+//                                    .foregroundColor(.gray)
+//                            })
+//                            .padding(10)
+//                            .background(lightGreyColor)
+//                            .frame(height: 50)
+//                            .cornerRadius(5.0).onTapGesture {
+//                                self.focused = [true, false]
+//                            }
 
 
                         Text(self.output.usernameValidationMessage.localized())
@@ -108,17 +116,26 @@ struct LoginView: View {
                             .fixedSize()
                     }.padding(.bottom,10)
                     VStack(alignment: .leading){
-                        TextFieldTyped(keyboardType: .default, returnVal: .done, tag: 1, isSecure: true, text: $input.password, isfocusAble: $focused)
-                            .placeholderText(when: input.password.isEmpty, placeholder: {
-                                Text("Password".localized())
-                                    .foregroundColor(Color.gray)
-                            })
-                            .padding(10)
-                            .background(lightGreyColor)
-                            .frame(height: 50)
-                            .cornerRadius(5.0).onTapGesture {
-                                self.focused = [false, true]
-                            }
+                        HStack {
+                            SecureField("Password".localized(), text: $input.password)
+                                .padding()
+                        }
+                        .background(lightGreyColor)
+                        .frame(height: 50)
+                        .cornerRadius(5.0)
+
+//                        TextFieldTyped(keyboardType: .default, returnVal: .done, tag: 1, isSecure: true, text: $input.password, isfocusAble: $focused)
+//                            .placeholderText(when: input.password.isEmpty, placeholder: {
+//                                Text("Password".localized())
+//                                    .foregroundColor(Color.gray)
+//                            })
+//                            .padding(10)
+//                            .background(lightGreyColor)
+//                            .frame(height: 50)
+//                            .cornerRadius(5.0)
+//                            .onTapGesture {
+//                                self.focused = [false, true]
+//                            }
                         Text(self.output.passwordValidationMessage.localized())
                             .foregroundColor(.red)
                             .font(.footnote)
@@ -228,7 +245,6 @@ struct LoginView: View {
 
                 }
             }
-            .navigationTitle(Text("Login".localized()))
             .alert(isPresented: $output.alert.isShowing) {
                 Alert(
                     title: Text(output.alert.title),

@@ -11,9 +11,15 @@ import Foundation
 protocol OnlineApplicationUseCaseType {
     func getCities() -> Observable<[City]>
     func getConfigs() -> Observable<[CardConfig]>
+    func getMarkets(cityId: Int) -> Observable<[Market]>
+    func sendOnlineApplication(dto: OnlineApplicationDto) -> Observable<Bool>
 }
 
-struct OnlineApplicationUseCase: OnlineApplicationUseCaseType, GettingCities, GettingCardConfig{
+struct OnlineApplicationUseCase: OnlineApplicationUseCaseType, GettingCities, GettingCardConfig, GettingMarket, SendingOnlineApplication {
+    var gateway: MarketGateway
+    
+    var onlineApplicationGateway: any OnlineApplicationGatewayType
+    
     func getConfigs() -> Observable<[CardConfig]> {
         getCardConfigs()
     }

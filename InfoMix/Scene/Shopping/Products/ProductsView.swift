@@ -36,15 +36,19 @@ struct ProductsView: View {
     private let showProductCategoryList = PassthroughSubject<Void, Never>()
     private let clearProductCategoryFilter = PassthroughSubject<Void, Never>()
     private let popViewTrigger = PassthroughSubject<Void, Never>()
-    
-    
+
+    @State private var isScrolling = false
+
     var body: some View {
         
         return LoadingView(isShowing: $output.isLoading, text: .constant("")) {
             VStack {
-                CustomNavigationBar(title: "Product List".localized()) {
+                CustomNavigationBar(title: "Product List".localized(), rightBarTitle: "Refresh".localized()) {
                     popViewTrigger.send(())
+                } onRightBarButtonTapAction: {
+                    loadTrigger.send()
                 }
+
                 ScrollView{
                     VStack(alignment: .leading, spacing: 6) {
                         // Search view
@@ -131,7 +135,10 @@ struct ProductsView: View {
                             }
                         }
                     }
-                    .resignKeyboardOnDragGesture()
+                    .onTapGesture {
+                        hideKeyboard()
+                    }
+//                    .resignKeyboardOnDragGesture()
                     .padding(.horizontal, 6)
                     
                     if output.hasMorePages {
@@ -141,12 +148,12 @@ struct ProductsView: View {
                     }
                     
                 }
-                .navigationBarTitle("Product List".localized())
-                .navigationBarItems(trailing: Button("Refresh".localized()) {
-                    self.loadTrigger.send()
-                })
-                
-                
+                .gesture(
+                    DragGesture()
+                        .onChanged { _ in isScrolling = true }
+                        .onEnded { _ in isScrolling = false }
+                )
+                .frame(maxHeight: .infinity)
                 if output.shoppingCart.totalProducts > 0 {
                     HStack{
                         Button {
@@ -186,7 +193,8 @@ struct ProductsView: View {
         .onAppear(perform: {
             self.loadShoppingCartTrigger.send()
         })
-        .background(Color.init(red: 0.95, green: 0.95, blue: 0.95))
+//        .background(Color.init(red: 0.95, green: 0.95, blue: 0.95))
+        .background(.clear)
         .edgesIgnoringSafeArea(.bottom)
         .alert(isPresented: $output.alert.isShowing) {
             Alert(

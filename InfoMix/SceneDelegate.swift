@@ -30,6 +30,7 @@ final class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.makeKeyAndVisible()
             
             let v: SplashView  = assembler.resolve(navigationController:navigationController)
+            navigationController.isNavigationBarHidden = true
             navigationController.pushViewController(UIHostingController(rootView: v), animated: true)
         }
     }

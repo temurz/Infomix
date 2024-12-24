@@ -6,4 +6,11 @@
 //  Copyright © 2024 InfoMix. All rights reserved.
 //
 
-import Foundation
+import UIKit
+protocol OnlineApplicationNavigatorType {
+    func popView()
+}
+
+struct OnlineApplicationNavigator: OnlineApplicationNavigatorType, PopNavigator {
+    var navigationController: UINavigationController
+}

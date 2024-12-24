@@ -74,6 +74,12 @@ extension ProfileViewModel : ViewModel {
         input.logoutTrigger
             .map { _ in
                 self.logoutUseCase.logout()
+                    .handleEvents(receiveCompletion: { completion in
+                        if case let .failure(error) = completion {
+                            UserDefaults.standard.removeObject(forKey: "token")
+                            self.navigator.showSplash()
+                        }
+                    })
                     .trackError(errorTracker)
                     .trackActivity(activityTracker)
                     .asDriver()
@@ -94,6 +100,8 @@ extension ProfileViewModel : ViewModel {
         
         errorTracker
             .receive(on: RunLoop.main)
+            .map {
+                return $0 }
             .map { AlertMessage(error: $0) }
             .assign(to: \.alert, on: output)
             .store(in: cancelBag)

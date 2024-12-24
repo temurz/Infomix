@@ -18,8 +18,7 @@ extension ShowingLogin {
     func showLogin(cardConfig: CardConfig, primaryAccount: Bool = true) {
         let view: LoginView = assembler.resolve(navigationController: navigationController, cardConfig: cardConfig)
         let vc = UIHostingController(rootView: view)
-        vc.title = "Login"
-    
+        navigationController.isNavigationBarHidden = true
         var viewControllers = navigationController.viewControllers
         
         if primaryAccount {

@@ -24,14 +24,13 @@ struct AboutView: View {
         let appName = Bundle.main.object(forInfoDictionaryKey: "CFBundleDisplayName") as? String ?? ""
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
         
-        return VStack {
+        return VStack(spacing: 0) {
             CustomNavigationBar(title: "About".localized()) {
                 popViewTrigger.send(())
             }
             ZStack(alignment: .top) {
 
                 Color(.systemGray6)
-
 
                 ScrollView(.vertical, showsIndicators: false) {
 
@@ -121,9 +120,8 @@ struct AboutView: View {
 
                     Spacer()
                         .frame(height: 48)
-                }.padding(.top, 48)
+                }.padding(.top)
             }
-            .navigationTitle("About".localized())
             .frame(maxHeight: .infinity)
 
         }

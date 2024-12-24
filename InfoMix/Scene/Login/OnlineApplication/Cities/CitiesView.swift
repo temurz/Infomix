@@ -10,31 +10,32 @@ import SwiftUI
 import Combine
 
 struct CitiesView: View {
-    
+
     @State var cities : [CityItemViewModel]
-    
+
     let cancelBag = CancelBag()
-    let chosenCity: (_ city: String,_ hasChosen: Bool,_ cityIteration: Int) -> Void
+    let chosenCity: (_ city: String,_ hasChosen: Bool,_ cityIteration: Int, _ cityId: Int) -> Void
     var body: some View {
         ScrollView{
                 VStack(alignment: .leading){
                     ForEach(cities){city in
                         Button {
                             if city.child == nil{
-                                self.chosenCity(city.cityName ?? "", true, -1)
+                                self.chosenCity(city.cityName ?? "", true, -1, city.id)
                             }else{
+                                self.chosenCity(city.cityName ?? "", false, -1, city.id)
                                 if let cityIteration = findCity(cities: cities, cityId: city.id){
-                                    self.chosenCity(city.cityName ?? "", true,cityIteration)
+                                    self.chosenCity(city.cityName ?? "", true,cityIteration, city.id)
                                 }
-                                
+
                             }
                         } label: {
                             VStack{
-                                
+
                                 Text(city.cityName ?? "")
                                 Divider()
                             }
-                            
+
                         }
                     }
                 }
@@ -42,9 +43,9 @@ struct CitiesView: View {
                 Spacer()
         }
     }
-    
-    
-    init(cities: [CityItemViewModel], chosenCity: @escaping (_ city: String, _ hasChosen: Bool, _ cityIteration: Int) -> Void) {
+
+
+    init(cities: [CityItemViewModel], chosenCity: @escaping (_ city: String, _ hasChosen: Bool, _ cityIteration: Int, _ cityId: Int) -> Void) {
         self.cities = cities
         self.chosenCity = chosenCity
     }
@@ -62,8 +63,8 @@ private func findCity(cities:[CityItemViewModel], cityId: Int) -> Int?{
 struct CitiesView_Previews: PreviewProvider {
     static var previews: some View {
         let cities = [CityItemViewModel]()
-        CitiesView(cities: cities, chosenCity: {city,hasChosen, hasChild  in
-            
+        CitiesView(cities: cities, chosenCity: {city,hasChosen, hasChild,cityId   in
+
         })
     }
 }
