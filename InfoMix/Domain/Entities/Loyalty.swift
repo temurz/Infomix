@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Localize_Swift
 class Loyalty: Decodable {
     let id: Int?
     let createDate : Int?
@@ -73,26 +74,57 @@ class Loyalty: Decodable {
         self.discount = try container.decodeIfPresent(Double.self, forKey: .discount)
         self.serialCardCount = try container.decodeIfPresent(Int.self, forKey: .serialCardCount)
     }
-}
 
-//indirect enum NextLevel: Decodable {
-//    case loyalty(Loyalty)
-//    
-//    enum CodingKeys: String, CodingKey {
-//            case loyalty
+
+//    var description: String? = null
+//
+//
+//    if ((result.amount ?: 0.0) > 0.0) {
+//
+//
+//        description = if (result.isFixed) getString(
+//            R.string.loyalty_bonus_fixed_description, (result.amount?.toInt() ?: 0)
+//        ) else getString(
+//            R.string.loyalty_bonus_persentage_description, (result.amount?.toInt() ?: 0)
+//        )
 //    }
-//    
-//    init(from decoder: Decoder) throws {
-//        let container = try decoder.container(keyedBy: CodingKeys.self)
-//        if let loyalty = try? container.decode(Loyalty.self, forKey: .loyalty) {
-//            self = .loyalty(loyalty)
-//        } else {
-//            throw DecodingError.dataCorrupted(
-//                DecodingError.Context(
-//                    codingPath: decoder.codingPath,
-//                    debugDescription: "Failed to decode NextLevel"
-//                )
-//            )
-//        }
+//    if ((result.discount ?: 0.0) > 0.0) {
+//
+//        if (description?.isNotEmpty() == true) description += "\n"
+//
+//        description += getString(
+//            R.string.loyalty_bonus_discount_for_products, (result.discount?.toInt() ?: 0)
+//        )
 //    }
-//}
+
+    func displayDescription() -> String {
+        var description = ""
+        if (id ?? 0) > 0 {
+            if (amount ?? 0) > 0.0 {
+                if isFixed ?? false {
+                    description += String(format: "At this level, +%@ point is awarded for a successfully sent card.".localized(), "\(amount ?? 0)")
+                } else {
+                    description += String(format: "An additional score of %@%% of the submitted score is awarded for a successfully submitted card at this level.".localized(), "\(amount ?? 0)")
+                }
+            }
+            if discount ?? 0 > 0.0 {
+                if !description.isEmpty {
+                    description += "\n"
+                }
+                description += String(format: "Special %@%% discount on all products.".localized(), "\(discount ?? 0)")
+            }
+        } else {
+            description = "Send card and get loyalty level".localized()
+        }
+
+        return description
+    }
+
+    func displayName() -> String {
+        if (id ?? 0) > 0 {
+            return name ?? ""
+        } else {
+            return "No level".localized()
+        }
+    }
+}

@@ -189,3 +189,6 @@
 "No level" = "No level";
 "Send card and get loyalty level" = "Send card and get loyalty level";
 "Leaderboard" = "Leaderboard";
+"At this level, +%@ point is awarded for a successfully sent card." = "At this level, +%@ point is awarded for a successfully sent card.";
+"An additional score of %@%% of the submitted score is awarded for a successfully submitted card at this level." = "An additional score of %@%% of the submitted score is awarded for a successfully submitted card at this level.";
+"Special %@%% discount on all products." = "Special %@%% discount on all products.";

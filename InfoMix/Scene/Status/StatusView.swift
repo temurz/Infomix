@@ -42,33 +42,39 @@ struct StatusView: View {
                         Text("Your level".localized())
                             .foregroundStyle(Color.secondary)
                             .padding(.top)
-                        if let iconUrl = output.loyalty?.icon {
-                            if let url = URL(string: iconUrl) {
-                                AsyncImage(url: url) { image in
-                                    image
-                                        .resizable()
-                                        .centerCropped()
-                                        .frame(width: 60, height: 60)
-                                        .cornerRadius(radius: 30, corners: .allCorners)
-                                } placeholder: {
-                                    ProgressView()
+                        if (output.loyalty?.id ?? 0) == 0 {
+                                Image("na_icon")
+                                    .resizable()
+                                    .centerCropped()
+                                    .frame(width: 60, height: 60)
+                                    .cornerRadius(radius: 30, corners: .allCorners)
+                        } else {
+                            if let iconUrl = output.loyalty?.icon {
+                                if let url = URL(string: iconUrl) {
+                                    AsyncImage(url: url) { image in
+                                        image
+                                            .resizable()
+                                            .centerCropped()
+                                            .frame(width: 60, height: 60)
+                                            .cornerRadius(radius: 30, corners: .allCorners)
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
                                 }
                             }
-                        } else {
-                            Image("na_icon")
-                                .resizable()
-                                .centerCropped()
-                                .frame(width: 60, height: 60)
-                                .cornerRadius(radius: 30, corners: .allCorners)
                         }
-                        Text(output.loyalty?.name ?? "No level".localized())
+
+                        Text(output.loyalty?.displayName() ?? "")
                             .font(.body)
                             .bold()
                             .foregroundStyle(Color.primary)
-                        Text("Send card and get loyalty level".localized())
+
+                        Text(output.loyalty?.displayDescription() ?? "")
                             .font(.footnote)
                             .bold()
                             .padding(.top, 4)
+                            .multilineTextAlignment(.center)
+
                         if let loyalty = output.loyalty {
                             HStack {
                                 ZStack {

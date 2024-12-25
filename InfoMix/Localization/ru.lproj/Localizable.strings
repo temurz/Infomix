@@ -189,3 +189,6 @@
 "No level" = "Нет уровня";
 "Send card and get loyalty level" = "Отправьте карту и получите уровень лояльности";
 "Leaderboard" = "Таблица лидеров";
+"At this level, +%@ point is awarded for a successfully sent card." = "На этом уровне за успешно отправленную карточку начисляется +%@ баллов.";
+"An additional score of %@%% of the submitted score is awarded for a successfully submitted card at this level." = "За успешно отправленную карту на этом уровне начисляется дополнительный балл в размере %@%% от отправленного балла. Примечание.";
+"Special %@%% discount on all products." = "Специальная скидка %@%% на все товары.";
