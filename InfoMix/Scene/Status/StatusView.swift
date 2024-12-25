@@ -107,24 +107,26 @@ struct StatusView: View {
                     .cornerRadius(10)
                     .shadow(radius: 1)
                     .padding(12)
-                    Text("Leaderboard".localized())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .font(.title3)
-                        .bold()
-                        .padding()
-                        .background(Colors.lightGrayColor)
+
                     HStack {
+                        Text("Leaderboard".localized())
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .font(.title3)
+                            .bold()
+                            .padding()
                         Spacer()
                         if output.page > 0 {
                             Button {
                                 output.page -= 1
                                 loadTrigger.send(())
                             } label: {
-                                Text("Previous".localized())
-                                    .foregroundStyle(.white)
-                                    .padding(.vertical, 4)
-                                    .padding(.horizontal, 8)
-                                    .background(Capsule().fill(Colors.appMainColor))
+                                Image(systemName: "chevron.left")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundStyle(Colors.appMainColor)
+                                    .frame(width: 20, height: 20)
+                                    .padding(.vertical, 8)
+                                    .padding(.trailing, 4)
                             }
                             .padding(.trailing)
                         }
@@ -133,15 +135,18 @@ struct StatusView: View {
                                 output.page += 1
                                 loadTrigger.send(())
                             } label: {
-                                Text("Next".localized())
-                                    .foregroundStyle(.white)
-                                    .padding(.vertical, 4)
-                                    .padding(.horizontal, 8)
-                                    .background(Capsule().fill(Colors.appMainColor))
+                                Image(systemName: "chevron.right")
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fit)
+                                    .foregroundStyle(Colors.appMainColor)
+                                    .frame(width: 20, height: 20)
+                                    .padding(.vertical, 8)
+                                    .padding(.trailing, 4)
                             }
                             .padding(.trailing)
                         }
                     }
+                    .background(Colors.lightGrayColor)
                     ZStack(alignment: .center) {
                         ScrollView {
                             LazyVStack(spacing: 0) {
