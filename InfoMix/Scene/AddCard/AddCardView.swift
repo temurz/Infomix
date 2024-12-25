@@ -43,7 +43,7 @@ struct AddCardView: View {
                         .zIndex(1)
                         .padding()
                         .onAppear {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                                 withAnimation {
                                     showToast = false
                                 }
