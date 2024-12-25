@@ -13,15 +13,16 @@ class Loyalty: Decodable {
     let name : String?
     let description : String?
     let targetCount : Int?
+    let serialCardCount : Int?
     let amount : Double?
     let isFixed : Bool?
-    let jobId : Int??
+    let jobId : Int?
     let backgroundColor : String?
     var icon : String?
     let nextLevel: Loyalty?
     let discount: Double?
 
-    init(id: Int?, createDate: Int?, name: String?, description: String?, targetCount: Int?, amount: Double?, isFixed: Bool?, jobId: Int?, backgroundColor: String?, icon: String?, nextLevel: Loyalty?, discount: Double?) {
+    init(id: Int?, createDate: Int?, name: String?, description: String?, targetCount: Int?, amount: Double?, isFixed: Bool?, jobId: Int?, backgroundColor: String?, icon: String?, nextLevel: Loyalty?, discount: Double?, serialCardCount: Int?) {
         self.id = id
         self.createDate = createDate
         self.name = name
@@ -34,6 +35,7 @@ class Loyalty: Decodable {
         self.icon = icon
         self.nextLevel = nextLevel
         self.discount = discount
+        self.serialCardCount = serialCardCount
     }
 
     enum CodingKeys: CodingKey {
@@ -49,6 +51,7 @@ class Loyalty: Decodable {
         case icon
         case nextLevel
         case discount
+        case serialCardCount
     }
 
     required init(from decoder: any Decoder) throws {
@@ -60,7 +63,7 @@ class Loyalty: Decodable {
         self.targetCount = try container.decodeIfPresent(Int.self, forKey: .targetCount)
         self.amount = try container.decodeIfPresent(Double.self, forKey: .amount)
         self.isFixed = try container.decodeIfPresent(Bool.self, forKey: .isFixed)
-        self.jobId = try container.decodeIfPresent(Int?.self, forKey: .jobId)
+        self.jobId = try container.decodeIfPresent(Int.self, forKey: .jobId)
         self.backgroundColor = try container.decodeIfPresent(String.self, forKey: .backgroundColor)
         self.icon = try container.decodeIfPresent(String.self, forKey: .icon)
         if let icon {
@@ -68,6 +71,7 @@ class Loyalty: Decodable {
         }
         self.nextLevel = try container.decodeIfPresent(Loyalty.self, forKey: .nextLevel)
         self.discount = try container.decodeIfPresent(Double.self, forKey: .discount)
+        self.serialCardCount = try container.decodeIfPresent(Int.self, forKey: .serialCardCount)
     }
 }
 

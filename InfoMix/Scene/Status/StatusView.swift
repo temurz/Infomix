@@ -72,7 +72,7 @@ struct StatusView: View {
                         if let loyalty = output.loyalty {
                             HStack {
                                 ZStack {
-                                    Text(String(format: "%.0f", loyalty.amount ?? 0) + "/" + "\(loyalty.nextLevel?.targetCount ?? 0)")
+                                    Text( "\(loyalty.serialCardCount ?? 0)" + "/" + "\(loyalty.nextLevel?.targetCount ?? 0)")
                                         .foregroundStyle(.white)
                                         .bold()
                                         .frame(maxWidth: .infinity)
