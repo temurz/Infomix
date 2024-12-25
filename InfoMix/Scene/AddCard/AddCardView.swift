@@ -22,18 +22,36 @@ struct AddCardView: View {
     let scanTrigger = PassthroughSubject<AddCardStepItem, Error>()
     let cancelBag = CancelBag()
 
+    @State var showToast = false
+
     var body: some View {
         VStack(spacing: 0) {
             CustomNavigationBar(title: "Add Card".localized()) {
                 popViewTrigger.send(())
             }
-            if output.change {
-                StepView(addCardStep: $output.currentCardStep, scanTrigger: self.scanTrigger)
-                    .frame(maxWidth: .infinity,maxHeight: .infinity)
-            }else {
-                StepView(addCardStep: $output.currentCardStep, scanTrigger: self.scanTrigger)
-                    .frame(maxWidth: .infinity,maxHeight: .infinity)
+            ZStack {
+                if output.change {
+                    StepView(addCardStep: $output.currentCardStep, scanTrigger: self.scanTrigger)
+                        .frame(maxWidth: .infinity,maxHeight: .infinity)
+                }else {
+                    StepView(addCardStep: $output.currentCardStep, scanTrigger: self.scanTrigger)
+                        .frame(maxWidth: .infinity,maxHeight: .infinity)
+                }
+                if showToast {
+                    ToastView(message: "The entered string length must be between 15 and 15 characters.".localized())
+                        .transition(.opacity)
+                        .zIndex(1)
+                        .padding()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                withAnimation {
+                                    showToast = false
+                                }
+                            }
+                        }
+                }
             }
+            .animation(.easeInOut, value: showToast)
 
 
 
@@ -56,8 +74,12 @@ struct AddCardView: View {
                 if output.hasNextStep {
                     if AddCardStep.isValid(output.currentCardStep)(){
                         Button(action: {
-                            UIApplication.shared.endEditing(true)
-                            self.nextStepTrigger.send()
+                            if output.currentCardStep.items.last?.valid() ?? false {
+                                UIApplication.shared.endEditing(true)
+                                self.nextStepTrigger.send()
+                            } else {
+                                showToast = true
+                            }
                         }, label: {
                             HStack{
                                 Text("Next".localized())

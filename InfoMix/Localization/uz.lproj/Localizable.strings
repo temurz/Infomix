@@ -192,3 +192,4 @@
 "At this level, +%@ point is awarded for a successfully sent card." = "Bu darajada muvaffaqiyatli yuborilgan karta uchun +%@ ball beriladi.";
 "An additional score of %@%% of the submitted score is awarded for a successfully submitted card at this level." = "Ushbu darajadagi muvaffaqiyatli topshirilgan karta uchun topshirilgan ballning %@%% miqdorida qo‘shimcha ball beriladi.";
 "Special %@%% discount on all products." = "Barcha mahsulotlarga maxsus %@%% chegirma.";
+"The entered string length must be between 15 and 15 characters." = "Kiritilgan qator uzunligi 15 dan 15 gacha simvol oralig'ida bo'lishi kerak";
