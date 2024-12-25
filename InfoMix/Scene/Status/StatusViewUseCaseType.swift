@@ -8,7 +8,7 @@
 
 protocol StatusViewUseCaseType {
     func getLoyalty() -> Observable<Loyalty>
-    func getLeaderboard(page: Int) -> Observable<PagingInfo<LoyalUser>>
+    func getLeaderboard(page: Int) -> Observable<[LoyalUser]>
 }
 
 struct StatusViewUseCase: StatusViewUseCaseType, GetLoyaltyDomainUseCase, LeaderboardDomainUseCase {
@@ -16,7 +16,7 @@ struct StatusViewUseCase: StatusViewUseCaseType, GetLoyaltyDomainUseCase, Leader
 
     var leaderBoardGateway: LeaderBoardGatewayType
 
-    func getLeaderboard(page: Int) -> Observable<PagingInfo<LoyalUser>> {
+    func getLeaderboard(page: Int) -> Observable<[LoyalUser]> {
         let dto = GetPageDto(page: page, perPage: 10)
         return leaderBoardGateway.getLeaderboard(dto)
     }

@@ -113,29 +113,59 @@ struct StatusView: View {
                         .bold()
                         .padding()
                         .background(Colors.lightGrayColor)
-                    ScrollView {
-                        LazyVStack(spacing: 0) {
-                            ForEach(output.leaderboard, id: \.position) { loyalUser in
-                                LoyalUserRow(loyalUser: loyalUser)
-                                    .frame(maxWidth: .infinity)
-                                    .background(.white)
-                                    .cornerRadius(radius: 12, corners: .allCorners)
-                                    .shadow(radius: 1, y: 1)
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 6)
-                                    .onAppear {
-                                        if output.leaderboard.last?.masterId ?? -1 == loyalUser.masterId && output.hasMorePages {
-                                            self.loadMoreTrigger.send()
-                                        }
-                                    }
+                    HStack {
+                        Spacer()
+                        if output.page > 0 {
+                            Button {
+                                output.page -= 1
+                                loadTrigger.send(())
+                            } label: {
+                                Text("Previous".localized())
+                                    .foregroundStyle(.white)
+                                    .padding(.vertical, 4)
+                                    .padding(.horizontal, 8)
+                                    .background(Capsule().fill(Colors.appMainColor))
                             }
-                            if output.hasMorePages {
-                                ProgressView()
-                                    .progressViewStyle(.circular)
-                            }
-
+                            .padding(.trailing)
                         }
-
+                        if output.hasMorePages {
+                            Button {
+                                output.page += 1
+                                loadTrigger.send(())
+                            } label: {
+                                Text("Next".localized())
+                                    .foregroundStyle(.white)
+                                    .padding(.vertical, 4)
+                                    .padding(.horizontal, 8)
+                                    .background(Capsule().fill(Colors.appMainColor))
+                            }
+                            .padding(.trailing)
+                        }
+                    }
+                    ZStack(alignment: .center) {
+                        ScrollView {
+                            LazyVStack(spacing: 0) {
+                                ForEach(output.leaderboard, id: \.position) { loyalUser in
+                                    LoyalUserRow(loyalUser: loyalUser)
+                                        .frame(maxWidth: .infinity)
+                                        .background(.white)
+                                        .cornerRadius(radius: 12, corners: .allCorners)
+                                        .shadow(radius: 1, y: 1)
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .onAppear {
+                                            if output.leaderboard.last?.masterId ?? -1 == loyalUser.masterId && output.hasMorePages {
+                                                self.loadMoreTrigger.send()
+                                            }
+                                        }
+                                }
+                            }
+                        }
+                        if output.isLoadingUsers {
+                            ProgressView()
+                                .progressViewStyle(.circular)
+                                .scaleEffect(2)
+                        }
                     }
                     .ignoresSafeArea(.all)
                 }

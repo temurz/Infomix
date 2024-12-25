@@ -7,18 +7,13 @@
 //
 
 protocol LeaderBoardGatewayType {
-    func getLeaderboard(_ dto: GetPageDto) -> Observable<PagingInfo<LoyalUser>>
+    func getLeaderboard(_ dto: GetPageDto) -> Observable<[LoyalUser]>
 }
 
 struct LeaderBoardGateway: LeaderBoardGatewayType {
-    func getLeaderboard(_ dto: GetPageDto) -> Observable<PagingInfo<LoyalUser>> {
+    func getLeaderboard(_ dto: GetPageDto) -> Observable<[LoyalUser]> {
         let input = API.LeaderboardAPIInput(dto)
         return API.shared.getLeaderboard(input)
-            .map{(output) -> [LoyalUser]? in
-                return output
-            }
-            .replaceNil(with: [])
-            .map { PagingInfo(page: dto.page, items: $0, hasMorePages: $0.count == dto.perPage)}
             .eraseToAnyPublisher()
     }
 }

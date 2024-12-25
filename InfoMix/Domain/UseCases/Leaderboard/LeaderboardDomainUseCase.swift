@@ -11,7 +11,7 @@ protocol LeaderboardDomainUseCase {
 }
 
 extension LeaderboardDomainUseCase {
-    func getLeaderboard(_ dto: GetPageDto) -> Observable<PagingInfo<LoyalUser>> {
+    func getLeaderboard(_ dto: GetPageDto) -> Observable<[LoyalUser]> {
         return leaderBoardGateway.getLeaderboard(dto)
     }
 }
