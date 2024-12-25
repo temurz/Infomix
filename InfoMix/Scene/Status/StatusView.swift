@@ -72,13 +72,26 @@ struct StatusView: View {
                         if let loyalty = output.loyalty {
                             HStack {
                                 ZStack {
-                                    Text( "\(loyalty.serialCardCount ?? 0)" + "/" + "\(loyalty.nextLevel?.targetCount ?? 0)")
+                                    Capsule()
+                                        .fill(Colors.appMainColor.opacity(0.3))
+                                        .frame(height: 30)
+
+                                    GeometryReader { geometry in
+                                        let progress = CGFloat(loyalty.serialCardCount ?? 0) / CGFloat(loyalty.nextLevel?.targetCount ?? 1)
+                                        Capsule()
+                                            .fill(Colors.appMainColor)
+                                            .frame(width: geometry.size.width * progress, height: 30)
+                                    }
+                                    .frame(height: 30)
+
+                                    Text("\(loyalty.serialCardCount ?? 0)/\(loyalty.nextLevel?.targetCount ?? 0)")
                                         .foregroundStyle(.white)
                                         .bold()
                                         .frame(maxWidth: .infinity)
                                         .padding(4)
-                                        .background(Capsule().fill(Colors.appMainColor))
                                 }
+                                .frame(height: 30)
+                                .cornerRadius(15)
                                 if let iconUrl = output.loyalty?.nextLevel?.icon {
                                     if let url = URL(string: iconUrl) {
                                         AsyncImage(url: url) { image in
