@@ -92,6 +92,10 @@ struct SendingTimelineView: View {
             VStack(alignment: .leading,spacing: 0){
                 HStack {
                     Text(item.title)
+                        .bold()
+                        .padding(.vertical, 6)
+                        .padding(.leading, 12)
+                        .padding(.trailing, 6)
 
                     Spacer()
 
@@ -102,16 +106,17 @@ struct SendingTimelineView: View {
                 }.padding(6)
                 VStack(alignment: .leading){
                     if let content = item.content {
-                        Text(content).padding(6)
+                        Text(content)
                             .font(.system(size: 14))
                             .frame(maxWidth:.infinity)
+                            .padding(6)
                     }
                     if item.id == SendingTimelineId.dispute.rawValue && item.status == .note {
                         TextEditor(text: $disputeNote)
                             .foregroundColor(.secondary)
                             .textFieldStyle(.roundedBorder)
                             .frame(maxWidth: .infinity, minHeight: 50, maxHeight: 100, alignment: .topLeading)
-                            .padding()
+                            .padding(6)
 
                     }
                     if item.status == .error || item.status == .dispute || item.status == .done || item.status == .note {
@@ -185,18 +190,22 @@ struct SendingTimelineView: View {
                                     .overlay(RoundedRectangle(cornerRadius: 10).stroke().foregroundColor(Color.black))
                                 }
                             }
-                        }.frame(maxWidth:.infinity)
-                            .padding(4)
+                        }
+                        .frame(maxWidth:.infinity)
+                        .padding(6)
                     }
 
-                }.background( Color.init(red: 0.92, green: 0.92, blue: 0.92))
-                    .frame(maxWidth: .infinity)
-                    .cornerRadius(10)
-
-            }.frame(maxWidth:.infinity)
-                .background(item.status == .loading ? Color.init(red: 0.98, green: 0.98, blue: 0.98) : item.status == .error ? Color.init(red: 0.94, green: 0.6, blue: 0.6) : item.status == .dispute || item.status == .note ? Color.init(red: 1, green: 0.88, blue: 0.51): item.status == .warning ? Color.init(red: 1, green: 0.93, blue: 0.34) : Color.init(red: 0.65, green: 0.84, blue: 0.65))
+                }
+                .background( Color.white.opacity(0.7))
+                .frame(maxWidth: .infinity)
                 .cornerRadius(10)
                 .padding(6)
+
+            }
+            .frame(maxWidth:.infinity)
+            .background(item.status == .loading ? Color.init(red: 0.98, green: 0.98, blue: 0.98) : item.status == .error ? Color.init(red: 0.94, green: 0.6, blue: 0.6) : item.status == .dispute || item.status == .note ? Color.init(red: 1, green: 0.88, blue: 0.51): item.status == .warning ? Color.init(red: 1, green: 0.93, blue: 0.34) : Color.init(red: 0.65, green: 0.84, blue: 0.65))
+            .cornerRadius(10)
+            .padding(6)
         }
     }
 
