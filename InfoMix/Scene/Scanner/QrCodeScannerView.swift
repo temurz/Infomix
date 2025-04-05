@@ -79,7 +79,9 @@ struct QrCodeScannerView: UIViewRepresentable {
                 uiView.layer.addSublayer(previewLayer)
                 uiView.previewLayer = previewLayer
                 
-                session.startRunning()
+                DispatchQueue.global().async {
+                    session.startRunning()
+                }
             }
         }
         
