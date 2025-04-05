@@ -65,10 +65,10 @@ struct AuthGateway: AuthGatewayType {
         return API.shared.login(input)
             .tryMap { output in
                 
-                let localUserCount = LocalUserDao.shared.count()
-                if localUserCount == 0 {
+//                let localUserCount = LocalUserDao.shared.count()
+//                if localUserCount == 0 {
                     UserDefaults.standard.set(output.token, forKey: "token")
-                }
+//                }
                 
                 if let certificate = output.certificate {
                     _ = LocalUserDao.shared.save(certificate, output.token)
