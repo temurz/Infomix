@@ -127,7 +127,6 @@
 		1974C81D2D19451800E096B4 /* OnlineApplicationNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1974C81C2D19451800E096B4 /* OnlineApplicationNavigator.swift */; };
 		198C32792D1B39180099C7E5 /* StatusViewUseCaseType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198C32782D1B39170099C7E5 /* StatusViewUseCaseType.swift */; };
 		198C327B2D1B3AB40099C7E5 /* ShowingStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 198C327A2D1B3A580099C7E5 /* ShowingStatusView.swift */; };
-		19B3BBFB2D1540B50050930E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19B3BBFA2D1540B50050930E /* GoogleService-Info.plist */; };
 		19B3BC0B2D1577C50050930E /* ShowingShoppingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B3BC0A2D1577C50050930E /* ShowingShoppingView.swift */; };
 		19B3BC0D2D158A450050930E /* PopNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B3BC0C2D158A450050930E /* PopNavigator.swift */; };
 		19B3BC222D1695A10050930E /* PollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19B3BC212D1695A10050930E /* PollView.swift */; };
@@ -171,6 +170,8 @@
 		B821584E2789A48A008F25FA /* TransactionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B821584D2789A48A008F25FA /* TransactionHistoryView.swift */; };
 		B82158502789A4A2008F25FA /* TransactionHistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B821584F2789A4A2008F25FA /* TransactionHistoryRow.swift */; };
 		B82BA74F27EDF3D100CB29EE /* OnlineApplicationDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BA74E27EDF3D100CB29EE /* OnlineApplicationDto.swift */; };
+		B832EB8F2DA1380300343D56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B832EB8E2DA1380300343D56 /* GoogleService-Info.plist */; };
+		B832EB922DA13C7A00343D56 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = B832EB912DA13C7A00343D56 /* netfox */; };
 		B837840D27F325CE006B8413 /* API+GetConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B837840C27F325CE006B8413 /* API+GetConfigs.swift */; };
 		B840451E27D5DE900022DB52 /* OnlineApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840451D27D5DE900022DB52 /* OnlineApplicationView.swift */; };
 		B840452027D5E0EB0022DB52 /* OnlineApplicationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840451F27D5E0EB0022DB52 /* OnlineApplicationViewModel.swift */; };
@@ -640,7 +641,6 @@
 		1974C81C2D19451800E096B4 /* OnlineApplicationNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationNavigator.swift; sourceTree = "<group>"; };
 		198C32782D1B39170099C7E5 /* StatusViewUseCaseType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewUseCaseType.swift; sourceTree = "<group>"; };
 		198C327A2D1B3A580099C7E5 /* ShowingStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingStatusView.swift; sourceTree = "<group>"; };
-		19B3BBFA2D1540B50050930E /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		19B3BC0A2D1577C50050930E /* ShowingShoppingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingShoppingView.swift; sourceTree = "<group>"; };
 		19B3BC0C2D158A450050930E /* PopNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopNavigator.swift; sourceTree = "<group>"; };
 		19B3BC212D1695A10050930E /* PollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PollView.swift; sourceTree = "<group>"; };
@@ -680,6 +680,7 @@
 		B821584F2789A4A2008F25FA /* TransactionHistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryRow.swift; sourceTree = "<group>"; };
 		B82B74BE2BC021BA00D2C18A /* InfoMixDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InfoMixDebug.entitlements; sourceTree = "<group>"; };
 		B82BA74E27EDF3D100CB29EE /* OnlineApplicationDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationDto.swift; sourceTree = "<group>"; };
+		B832EB8E2DA1380300343D56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B837840C27F325CE006B8413 /* API+GetConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+GetConfigs.swift"; sourceTree = "<group>"; };
 		B840451D27D5DE900022DB52 /* OnlineApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationView.swift; sourceTree = "<group>"; };
 		B840451F27D5E0EB0022DB52 /* OnlineApplicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationViewModel.swift; sourceTree = "<group>"; };
@@ -1040,6 +1041,7 @@
 				176BAA4124D1150700324D3C /* Reusable in Frameworks */,
 				1B425EAA24FF8D1A000F7F6B /* SDWebImage in Frameworks */,
 				D2696CA427985FCC0000861D /* Localize_Swift in Frameworks */,
+				B832EB922DA13C7A00343D56 /* netfox in Frameworks */,
 				17A5B20724D962CB004BD209 /* CombineCocoa in Frameworks */,
 				1B425EAC24FF8D1A000F7F6B /* SDWebImageMapKit in Frameworks */,
 			);
@@ -1337,7 +1339,7 @@
 		178722F524BD537D00D90F8E /* InfoMix */ = {
 			isa = PBXGroup;
 			children = (
-				19B3BBFA2D1540B50050930E /* GoogleService-Info.plist */,
+				B832EB8E2DA1380300343D56 /* GoogleService-Info.plist */,
 				B82B74BE2BC021BA00D2C18A /* InfoMixDebug.entitlements */,
 				D2A754C227AAADFF0037C1D4 /* InfoMix.entitlements */,
 				178722FE24BD537E00D90F8E /* Preview Content */,
@@ -2357,6 +2359,7 @@
 				D2696CA327985FCC0000861D /* Localize_Swift */,
 				D26C861A279D9DAB00FE4A76 /* FirebaseMessaging */,
 				19EC91522D19612A00ACA2FB /* AlertToast */,
+				B832EB912DA13C7A00343D56 /* netfox */,
 			);
 			productName = CleanArchitecture;
 			productReference = 178722F324BD537D00D90F8E /* InfoMix.app */;
@@ -2430,6 +2433,7 @@
 				D2696CA227985FCC0000861D /* XCRemoteSwiftPackageReference "Localize-Swift" */,
 				D26C8619279D9DAB00FE4A76 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				19EC91512D19612A00ACA2FB /* XCRemoteSwiftPackageReference "AlertToast" */,
+				B832EB902DA13C7A00343D56 /* XCRemoteSwiftPackageReference "netfox" */,
 			);
 			productRefGroup = 178722F424BD537D00D90F8E /* Products */;
 			projectDirPath = "";
@@ -2448,12 +2452,12 @@
 			files = (
 				1742B37424D7B6F300C82D15 /* Repo.storyboard in Resources */,
 				1770EC2F24DAA6570022FBFE /* RepoCollectionCell.xib in Resources */,
+				B832EB8F2DA1380300343D56 /* GoogleService-Info.plist in Resources */,
 				1742B37F24D7F52D00C82D15 /* RepoCell.xib in Resources */,
 				1787230324BD537E00D90F8E /* LaunchScreen.storyboard in Resources */,
 				D212A7122763858100B2850E /* Localizable.strings in Resources */,
 				1787230024BD537E00D90F8E /* Preview Assets.xcassets in Resources */,
 				178722FD24BD537E00D90F8E /* Assets.xcassets in Resources */,
-				19B3BBFB2D1540B50050930E /* GoogleService-Info.plist in Resources */,
 				176BAA4424D1154300324D3C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3364,6 +3368,14 @@
 				minimumVersion = 1.2.0;
 			};
 		};
+		B832EB902DA13C7A00343D56 /* XCRemoteSwiftPackageReference "netfox" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kasketis/netfox";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.21.0;
+			};
+		};
 		B8DCFA832771F58200F25219 /* XCRemoteSwiftPackageReference "url-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
@@ -3471,6 +3483,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1BD163EF24FF8CA700EBC063 /* XCRemoteSwiftPackageReference "MBProgressHUD" */;
 			productName = MBProgressHUD;
+		};
+		B832EB912DA13C7A00343D56 /* netfox */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B832EB902DA13C7A00343D56 /* XCRemoteSwiftPackageReference "netfox" */;
+			productName = netfox;
 		};
 		B8DCFA842771F58200F25219 /* URLImage */ = {
 			isa = XCSwiftPackageProductDependency;

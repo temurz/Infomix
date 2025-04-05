@@ -10,6 +10,7 @@ import UIKit
 import UserNotifications
 import Firebase
 import FirebaseMessaging
+import netfox
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -30,7 +31,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Messaging.messaging().delegate = self
         NetworkManager.shared = NetworkManager.init(baseUrl: "http://artel.infomix.uz/api/v2")
-//        NetworkManager.shared = NetworkManager.init(baseUrl: "http://192.168.7.61:8080/api/v2")
+//        NetworkManager.shared = NetworkManager.init(baseUrl: "http://192.168.7.110:8080/api/v2/")
+        
+        #if DEBUG
+        NFX.sharedInstance().start()
+        #endif
         
         return true
     }
