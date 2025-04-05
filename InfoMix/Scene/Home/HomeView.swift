@@ -110,29 +110,29 @@ struct HomeView: View {
                 
                 HStack(alignment: .top) {
                     Spacer()
-                    VStack(spacing: 0) {
-                        Button {
-                            showAddCardTrigger.send(())
-                        } label: {
-                            Image("plus")
-                                .renderingMode(.template)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .foregroundStyle(.white)
-                                .padding()
-                        }
-                        .frame(width: 60, height: 60)
-                        .background(Color.black.opacity(0.2))
-                        .cornerRadius(radius: 30, corners: .allCorners)
-                        .padding([.horizontal, .top])
-                        Text("Add Card".localized())
-                            .font(.callout)
-                            .bold()
-                            .multilineTextAlignment(.center)
-                            .lineLimit(2)
-                            .foregroundStyle(.white)
-                    }
-                    .frame(width: UIScreen.screenWidth/3 - 8)
+//                    VStack(spacing: 0) {
+//                        Button {
+//                            showAddCardTrigger.send(())
+//                        } label: {
+//                            Image("plus")
+//                                .renderingMode(.template)
+//                                .resizable()
+//                                .aspectRatio(contentMode: .fit)
+//                                .foregroundStyle(.white)
+//                                .padding()
+//                        }
+//                        .frame(width: 60, height: 60)
+//                        .background(Color.black.opacity(0.2))
+//                        .cornerRadius(radius: 30, corners: .allCorners)
+//                        .padding([.horizontal, .top])
+//                        Text("Add Card".localized())
+//                            .font(.callout)
+//                            .bold()
+//                            .multilineTextAlignment(.center)
+//                            .lineLimit(2)
+//                            .foregroundStyle(.white)
+//                    }
+//                    .frame(width: UIScreen.screenWidth/3 - 8)
                     if output.cardConfig.hasShop {
                         VStack(spacing: 0) {
                             Button {

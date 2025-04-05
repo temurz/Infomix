@@ -13,18 +13,17 @@ struct MainView: View {
     
    
     var body: some View {
-        GeometryReader{ geometry in
-            VStack(spacing: 0) {
-               viewRouter.body
-                    .frame(maxHeight: .infinity)
-                    .background(Color(.systemGray6))
-                 TabBarView(viewRouter: viewRouter, prominentItemImageName: "") {
-//                     self.viewRouter.showAddCard()
-                 }
-                 .frame(width: geometry.size.width, height: geometry.size.height/10)
-                 .background(Color("tabBarColor").shadow(radius: 2))
-                
-            }
+        VStack(spacing: 0) {
+            viewRouter.body
+                .frame(maxHeight: .infinity)
+                .background(Color(.systemGray6))
+            TabBarView(viewRouter: viewRouter, prominentItemImageName: "scan-qr-code")
+            //                {
+            //                     self.viewRouter.showAddCard()
+            //                 }
+                .frame(width: UIScreen.main.bounds.width, height: 80)
+                .background(Color("tabBarColor").shadow(radius: 2))
+            
         }
         .onAppear(perform: {
             if self.viewRouter.selectedPageId == MainPage.profile.rawValue {

@@ -15,6 +15,7 @@ enum MainPage: String{
     case notification
     case bonus
     case profile
+    case add
 }
 
 
@@ -28,6 +29,7 @@ class MainViewRouter: ViewRouter, ShowingEventList, ShowingAddCard {
     
     var pages: [TabBarItem] = [TabBarItem(imageName: "house_tab_icon", title: "Home", id: MainPage.home.rawValue),
                                TabBarItem(imageName: "news_tab_icon", title: "Event List", id: MainPage.bonus.rawValue),
+                               TabBarItem(imageName: "scan-qr-code", title: "", id: MainPage.add.rawValue),
                                TabBarItem(imageName: "chat_tab_icon", title: "Chat", id: MainPage.notification.rawValue),
                                TabBarItem(imageName: "user_tab_icon", title: "Profile", id: MainPage.profile.rawValue)]
 
@@ -57,6 +59,8 @@ class MainViewRouter: ViewRouter, ShowingEventList, ShowingAddCard {
             certificate.cardConfig = cardConfig
             let profileView: ProfileView = assembler.resolve(navigationController: navigationController, certificate: certificate)
             body = AnyView(profileView)
+        case MainPage.add.rawValue:
+            break
         default:
             body = AnyView(Text("DEFAULT"))
             break

@@ -28,6 +28,6 @@ struct HomeNavigator: HomeNavigatorType, ShowingTransactionHistory , ShowingExch
     }
     
 
-    unowned let assembler: Assembler
-    unowned let navigationController: UINavigationController
+    let assembler: Assembler
+    let navigationController: UINavigationController
 }
