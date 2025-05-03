@@ -205,6 +205,12 @@
 		B88BD4882D071FF000BEC98B /* API+Statistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88BD4872D071FF000BEC98B /* API+Statistics.swift */; };
 		B88BD48B2D07206000BEC98B /* GetStatisticsDomainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88BD48A2D07206000BEC98B /* GetStatisticsDomainUseCase.swift */; };
 		B88BD48D2D07208300BEC98B /* StatisticsGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88BD48C2D07208300BEC98B /* StatisticsGateway.swift */; };
+		B8A3B1FC2DC4BAC800580DB5 /* BottomSheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3B1FB2DC4BAC400580DB5 /* BottomSheetView.swift */; };
+		B8A3B2012DC4DEC700580DB5 /* IQKeyboardManagerSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B8A3B2002DC4DEC700580DB5 /* IQKeyboardManagerSwift */; };
+		B8A3B2032DC4EDCF00580DB5 /* API+CheckSerialNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3B2022DC4EDC500580DB5 /* API+CheckSerialNumber.swift */; };
+		B8A3B2052DC4EE8300580DB5 /* CheckSerialNumberGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3B2042DC4EE7B00580DB5 /* CheckSerialNumberGateway.swift */; };
+		B8A3B2082DC4F05F00580DB5 /* CheckSerialNumberUserCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3B2072DC4F05E00580DB5 /* CheckSerialNumberUserCase.swift */; };
+		B8A3B20A2DC4F4D700580DB5 /* ScannerViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8A3B2092DC4F4D100580DB5 /* ScannerViewUseCase.swift */; };
 		B8ABEA7D27C7AD7D00383C2A /* SendingFcmToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABEA7C27C7AD7D00383C2A /* SendingFcmToken.swift */; };
 		B8ABEA7F27C7B29A00383C2A /* API+SendingFcmToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ABEA7E27C7B29A00383C2A /* API+SendingFcmToken.swift */; };
 		B8BEF424276DB363004B003E /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8BEF423276DB363004B003E /* Event.swift */; };
@@ -714,6 +720,11 @@
 		B88BD4872D071FF000BEC98B /* API+Statistics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Statistics.swift"; sourceTree = "<group>"; };
 		B88BD48A2D07206000BEC98B /* GetStatisticsDomainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetStatisticsDomainUseCase.swift; sourceTree = "<group>"; };
 		B88BD48C2D07208300BEC98B /* StatisticsGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatisticsGateway.swift; sourceTree = "<group>"; };
+		B8A3B1FB2DC4BAC400580DB5 /* BottomSheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheetView.swift; sourceTree = "<group>"; };
+		B8A3B2022DC4EDC500580DB5 /* API+CheckSerialNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+CheckSerialNumber.swift"; sourceTree = "<group>"; };
+		B8A3B2042DC4EE7B00580DB5 /* CheckSerialNumberGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckSerialNumberGateway.swift; sourceTree = "<group>"; };
+		B8A3B2072DC4F05E00580DB5 /* CheckSerialNumberUserCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckSerialNumberUserCase.swift; sourceTree = "<group>"; };
+		B8A3B2092DC4F4D100580DB5 /* ScannerViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewUseCase.swift; sourceTree = "<group>"; };
 		B8ABEA7C27C7AD7D00383C2A /* SendingFcmToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SendingFcmToken.swift; sourceTree = "<group>"; };
 		B8ABEA7E27C7B29A00383C2A /* API+SendingFcmToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+SendingFcmToken.swift"; sourceTree = "<group>"; };
 		B8BEF423276DB363004B003E /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
@@ -1030,6 +1041,7 @@
 				1B425EAF24FF9058000F7F6B /* ESPullToRefresh in Frameworks */,
 				19EC91532D19612A00ACA2FB /* AlertToast in Frameworks */,
 				1BD163F124FF8CA700EBC063 /* MBProgressHUD in Frameworks */,
+				B8A3B2012DC4DEC700580DB5 /* IQKeyboardManagerSwift in Frameworks */,
 				177428D524F3691B00C141E4 /* ValidatedPropertyKit in Frameworks */,
 				176BAA5F24D2690300324D3C /* Alamofire in Frameworks */,
 				176BAA4F24D1326100324D3C /* Then in Frameworks */,
@@ -1088,6 +1100,7 @@
 		173865A224D3BB660059E3AD /* API */ = {
 			isa = PBXGroup;
 			children = (
+				B8A3B2022DC4EDC500580DB5 /* API+CheckSerialNumber.swift */,
 				19528F6B2D1B59E20020DBB5 /* API+Leaderboard.swift */,
 				19EC914A2D194A7B00ACA2FB /* API+Markets.swift */,
 				173865A324D3BB7A0059E3AD /* APIService.swift */,
@@ -1532,6 +1545,7 @@
 		1787235124BD56CD00D90F8E /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				B8A3B2062DC4F05500580DB5 /* CheckSerialNumber */,
 				19528F712D1B5B9C0020DBB5 /* Leaderboard */,
 				19EC91452D194A2A00ACA2FB /* Market */,
 				B88BD4892D07204C00BEC98B /* Statistics */,
@@ -1568,6 +1582,7 @@
 		1787235924BD577C00D90F8E /* Gateways */ = {
 			isa = PBXGroup;
 			children = (
+				B8A3B2042DC4EE7B00580DB5 /* CheckSerialNumberGateway.swift */,
 				19528F722D1B5C6D0020DBB5 /* LeaderboardGateway.swift */,
 				19EC914E2D194AF200ACA2FB /* OnlineApplicationGateway.swift */,
 				19EC91482D194A5200ACA2FB /* MarketGateway.swift */,
@@ -1665,6 +1680,7 @@
 		19B3BC232D16A2C90050930E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B8A3B1FB2DC4BAC400580DB5 /* BottomSheetView.swift */,
 				1952458A2D1C8034003301EB /* ToastView.swift */,
 				19B3BC242D16A2D40050930E /* CustomNavigationBar.swift */,
 			);
@@ -1782,6 +1798,14 @@
 				B88BD48A2D07206000BEC98B /* GetStatisticsDomainUseCase.swift */,
 			);
 			path = Statistics;
+			sourceTree = "<group>";
+		};
+		B8A3B2062DC4F05500580DB5 /* CheckSerialNumber */ = {
+			isa = PBXGroup;
+			children = (
+				B8A3B2072DC4F05E00580DB5 /* CheckSerialNumberUserCase.swift */,
+			);
+			path = CheckSerialNumber;
 			sourceTree = "<group>";
 		};
 		B8D01E58278EDF6F007267F7 /* EventDetail */ = {
@@ -2252,8 +2276,8 @@
 				D2376B462774AD5F001E271E /* Confirm */,
 				D2B257F02769B75D00974903 /* Steps */,
 				D2B257EE2769B23100974903 /* AddCardView.swift */,
-				D2C9B11027730B5400F8F666 /* AddCardAssembler.swift */,
 				D2C9B11227730B5E00F8F666 /* AddCardViewModel.swift */,
+				D2C9B11027730B5400F8F666 /* AddCardAssembler.swift */,
 				D2E4A7EB277710C20060320E /* AddCardNavigator.swift */,
 				19B3BC2A2D16ED890050930E /* SendingImageValueUseCase.swift */,
 			);
@@ -2275,11 +2299,12 @@
 		D2B257FD2769F2F200974903 /* Scanner */ = {
 			isa = PBXGroup;
 			children = (
+				B8A3B2092DC4F4D100580DB5 /* ScannerViewUseCase.swift */,
 				D2B257FE2769F31900974903 /* ScannerView.swift */,
+				D2B258062769F5F400974903 /* ScannerViewModel.swift */,
 				D2B258002769F40D00974903 /* QrCodeCameraDelegate.swift */,
 				D2B258022769F45F00974903 /* CameraPreview.swift */,
 				D2B258042769F4AA00974903 /* QrCodeScannerView.swift */,
-				D2B258062769F5F400974903 /* ScannerViewModel.swift */,
 				D2B459322785547300928D80 /* ScannerAssembler.swift */,
 			);
 			path = Scanner;
@@ -2360,6 +2385,7 @@
 				D26C861A279D9DAB00FE4A76 /* FirebaseMessaging */,
 				19EC91522D19612A00ACA2FB /* AlertToast */,
 				B832EB912DA13C7A00343D56 /* netfox */,
+				B8A3B2002DC4DEC700580DB5 /* IQKeyboardManagerSwift */,
 			);
 			productName = CleanArchitecture;
 			productReference = 178722F324BD537D00D90F8E /* InfoMix.app */;
@@ -2434,6 +2460,7 @@
 				D26C8619279D9DAB00FE4A76 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				19EC91512D19612A00ACA2FB /* XCRemoteSwiftPackageReference "AlertToast" */,
 				B832EB902DA13C7A00343D56 /* XCRemoteSwiftPackageReference "netfox" */,
+				B8A3B1FF2DC4DEC700580DB5 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */,
 			);
 			productRefGroup = 178722F424BD537D00D90F8E /* Products */;
 			projectDirPath = "";
@@ -2623,9 +2650,11 @@
 				B8FE92E227A1C5A900D55319 /* MyCardsDetailAssembler.swift in Sources */,
 				D20DF2C427626FAC0013D9D6 /* SplashNavigator.swift in Sources */,
 				B8BEF42E276DBB5B004B003E /* ShowingEventDetail.swift in Sources */,
+				B8A3B2032DC4EDCF00580DB5 /* API+CheckSerialNumber.swift in Sources */,
 				D27410092775BD1F00385251 /* Transaction.swift in Sources */,
 				D2C9B11327730B5E00F8F666 /* AddCardViewModel.swift in Sources */,
 				D23177312764E0DB00544CD1 /* TabBarView.swift in Sources */,
+				B8A3B1FC2DC4BAC800580DB5 /* BottomSheetView.swift in Sources */,
 				D2696C9F279850BE0000861D /* AboutViewModel.swift in Sources */,
 				B8C4C7A32789C1A70072DC03 /* TransactionHistoryGateway.swift in Sources */,
 				D29D005A27A01E7B00C81B32 /* LocalUsersAssembler.swift in Sources */,
@@ -2693,6 +2722,7 @@
 				D214FE17278CA51800AFD09C /* ShoppingCartEntryEditableView.swift in Sources */,
 				D264BF3927974EC900A45D78 /* LanguageSelector.swift in Sources */,
 				D29D005827A01B7100C81B32 /* GettingLocalUsers.swift in Sources */,
+				B8A3B2082DC4F05F00580DB5 /* CheckSerialNumberUserCase.swift in Sources */,
 				B80216AE277348160026F285 /* EventTypeUseCase.swift in Sources */,
 				D20D338D278D8F40001256C8 /* ShowingShoppingCart.swift in Sources */,
 				B8FE79CE279C026E00EDF7E7 /* NotificationsAssembler.swift in Sources */,
@@ -2926,6 +2956,7 @@
 				D21B82562774FD6900C58E3B /* SendingConnectUseCase.swift in Sources */,
 				B8EDD9C62D0F6DAD00DABCD3 /* MainCellView.swift in Sources */,
 				B88BD4802D071E1200BEC98B /* GetLoyaltyDomainUseCase.swift in Sources */,
+				B8A3B20A2DC4F4D700580DB5 /* ScannerViewUseCase.swift in Sources */,
 				D28943FB27665059008B3876 /* ShowingExchange.swift in Sources */,
 				B8FDD29E2796D8C80081E236 /* API+TransactionStatistic.swift in Sources */,
 				B840451E27D5DE900022DB52 /* OnlineApplicationView.swift in Sources */,
@@ -2937,6 +2968,7 @@
 				19EC914B2D194A7F00ACA2FB /* API+Markets.swift in Sources */,
 				D2E4A7F227771D130060320E /* SendingTimelineRowView.swift in Sources */,
 				176BAA7524D26E4C00324D3C /* LogOptions.swift in Sources */,
+				B8A3B2052DC4EE8300580DB5 /* CheckSerialNumberGateway.swift in Sources */,
 				B8FE92E427A1C5D300D55319 /* MyCardsDetailUseCase.swift in Sources */,
 				B8FDD29C2796D5E80081E236 /* GettingTransactionStatistic.swift in Sources */,
 				176BAA4824D130B800324D3C /* Bindable.swift in Sources */,
@@ -3376,6 +3408,14 @@
 				minimumVersion = 1.21.0;
 			};
 		};
+		B8A3B1FF2DC4DEC700580DB5 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hackiftekhar/IQKeyboardManager/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.1;
+			};
+		};
 		B8DCFA832771F58200F25219 /* XCRemoteSwiftPackageReference "url-image" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/dmytro-anokhin/url-image.git";
@@ -3488,6 +3528,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B832EB902DA13C7A00343D56 /* XCRemoteSwiftPackageReference "netfox" */;
 			productName = netfox;
+		};
+		B8A3B2002DC4DEC700580DB5 /* IQKeyboardManagerSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8A3B1FF2DC4DEC700580DB5 /* XCRemoteSwiftPackageReference "IQKeyboardManager" */;
+			productName = IQKeyboardManagerSwift;
 		};
 		B8DCFA842771F58200F25219 /* URLImage */ = {
 			isa = XCSwiftPackageProductDependency;

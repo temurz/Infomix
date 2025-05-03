@@ -44,5 +44,6 @@ extension API {
         static let onlineApplication = NetworkManager.shared.baseUrl + "/auth/resume"
         static let markets = NetworkManager.shared.baseUrl + "/market/"
         static let leaderboard = NetworkManager.shared.baseUrl + "/loyalty/leaderboard"
+        static let checkSerialNumber = NetworkManager.shared.baseUrl + "/sn/checker"
     }
 }

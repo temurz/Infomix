@@ -74,8 +74,10 @@ struct LoginView: View {
                         }else {
                             Text("")
                                 .onAppear{
-                                    output.chosenConfig = output.configs[0]
-                                    CardConfig.shared = output.chosenConfig
+                                    var newConfig = output.configs[0]
+                                    newConfig.normalizeSteps()
+                                    output.chosenConfig = newConfig
+                                    CardConfig.shared = newConfig
                                     if output.chosenConfig.resumeFields != nil || !output.chosenConfig.resumeFields!.isEmpty{
                                         showOnlineApplicationText = true
                                         print(output.chosenConfig.resumeFields?.count)
@@ -207,36 +209,38 @@ struct LoginView: View {
                 }
                 .padding()
                 PopUpServices(configs: $output.configs, show: $show) { chosenConfig in
-                    output.chosenConfig = chosenConfig
-                    input.configCode = chosenConfig.configCode
-                    CardConfig.shared = chosenConfig
-                    if chosenConfig.resumeFields != nil && !chosenConfig.resumeFields!.isEmpty {
+                    var newConfig = chosenConfig
+                    newConfig.normalizeSteps()
+                    output.chosenConfig = newConfig
+                    input.configCode = newConfig.configCode
+                    CardConfig.shared = newConfig
+                    if newConfig.resumeFields != nil && !newConfig.resumeFields!.isEmpty {
                         showOnlineApplicationText = true
                         print(output.chosenConfig.resumeFields?.count)
                         print(output.chosenConfig.resumeFields)
                     }
 
-                    UserDefaults.standard.set(chosenConfig.configCode, forKey: "configCode")
-                    UserDefaults.standard.set(chosenConfig.configVersion, forKey: "configVersion")
+                    UserDefaults.standard.set(newConfig.configCode, forKey: "configCode")
+                    UserDefaults.standard.set(newConfig.configVersion, forKey: "configVersion")
 
-                    if chosenConfig.titleTranslations?.count ?? 0 < 1 {
+                    if newConfig.titleTranslations?.count ?? 0 < 1 {
                         output.service = "service".localized()
                     }
                     switch UserDefaults.standard.object(forKey: "LCLCurrentLanguageKey") as? String {
                     case "ru":
-                        let _ = chosenConfig.titleTranslations?.forEach { translation in
+                        let _ = newConfig.titleTranslations?.forEach { translation in
                             if translation.locale == "ru" {
                                 output.service = translation.value ?? "service".localized()
                             }
                         }
                     case "uz":
-                        let _ = chosenConfig.titleTranslations?.forEach { translation in
+                        let _ = newConfig.titleTranslations?.forEach { translation in
                             if translation.locale == "uz" {
                                 output.service = translation.value ?? "service".localized()
                             }
                         }
                     default:
-                        let _ = chosenConfig.titleTranslations?.forEach { translation in
+                        let _ = newConfig.titleTranslations?.forEach { translation in
                             if translation.locale == "en" {
                                 output.service = translation.value ?? "service".localized()
                             }

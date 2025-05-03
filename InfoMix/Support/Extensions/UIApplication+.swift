@@ -22,4 +22,8 @@ extension UIScreen {
     static var screenWidth: CGFloat {
         return self.main.bounds.width
     }
+    
+    static var screenHeight: CGFloat {
+        return main.bounds.height
+    }
 }

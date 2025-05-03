@@ -131,9 +131,11 @@ extension LoginViewModel: ViewModel {
             .switchToLatest()
             .sink(receiveValue: { certificate in
                 if output.configs.count == 1{
-                    CardConfig.shared = output.configs[0]
-                    output.chosenConfig = output.configs[0]
-                    input.configCode = output.configs[0].configCode
+                    var newConfig = output.configs[0]
+                    newConfig.normalizeSteps()
+                    CardConfig.shared = newConfig
+                    output.chosenConfig = newConfig
+                    input.configCode = newConfig.configCode
                     UserDefaults.standard.set(input.configCode, forKey: "configCode")
                     UserDefaults.standard.set(output.chosenConfig.configVersion, forKey: "configVersion")
                 }

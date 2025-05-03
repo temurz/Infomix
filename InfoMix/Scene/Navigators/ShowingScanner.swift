@@ -17,7 +17,7 @@ protocol ShowingScanner{
 }
 
 extension ShowingScanner{
-    func showScanner(onFound: @escaping (_ code: String)->Void) {
+    func showScanner(onFound: @escaping (_ code: SerialNumberedProduct)->Void) {
         let view: ScannerView = assembler.resolve(navigationController:navigationController, onFound: onFound)
         let vc = UIHostingController(rootView: view)
         vc.title = "Scanner"

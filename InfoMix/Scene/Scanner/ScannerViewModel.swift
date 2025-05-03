@@ -12,9 +12,9 @@ import Combine
 
 struct ScannerViewModel{
     
-    
     let navigationController: UINavigationController
-    let onFound: (_ code: String)->Void
+    let scanViewUseCase: ScannerViewUseCaseType
+    let onFound: (_ product: SerialNumberedProduct) -> Void
     /// Defines how often we are going to try looking for a new QR-code in the camera feed.
     let scanInterval: Double = 1.0
 }
@@ -29,18 +29,29 @@ extension ScannerViewModel: ViewModel{
     }
     
     final class Output: ObservableObject{
-        
         @Published var torchIsOn: Bool = false
         @Published var lastQrCode: String = ""
+        @Published var showBottomSheet = false
     }
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
+        let errorTracker = ErrorTracker()
+        let activityTracker = ActivityTracker(false)
         let output = Output()
         input.foundQrCodeTrigger.handleEvents(receiveOutput: {
             code in
             output.lastQrCode = code
-            onFound(code)
-            navigationController.popViewController(animated: true)
+            
+            scanViewUseCase.checkSerialNumber(code)
+                .trackError(errorTracker)
+                .trackActivity(activityTracker)
+                .asDriver()
+                .sink { product in
+                    onFound(product)
+                    navigationController.popViewController(animated: true)
+                }
+                .store(in: cancelBag)
+            
         }).sink().store(in: cancelBag)
         
         input.torchToggleTrigger.handleEvents(receiveOutput: {

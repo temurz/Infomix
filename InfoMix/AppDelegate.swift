@@ -11,6 +11,8 @@ import UserNotifications
 import Firebase
 import FirebaseMessaging
 import netfox
+import IQKeyboardManagerSwift
+import IQKeyboardToolbarManager
 
 @UIApplicationMain
 final class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,6 +35,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         NetworkManager.shared = NetworkManager.init(baseUrl: "http://artel.infomix.uz/api/v2")
 //        NetworkManager.shared = NetworkManager.init(baseUrl: "http://192.168.7.110:8080/api/v2/")
         
+        IQKeyboardManager.shared.isEnabled = true
+        IQKeyboardToolbarManager.shared.isEnabled = true
         #if DEBUG
         NFX.sharedInstance().start()
         #endif

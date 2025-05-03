@@ -35,6 +35,8 @@ extension AddCardViewModel : ViewModel {
 
         init(cardConfig: CardConfig) {
             self.cardConfig = CardConfig.shared
+            
+            
         }
     }
 
@@ -89,10 +91,10 @@ extension AddCardViewModel : ViewModel {
             .store(in: cancelBag)
 
         input.scanTrigger.handleEvents(receiveOutput: { item in
-            self.navigator.showScanner { code in
+            self.navigator.showScanner { product in
                 if let stepItemIndex = output.currentCardStep.items.firstIndex(of: item){
                     var stepItem = output.currentCardStep.items[stepItemIndex]
-                    stepItem.valueString = code
+                    stepItem.valueString = product.serialNumber ?? ""
                     output.currentCardStep.items[stepItemIndex] = stepItem
 
                     output.cardConfig.update(cardStep: output.currentCardStep)

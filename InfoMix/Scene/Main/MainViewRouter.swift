@@ -60,7 +60,7 @@ class MainViewRouter: ViewRouter, ShowingEventList, ShowingAddCard {
             let profileView: ProfileView = assembler.resolve(navigationController: navigationController, certificate: certificate)
             body = AnyView(profileView)
         case MainPage.add.rawValue:
-            break
+            showAddCard()
         default:
             body = AnyView(Text("DEFAULT"))
             break

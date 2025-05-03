@@ -9,7 +9,7 @@ import SwiftUI
 
 protocol AddCardNavigatorType{
     func showSendingTimeline(cardConfig:CardConfig)
-    func showScanner(onFound: @escaping (_ code: String)->Void)
+    func showScanner(onFound: @escaping (_ code: SerialNumberedProduct)->Void)
     func popView()
 }
 

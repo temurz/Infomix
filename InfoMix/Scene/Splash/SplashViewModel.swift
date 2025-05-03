@@ -41,8 +41,10 @@ extension SplashViewModel: ViewModel {
         
         cardConfig
             .sink(receiveValue: { it in
-                output.cardConfig = it
-                CardConfig.shared = it
+                var newConfig = it
+                newConfig.normalizeSteps()
+                output.cardConfig = newConfig
+                CardConfig.shared = newConfig
                 self.startTrigger.send()
             })
             .store(in: cancelBag)

@@ -237,3 +237,29 @@ extension CardConfig {
     }
 
 }
+
+extension CardConfig {
+    mutating func normalizeSteps() {
+        var result: [AddCardStep] = []
+
+        for step in steps {
+            // Filter only barcode items
+            let barcodeItems = step.items.filter { $0.type == .EDIT_TEXT_BARCODE }
+
+            // If no or only one barcode item, keep step as is
+            if barcodeItems.count <= 1 {
+                result.append(step)
+            } else {
+                // Otherwise, create a new step for each barcode item
+                for item in barcodeItems {
+                    var newStep = step
+                    newStep.id = Int(UUID().uuid.0) // Ensure a unique ID
+                    newStep.items = [item]
+                    result.append(newStep)
+                }
+            }
+        }
+
+        steps = result
+    }
+}
