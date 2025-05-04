@@ -48,6 +48,7 @@ struct AddCardStepItem: Identifiable{
     var valueString: String = ""
     var originaltemId: String? = nil
     var isSended: Bool = false
+    var product: SerialNumberedProduct? = nil
     
 }
 extension AddCardStepItem :Then, Equatable {

@@ -120,7 +120,7 @@ struct AddCardView: View {
         .edgesIgnoringSafeArea(.bottom)
     }
 
-    init(viewModel: AddCardViewModel){
+    init(viewModel: AddCardViewModel) {
         let input = AddCardViewModel.Input(
             nextStepTrigger: self.nextStepTrigger.asDriver(),
             prevStepTrigger: self.prevStepTrigger.asDriver(),
@@ -129,7 +129,6 @@ struct AddCardView: View {
             scanTrigger: self.scanTrigger.asDriver())
 
         self.output = viewModel.transform(input, cancelBag: self.cancelBag)
-
         self.nextStepTrigger.send()
 
     }

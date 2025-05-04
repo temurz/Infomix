@@ -163,9 +163,6 @@ struct WebView: UIViewRepresentable{
     var html: String
       
     func makeUIView(context: Context) -> WKWebView {
-        
-        
-        
         let webView = WKWebView(frame: CGRect.zero)
         
         webView.allowsBackForwardNavigationGestures = true
@@ -183,14 +180,14 @@ struct WebView: UIViewRepresentable{
          <html>
          <head>
          <meta name="viewport" content="width=device-width, initial-scale=1">
-         <style> body { font-size: 150%; } </style>
+         <style> body { font-size: 100%; } </style>
          </head>
          <body>
          \(html)
          </body>
          </html>
          """
-       uiView.loadHTMLString(body, baseURL: nil)
+         uiView.loadHTMLString(body, baseURL: nil)
      }
 }
 

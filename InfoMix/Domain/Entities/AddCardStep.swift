@@ -156,4 +156,8 @@ extension AddCardStep{
             self.items.remove(at: index)
         }
     }
+    
+    func isFirstItemBarcode() -> Bool {
+        items.first?.type == .EDIT_TEXT_BARCODE
+    }
 }

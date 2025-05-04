@@ -11,17 +11,17 @@
 import UIKit
 
 protocol ScannerAssembler {
-    func resolve(navigationController: UINavigationController, onFound: @escaping (_ code: SerialNumberedProduct) -> Void) -> ScannerView
-    func resolve(navigationController: UINavigationController, useCase: ScannerViewUseCaseType, onFound: @escaping (_ code: SerialNumberedProduct) -> Void) -> ScannerViewModel
+    func resolve(navigationController: UINavigationController, onFound: @escaping (_ product: SerialNumberedProduct?) -> Void) -> ScannerView
+    func resolve(navigationController: UINavigationController, useCase: ScannerViewUseCaseType, onFound: @escaping (_ code: SerialNumberedProduct?) -> Void) -> ScannerViewModel
     func resolve() -> ScannerViewUseCaseType
 }
 
 extension ScannerAssembler {
-    func resolve(navigationController: UINavigationController, onFound: @escaping (_ code: SerialNumberedProduct) -> Void) -> ScannerView {
+    func resolve(navigationController: UINavigationController, onFound: @escaping (_ product: SerialNumberedProduct?) -> Void) -> ScannerView {
         return ScannerView(viewModel: resolve(navigationController: navigationController, useCase: resolve(), onFound: onFound))
     }
     
-    func resolve(navigationController: UINavigationController, useCase: ScannerViewUseCaseType, onFound: @escaping (_ code: SerialNumberedProduct) -> Void) -> ScannerViewModel {
+    func resolve(navigationController: UINavigationController, useCase: ScannerViewUseCaseType, onFound: @escaping (_ product: SerialNumberedProduct?) -> Void) -> ScannerViewModel {
         return ScannerViewModel(navigationController: navigationController, scanViewUseCase: useCase, onFound: onFound)
     }
 }

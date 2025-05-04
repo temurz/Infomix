@@ -94,12 +94,29 @@ extension AddCardViewModel : ViewModel {
             self.navigator.showScanner { product in
                 if let stepItemIndex = output.currentCardStep.items.firstIndex(of: item){
                     var stepItem = output.currentCardStep.items[stepItemIndex]
-                    stepItem.valueString = product.serialNumber ?? ""
+                    
+                    stepItem.valueString = product?.serialNumber ?? ""
+                    stepItem.product = product
                     output.currentCardStep.items[stepItemIndex] = stepItem
-
                     output.cardConfig.update(cardStep: output.currentCardStep)
-
                     output.change.toggle()
+                    
+                    if product == nil {
+                        output.cardConfig.update(cardStep: output.currentCardStep)
+
+                        let currentStepIndex = output.cardConfig.indexStep(of: output.currentCardStep)
+
+                        if let prevStepIndex = output.currentCardStep.isConfirmation() ? output.cardConfig.endIndex() - 1 :  output.cardConfig.prevIndex(currentIndex: currentStepIndex) {
+                            output.hasNextStep = output.cardConfig.nextIndex(currentIndex: prevStepIndex) != nil || output.cardConfig.showConfirmation
+                            output.enabledSendButton = !output.hasNextStep
+                            output.hasPrevStep = output.cardConfig.prevIndex(currentIndex: prevStepIndex) != nil
+                            output.currentCardStep = output.cardConfig.getStep(currentIndex: prevStepIndex)
+                        } else {
+                            navigator.popView()
+                        }
+                    }
+                }
+                
 //                    let currentStepIndex = output.cardConfig.indexStep(of: output.currentCardStep)
 
 //                    if let nextStepIndex = output.currentCardStep.isNone() ? output.cardConfig.startIndex() :  output.cardConfig.nextIndex(currentIndex: currentStepIndex){
@@ -108,7 +125,6 @@ extension AddCardViewModel : ViewModel {
 //                        output.hasPrevStep = output.cardConfig.prevIndex(currentIndex: nextStepIndex) != nil
 //                        output.currentCardStep = output.cardConfig.getStep(currentIndex: nextStepIndex)
 //                    }
-                }
 
 
             }

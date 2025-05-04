@@ -22,113 +22,115 @@ struct ScannerView: View {
     
     
     var body: some View {
-        ZStack {
-            
-            QrCodeScannerView()
-                .found{ r in
-                    foundQrCodeTrigger.send(r)
-                }
-                .interval(delay: self.scanInterval)
-                .ignoresSafeArea(.all)
-            Color.black.opacity(0.6)
-                .mask(
-                    HoleShapeMask(rect: CGRect(
-                        x: (UIScreen.screenWidth - focusedAreaWidth) / 2,
-                        y: (UIScreen.screenHeight - focusedAreaHeight) / 2,
-                        width: focusedAreaWidth,
-                        height: focusedAreaHeight
-                    ))
-                    .fill(style: FillStyle(eoFill: true))
-                    .compositingGroup()
-                )
-                .ignoresSafeArea(.all)
-            
-            VStack {
-                HStack {
-                    Button {
-                        popViewTrigger.send(())
-                    } label: {
-                        Image(systemName: "chevron.left")
-                            .resizable()
-                            .foregroundStyle(Colors.appMainColor)
-                            .aspectRatio(contentMode: .fit)
-                            .padding(2)
+        return LoadingView(isShowing: $output.isLoading, text: .constant("")) {
+            ZStack {
+                
+                QrCodeScannerView()
+                    .found{ r in
+                        foundQrCodeTrigger.send(r)
                     }
-                    .frame(width: 24, height: 24)
-                    .padding(.leading)
+                    .interval(delay: self.scanInterval)
+                    .ignoresSafeArea(.all)
+                Color.black.opacity(0.6)
+                    .mask(
+                        HoleShapeMask(rect: CGRect(
+                            x: (UIScreen.screenWidth - focusedAreaWidth) / 2,
+                            y: (UIScreen.screenHeight - focusedAreaHeight) / 2,
+                            width: focusedAreaWidth,
+                            height: focusedAreaHeight
+                        ))
+                        .fill(style: FillStyle(eoFill: true))
+                        .compositingGroup()
+                    )
+                    .ignoresSafeArea(.all)
+                
+                VStack {
+                    HStack {
+                        Button {
+                            popViewTrigger.send(())
+                        } label: {
+                            Image(systemName: "chevron.left")
+                                .resizable()
+                                .foregroundStyle(Colors.appMainColor)
+                                .aspectRatio(contentMode: .fit)
+                                .padding(2)
+                        }
+                        .frame(width: 24, height: 24)
+                        .padding(.leading)
+                        Spacer()
+                    }
+                    .background(.clear)
                     Spacer()
                 }
-                .background(.clear)
-                Spacer()
-            }
-            .padding()
-            
-            
-            VStack {
-                VStack {
-                    Text("Ichki blok seriya raqami")
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .padding(.top, 16)
-                }
-                .padding(.vertical, 20)
-                
-                Spacer()
-                Button(action: {
-                    output.showBottomSheet = true
-                }) {
-                    Text("Qo'l bilan kiriting")
-                        .foregroundColor(.white)
-                        .bold()
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.green)
-                        .cornerRadius(25)
-                        .padding(.horizontal)
-                }
-            }.padding()
-            BottomSheetView(isShowing: $output.showBottomSheet) {
-                VStack {
-                    HStack {
-                        Spacer()
-                        Button {
-                            output.showBottomSheet = false
-                        } label: {
-                            Image(systemName: "minus.circle")
-                                .centerCropped()
-                                .foregroundStyle(.white)
-                                .frame(width: 24, height: 24)
-                        }
-                    }
-                    Text("Serial nomer orqali yuborish")
-                        .foregroundStyle(Color.white)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                    TextField("Serial number", text: $output.lastQrCode)
-                        .padding()
-                        .background(Color.white)
-                        .cornerRadius(25)
-                        .foregroundColor(.black)
-                    HStack {
-                        Spacer()
-                        Button {
-                            foundQrCodeTrigger.send(output.lastQrCode)
-                        } label: {
-                            Text("Send".localized())
-                                .foregroundStyle(Colors.appMainColor)
-                                .padding(.horizontal, 12)
-                                .padding(.vertical, 4)
-                                .background(.white)
-                                .clipShape(Capsule())
-                        }
-                    }
-                    
-                }
                 .padding()
-                .background(Colors.appMainColor)
-                .cornerRadius(radius: 12, corners: [.topLeft, .topRight])
+                
+                
+                VStack {
+                    VStack {
+                        Text("Ichki blok seriya raqami")
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .padding(.top, 16)
+                    }
+                    .padding(.vertical, 20)
+                    
+                    Spacer()
+                    Button(action: {
+                        output.showBottomSheet = true
+                    }) {
+                        Text("Qo'l bilan kiriting")
+                            .foregroundColor(.white)
+                            .bold()
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                            .background(Color.green)
+                            .cornerRadius(25)
+                            .padding(.horizontal)
+                    }
+                }.padding()
+                BottomSheetView(isShowing: $output.showBottomSheet) {
+                    VStack {
+                        HStack {
+                            Spacer()
+                            Button {
+                                output.showBottomSheet = false
+                            } label: {
+                                Image(systemName: "minus.circle")
+                                    .centerCropped()
+                                    .foregroundStyle(.white)
+                                    .frame(width: 24, height: 24)
+                            }
+                        }
+                        Text("Serial nomer orqali yuborish")
+                            .foregroundStyle(Color.white)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                        TextField("Serial number", text: $output.lastQrCode)
+                            .padding()
+                            .background(Color.white)
+                            .cornerRadius(25)
+                            .foregroundColor(.black)
+                        HStack {
+                            Spacer()
+                            Button {
+                                foundQrCodeTrigger.send(output.lastQrCode)
+                            } label: {
+                                Text("Send".localized())
+                                    .foregroundStyle(Colors.appMainColor)
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 4)
+                                    .background(.white)
+                                    .clipShape(Capsule())
+                            }
+                        }
+                        
+                    }
+                    .padding()
+                    .background(Colors.appMainColor)
+                    .cornerRadius(radius: 12, corners: [.topLeft, .topRight])
+                    .ignoresSafeArea()
+                }
                 .ignoresSafeArea()
             }
-            .ignoresSafeArea()
         }
     }
     

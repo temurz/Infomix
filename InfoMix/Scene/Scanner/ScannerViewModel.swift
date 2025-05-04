@@ -14,7 +14,7 @@ struct ScannerViewModel{
     
     let navigationController: UINavigationController
     let scanViewUseCase: ScannerViewUseCaseType
-    let onFound: (_ product: SerialNumberedProduct) -> Void
+    let onFound: (_ product: SerialNumberedProduct?) -> Void
     /// Defines how often we are going to try looking for a new QR-code in the camera feed.
     let scanInterval: Double = 1.0
 }
@@ -32,6 +32,7 @@ extension ScannerViewModel: ViewModel{
         @Published var torchIsOn: Bool = false
         @Published var lastQrCode: String = ""
         @Published var showBottomSheet = false
+        @Published var isLoading = false
     }
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
@@ -48,7 +49,7 @@ extension ScannerViewModel: ViewModel{
                 .asDriver()
                 .sink { product in
                     onFound(product)
-                    navigationController.popViewController(animated: true)
+                    navigationController.topViewController?.dismiss(animated: true)
                 }
                 .store(in: cancelBag)
             
@@ -61,8 +62,14 @@ extension ScannerViewModel: ViewModel{
 
         input.popViewTrigger
             .sink {
-                navigationController.popViewController(animated: true)
+                navigationController.topViewController?.dismiss(animated: true)
+                onFound(nil)
             }
+            .store(in: cancelBag)
+        
+        activityTracker
+            .receive(on: RunLoop.main)
+            .assign(to: \.isLoading, on: output)
             .store(in: cancelBag)
 
         return output

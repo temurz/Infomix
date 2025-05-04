@@ -17,10 +17,10 @@ protocol ShowingScanner{
 }
 
 extension ShowingScanner{
-    func showScanner(onFound: @escaping (_ code: SerialNumberedProduct)->Void) {
+    func showScanner(onFound: @escaping (_ product: SerialNumberedProduct?)->Void) {
         let view: ScannerView = assembler.resolve(navigationController:navigationController, onFound: onFound)
         let vc = UIHostingController(rootView: view)
-        vc.title = "Scanner"
-        navigationController.pushViewController(vc, animated: true)
+        vc.modalPresentationStyle = .fullScreen
+        navigationController.topViewController?.present(vc, animated: true)
     }
 }

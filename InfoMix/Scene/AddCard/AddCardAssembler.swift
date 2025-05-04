@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddCardAssembler {
-    func resolve(navigationController: UINavigationController,cardConfig: CardConfig) -> AddCardView
+    func resolve(navigationController: UINavigationController, cardConfig: CardConfig) -> AddCardView
     func resolve(navigationController: UINavigationController,cardConfig: CardConfig) -> AddCardViewModel
     func resolve(navigationController: UINavigationController) ->  AddCardNavigatorType
 }
