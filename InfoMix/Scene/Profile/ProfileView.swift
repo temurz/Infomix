@@ -26,7 +26,7 @@ struct ProfileView: View {
 
             Color(.systemGray6)
 
-            RoundedCorner(color: .green, tl: 0, tr: 0, bl: 0, br: 60)
+            RoundedCorner(color: Colors.appMainColor, tl: 0, tr: 0, bl: 0, br: 60)
                 .frame(maxWidth: .infinity, maxHeight: 240)
 
 

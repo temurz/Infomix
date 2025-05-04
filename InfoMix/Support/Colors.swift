@@ -7,7 +7,7 @@
 //
 import SwiftUI
 struct Colors {
-    static let appMainColor = Color(hex: "68BB47")
+    static let appMainColor = Color(hex: "#207733")
     static let lightGrayColor = Color(hex: "EBEBEB")
     static var borderGrayColor2 = Color(hex: "#E8EEF4")
 }
