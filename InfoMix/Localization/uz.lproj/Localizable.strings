@@ -193,3 +193,10 @@
 "An additional score of %@%% of the submitted score is awarded for a successfully submitted card at this level." = "Ushbu darajadagi muvaffaqiyatli topshirilgan karta uchun topshirilgan ballning %@%% miqdorida qo‘shimcha ball beriladi.";
 "Special %@%% discount on all products." = "Barcha mahsulotlarga maxsus %@%% chegirma.";
 "The entered string length must be between 15 and 15 characters." = "Kiritilgan qator uzunligi 15 dan 15 gacha simvol oralig'ida bo'lishi kerak";
+"State" = "Holat:";
+"Info" = "Ma'lumot:";
+"Model:" = "Model:";
+"Send" = "Yuborish";
+"Serial number" = "Seriya raqami";
+"Send serial number" = "Serial nomer orqali yuborish";
+"Enter manually" = "Qo'l bilan kiriting";

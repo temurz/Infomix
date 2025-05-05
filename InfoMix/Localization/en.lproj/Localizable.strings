@@ -193,3 +193,10 @@
 "An additional score of %@%% of the submitted score is awarded for a successfully submitted card at this level." = "An additional score of %@%% of the submitted score is awarded for a successfully submitted card at this level.";
 "Special %@%% discount on all products." = "Special %@%% discount on all products.";
 "The entered string length must be between 15 and 15 characters." = "The entered string length must be between 15 and 15 characters.";
+"State" = "State:";
+"Info" = "Info:";
+"Model:" = "Model:";
+"Send" = "Send";
+"Serial number" = "Serial number";
+"Send serial number" = "Send serial number";
+"Enter manually" = "Enter manually";

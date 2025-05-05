@@ -193,3 +193,10 @@
 "An additional score of %@%% of the submitted score is awarded for a successfully submitted card at this level." = "За успешно отправленную карту на этом уровне начисляется дополнительный балл в размере %@%% от отправленного балла. Примечание.";
 "Special %@%% discount on all products." = "Специальная скидка %@%% на все товары.";
 "The entered string length must be between 15 and 15 characters." = "Длина введенной строки должна быть от 15 до 15 символов.";
+"State" = "Состояние:";
+"Info" = "Информация:";
+"Model:" = "Модель:";
+"Send" = "Send";
+"Serial number" = "Серийный номер";
+"Send serial number" = "Отправить серийный номер";
+"Enter manually" = "Ввести вручную";

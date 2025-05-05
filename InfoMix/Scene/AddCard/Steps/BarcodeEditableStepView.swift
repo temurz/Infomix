@@ -37,7 +37,7 @@ struct BarcodeEditableStepView: AbstractStepView {
                     buildDescriptionRow(title: "Serial number:".localized(), subtitle: product.serialNumber ?? "")
                     buildDescriptionRow(title: "Model".localized(), subtitle: product.modelName ?? "")
                     buildDescriptionRow(
-                        title: "Holat".localized(),
+                        title: "State".localized(),
                         subtitle: (product.accessible ?? false) ? "Ro'yxatga olingan" : "Mavjud",
                         subtitleColor: .orange
                     )
