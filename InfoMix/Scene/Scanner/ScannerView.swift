@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import Localize_Swift
 
 struct ScannerView: View {
     @ObservedObject var output: ScannerViewModel.Output
@@ -67,7 +68,7 @@ struct ScannerView: View {
                 
                 VStack {
                     VStack {
-                        Text("Ichki blok seriya raqami")
+                        Text("Serial number".localized())
                             .foregroundColor(.white)
                             .font(.headline)
                             .padding(.top, 16)
@@ -78,7 +79,7 @@ struct ScannerView: View {
                     Button(action: {
                         output.showBottomSheet = true
                     }) {
-                        Text("Qo'l bilan kiriting")
+                        Text("Enter manually".localized())
                             .foregroundColor(.white)
                             .bold()
                             .frame(maxWidth: .infinity)
@@ -101,10 +102,10 @@ struct ScannerView: View {
                                     .frame(width: 24, height: 24)
                             }
                         }
-                        Text("Serial nomer orqali yuborish")
+                        Text("Send serial number".localized())
                             .foregroundStyle(Color.white)
                             .frame(maxWidth: .infinity, alignment: .leading)
-                        TextField("Serial number", text: $output.lastQrCode)
+                        TextField("Serial number".localized(), text: $output.lastQrCode)
                             .padding()
                             .background(Color.white)
                             .cornerRadius(25)
