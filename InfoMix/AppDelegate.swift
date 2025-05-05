@@ -32,7 +32,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         application.registerForRemoteNotifications()
         
         Messaging.messaging().delegate = self
-        NetworkManager.shared = NetworkManager.init(baseUrl: "http://artel.infomix.uz/api/v2")
+        NetworkManager.shared = NetworkManager.init(baseUrl: "http://dynamic.infomix.uz/api/v2")
 //        NetworkManager.shared = NetworkManager.init(baseUrl: "http://192.168.7.110:8080/api/v2/")
         
         IQKeyboardManager.shared.isEnabled = true

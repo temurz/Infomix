@@ -275,6 +275,7 @@ struct WelcomeView : View {
             .scaledToFit()
             .frame(width: 240, height: 160)
             .padding(.horizontal)
+            .padding(.bottom)
 
     }
 }
