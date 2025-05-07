@@ -38,6 +38,15 @@ struct SplashView: View {
                 dismissButton: .default(Text("OK"))
             )
         }
+        .onAppear {
+            if let configCode = UserDefaults.standard.string(forKey: "configCode"),
+               let _ = UserDefaults.standard.string(forKey: "token") {
+                let configVersion = UserDefaults.standard.string(forKey: "configVersion")
+                loadTrigger.send(CardConfigInput(configCode: configCode, configVersion: configVersion))
+            } else {
+                startTrigger.send(())
+            }
+        }
         
     }
     
@@ -49,13 +58,6 @@ struct SplashView: View {
         )
         
         self.output = viewModel.transform(input, cancelBag: cancelBag)
-        if let configCode = UserDefaults.standard.string(forKey: "configCode"),
-           let _ = UserDefaults.standard.string(forKey: "token") {
-            let configVersion = UserDefaults.standard.string(forKey: "configVersion")
-            loadTrigger.send(CardConfigInput(configCode: configCode, configVersion: configVersion))
-        } else {
-            startTrigger.send(())
-        }
         
     }
 }

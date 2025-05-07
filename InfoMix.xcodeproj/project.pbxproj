@@ -1892,10 +1892,10 @@
 		D20DF2C027626F1D0013D9D6 /* Splash */ = {
 			isa = PBXGroup;
 			children = (
+				D214C26127631FE200DD4E76 /* SplashView.swift */,
 				D20DF2C127626F650013D9D6 /* SplashViewModel.swift */,
 				D20DF2C327626FAC0013D9D6 /* SplashNavigator.swift */,
 				D214C25F27631EEC00DD4E76 /* SplashUseCase.swift */,
-				D214C26127631FE200DD4E76 /* SplashView.swift */,
 				D214C25D27631E6900DD4E76 /* SplashAssembler.swift */,
 				D25E32102772E8CC00F375C2 /* GetCardConfigUseCase.swift */,
 			);
@@ -3178,7 +3178,7 @@
 				CODE_SIGN_ENTITLEMENTS = InfoMix/InfoMixDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"InfoMix/Preview Content\"";
 				DEVELOPMENT_TEAM = HW395M775M;
 				ENABLE_PREVIEWS = YES;
@@ -3207,7 +3207,7 @@
 				CODE_SIGN_ENTITLEMENTS = InfoMix/InfoMix.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"InfoMix/Preview Content\"";
 				DEVELOPMENT_TEAM = HW395M775M;
 				ENABLE_PREVIEWS = YES;

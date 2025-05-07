@@ -75,10 +75,8 @@ extension SplashViewModel: ViewModel {
         
         startTrigger
             .sink(receiveValue: { () in
-                let endTime = self.startedTime + DispatchTimeInterval.seconds(3)
-                let leftTimeToEnd = DispatchTime.now().distance(to: endTime)
                 
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + leftTimeToEnd ){
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
                     if UserDefaults.standard.string(forKey: "token") != nil &&
                         UserDefaults.standard.string(forKey: "configCode") != nil{
                         
