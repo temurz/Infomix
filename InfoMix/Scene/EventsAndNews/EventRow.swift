@@ -26,7 +26,8 @@ struct EventRow: View {
                                 .resizable()
                                 .centerCropped()
                         } placeholder: {
-                            ProgressView()
+                            Image("logo")
+                                .centerCropped()
                         }
                     } else {
                         

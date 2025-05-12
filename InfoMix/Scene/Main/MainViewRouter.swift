@@ -9,6 +9,7 @@
 import Combine
 import SwiftUI
 import Alamofire
+import Localize_Swift
 
 enum MainPage: String{
     case home
@@ -27,11 +28,11 @@ class MainViewRouter: ViewRouter, ShowingEventList, ShowingAddCard {
     let cardConfig: CardConfig
     
     
-    var pages: [TabBarItem] = [TabBarItem(imageName: "house_tab_icon", title: "Home", id: MainPage.home.rawValue),
-                               TabBarItem(imageName: "news_tab_icon", title: "Event List", id: MainPage.bonus.rawValue),
+    var pages: [TabBarItem] = [TabBarItem(imageName: "house_tab_icon", title: "Home".localized(), id: MainPage.home.rawValue),
+                               TabBarItem(imageName: "news_tab_icon", title: "Event List".localized(), id: MainPage.bonus.rawValue),
                                TabBarItem(imageName: "scan-qr-code", title: "", id: MainPage.add.rawValue),
-                               TabBarItem(imageName: "chat_tab_icon", title: "Chat", id: MainPage.notification.rawValue),
-                               TabBarItem(imageName: "user_tab_icon", title: "Profile", id: MainPage.profile.rawValue)]
+                               TabBarItem(imageName: "chat_tab_icon", title: "Chat".localized(), id: MainPage.notification.rawValue),
+                               TabBarItem(imageName: "user_tab_icon", title: "Profile".localized(), id: MainPage.profile.rawValue)]
 
     @Published var selectedPageId: String = MainPage.home.rawValue
     @Published var body: AnyView

@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 import UIKit
+import Localize_Swift
 
 struct SplashView: View {
     
@@ -39,6 +40,9 @@ struct SplashView: View {
             )
         }
         .onAppear {
+            if Localize.currentLanguage() != "uz" || Localize.currentLanguage() != "ru" {
+                Localize.setCurrentLanguage("ru")
+            }
             if let configCode = UserDefaults.standard.string(forKey: "configCode"),
                let _ = UserDefaults.standard.string(forKey: "token") {
                 let configVersion = UserDefaults.standard.string(forKey: "configVersion")

@@ -27,7 +27,7 @@ struct PollView: View {
 struct EmptyDataView: View {
     var body: some View {
         VStack {
-            Text("No data".localized())
+            Text("Here will appear polls".localized())
                 .foregroundStyle(.gray)
                 .font(.title3)
                 .bold()

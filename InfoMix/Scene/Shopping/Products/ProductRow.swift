@@ -24,7 +24,6 @@ struct ProductRow: View {
                                     .cornerRadius(radius: 8, corners: .allCorners)
                                     
                                     .frame(width: (UIScreen.screenWidth/2) - 32 , height: (UIScreen.screenWidth/2) - 32)
-//                                    .padding(.horizontal)
                             } placeholder: {
                                 ProgressView()
                             }

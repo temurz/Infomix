@@ -28,12 +28,15 @@ struct EventDetailView: View {
                 ScrollView{
                     VStack {
                         if let urlImage = url {
-                            URLImage(urlImage){image in
+                            AsyncImage(url: urlImage) { image in
                                 image
                                     .resizable()
-                                    .scaledToFit()
+                                    .centerCropped()
+                            } placeholder: {
+                                Image("logo")
+                                    .centerCropped()
                             }
-
+                            .frame(height: 200)
                         }
                         VStack{
                             Spacer().frame(height: 15.0)
