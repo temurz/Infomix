@@ -131,7 +131,7 @@ extension OnlineApplicationViewModel : ViewModel{
                     output.mapShow["photoIdCard"] = true
                 }
 
-                if output.mapShow["photoIdCard"] ?? false || output.mapShow["photoSelfie"] ?? false{
+                if output.mapShow["photoIdCard"] ?? false || output.mapShow["photoSelfie"] ?? false {
                     output.nextPageExists = true
                 }
 
@@ -213,7 +213,7 @@ extension OnlineApplicationViewModel : ViewModel{
             if output.requiredItemsList.contains("phone"){
                 let phoneNumberValidation = Publishers
                     .CombineLatest(input.$phoneNumber, input.toNextPageTrigger.merge(with: input.sendOnlineApplicationTrigger))
-                    .map {$0.0}
+                    .map {$0.0.getOnlyPhoneNumber()}
                     .map (OnlineApplicationDto.validatePhoneNumber(_:))
 
                 phoneNumberValidation
@@ -434,7 +434,22 @@ extension OnlineApplicationViewModel : ViewModel{
                 return enable
             }
             .map { _ in
-                self.useCase.sendOnlineApplication(dto: OnlineApplicationDto(username: input.name, surname: input.surname, fathersname: input.fathersname, phoneNumber: input.phoneNumber, age: output.birthday, cityId: output.cityId, configCode: input.configCode, aboutMe: input.aboutMe, marketId: output.marketId,shopNumber: input.shopNumber, photoIdCard: output.photoIdCard, photoSelfie: output.photoSelfie))
+                self.useCase.sendOnlineApplication(
+                    dto: OnlineApplicationDto(
+                        username: input.name,
+                        surname: input.surname,
+                        fathersname: input.fathersname,
+                        phoneNumber: input.phoneNumber.getOnlyPhoneNumber(),
+                        age: output.birthday,
+                        cityId: output.cityId,
+                        configCode: CardConfig.shared.configCode,
+                        aboutMe: input.aboutMe,
+                        marketId: output.marketId,
+                        shopNumber: input.shopNumber,
+                        photoIdCard: output.photoIdCard,
+                        photoSelfie: output.photoSelfie
+                    )
+                )
                     .trackError(errorTracker)
                     .trackActivity(activityTracker)
                     .asDriver()
@@ -467,7 +482,7 @@ extension OnlineApplicationViewModel : ViewModel{
 
         let getListInput = GetListInput(loadTrigger: self.loadCitiesTrigger.asDriver(), reloadTrigger: Driver.empty(), getItems: useCase.getCities)
 
-        let (cities, citiesLoadFailed, _, _) = getList(input: getListInput).destructured
+        let (cities, citiesLoadFailed, isLoading, _) = getList(input: getListInput).destructured
 
         cities
             .map{ $0.map { it in
@@ -484,6 +499,10 @@ extension OnlineApplicationViewModel : ViewModel{
             .sink { _ in
                 self.buildUITrigger.send()
             }.store(in: cancelBag)
+        
+        isLoading
+            .assign(to: \.isLoading, on: output)
+            .store(in: cancelBag)
 
         errorTracker
             .receive(on: RunLoop.main)

@@ -12,12 +12,11 @@ import Localize_Swift
 import AlertToast
 
 struct OnlineApplicationView: View {
-
+    
     @ObservedObject var input : OnlineApplicationViewModel.Input
     @ObservedObject var output : OnlineApplicationViewModel.Output
     private let cancelBag = CancelBag()
-
-
+    
     let loadOnlineApplicationTrigger = PassthroughSubject<Void,Never>()
     let chooseCityTrigger = PassthroughSubject<Void,Never>()
     let startTrigger = PassthroughSubject<Void,Never>()
@@ -26,7 +25,6 @@ struct OnlineApplicationView: View {
     let toNextPageTrigger = PassthroughSubject<Void,Never>()
     let showMarketChooserTrigger = PassthroughSubject<Void,Never>()
     let popViewTrigger = PassthroughSubject<Void,Never>()
-    @State var focused: [Bool] = [true, false, false, false, false, false]
     @State var bottomContent = 0
     @State var cityIt = 0
     @State var dateId: UUID = UUID()
@@ -34,228 +32,81 @@ struct OnlineApplicationView: View {
     @State private var showToast = false
     private var resumeFields = CardConfig.shared.resumeFields
     var body: some View {
-        VStack {
-            CustomNavigationBar(title: "Online application".localized()) {
-                popViewTrigger.send(())
-            }
-            ZStack{
-                ScrollView{
+        return LoadingView(isShowing: $output.isLoading, text: .constant("")) {
+            VStack {
+                CustomNavigationBar(title: "Online application".localized()) {
+                    popViewTrigger.send(())
+                }
+                ScrollView {
                     VStack(alignment: .leading, spacing: 14){
-                        if !output.showSecondPage{
-                    Group{
-                            VStack(alignment: .leading){
-                                if output.mapShow["firstName"] ?? false{
-                                    TextFieldTyped1(keyboardType: .default, returnVal: .done, tag: 0, isSecure: false, text: $input.name, isfocusAble: $focused)
-                                        .placeholderText(when: input.name.isEmpty) {
-                                            Text("Name".localized())
-                                                .foregroundColor(.gray)
-                                        }
-                                        .placeholderText(when: !input.name.isEmpty, placeholder: {
-                                            Text(input.name)
-                                        })
-                                        .padding()
-                                        .background(lightGreyColor)
-                                        .frame(height: 36)
-                                        .cornerRadius(.greatestFiniteMagnitude)
-                                        .ignoresSafeArea(.keyboard, edges: .bottom)
-                                        Text(output.nameValidationMessage)
+                        if !output.showSecondPage {
+                            VStack(spacing: 12) {
+                                if output.mapShow["firstName"] ?? false {
+                                    TextFieldWithValidation(inputText: $input.name, placeholder: "Name".localized(), validationMessage: output.nameValidationMessage)
+                                }
+                                if output.mapShow["lastName"] ?? false{
+                                    TextFieldWithValidation(inputText: $input.surname, placeholder: "Surname".localized(), validationMessage: output.surnameValidationMessage)
+                                }
+                                if output.mapShow["middleName"] ?? false{
+                                    TextFieldWithValidation(inputText: $input.fathersname, placeholder: "Fathersname".localized(), validationMessage: output.fathersnameValidationMessage)
+                                }
+                                if output.mapShow["phone"] ?? false {
+                                    VStack(alignment: .leading) {
+                                        MaskedTextField(mask: "+XXX(XX) XXX-XX-XX", placeholder: "+998 (__) ___-__-__", text: $input.phoneNumber)
+                                            .padding()
+                                            .frame(height: 44)
+                                            .background(lightGreyColor)
+                                            .cornerRadius(12)
+                                        Text(output.phoneNumberValidationMessage)
                                             .foregroundColor(.red)
                                             .font(.footnote)
                                             .lineLimit(nil)
-                                            .frame(maxHeight: .infinity)
-                                            .fixedSize()
-                                            .padding(.horizontal)
-
-                                }
-
-                            }.onTapGesture {
-                                self.focused = [true, false, false, false,false, false]
-                                withAnimation(.easeOut(duration: 0.2)) {
-                                    output.bottomSheetPosition = .hidden
-                                }
-                            }
-
-                            VStack(alignment: .leading){
-
-                                if output.mapShow["lastName"] ?? false{
-                                    TextFieldTyped1(keyboardType: .default, returnVal: .done, tag: 1, isSecure: false, text: $input.surname, isfocusAble: $focused)
-                                        .placeholderText(when: input.surname.isEmpty){
-                                            Text("Surname".localized())
-                                                .foregroundColor(.gray)
-                                        }
-                                        .placeholderText(when: !input.surname.isEmpty, placeholder: {
-                                            Text(input.surname)
-                                        })
-                                        .padding()
-                                        .background(lightGreyColor)
-                                        .frame(height: 36)
-                                        .cornerRadius(.greatestFiniteMagnitude)
-                                }
-
-                                    Text(output.surnameValidationMessage)
-                                        .foregroundColor(.red)
-                                        .font(.footnote)
-                                        .lineLimit(nil)
-                                        .frame(maxHeight: .infinity)
-                                        .fixedSize()
-                                        .padding(.horizontal)
-
-
-                            }
-                            .onTapGesture {
-                                self.focused = [false, true, false, false,false, false]
-                                withAnimation(.easeOut(duration: 0.2)) {
-                                    output.bottomSheetPosition = .hidden
-                                }
-                            }
-
-
-                            VStack(alignment: .leading){
-
-                                if output.mapShow["middleName"] ?? false{
-                                    TextFieldTyped1(keyboardType: .default, returnVal: .done, tag: 2, isSecure: false, text: $input.fathersname, isfocusAble: $focused)
-                                        .placeholderText(when: input.fathersname.isEmpty) {
-                                            Text("Fathersname".localized())
-                                                .foregroundColor(.gray)
-                                        }
-                                        .placeholderText(when: !input.fathersname.isEmpty, placeholder: {
-                                            Text(input.fathersname)
-                                        })
-                                        .padding()
-                                        .background(lightGreyColor)
-                                        .frame(height: 36)
-                                        .cornerRadius(.greatestFiniteMagnitude)
-                                }
-                                    Text(output.fathersnameValidationMessage)
-                                        .foregroundColor(.red)
-                                        .font(.footnote)
-                                        .lineLimit(nil)
-                                        .frame(maxHeight: .infinity)
-                                        .fixedSize()
-                                        .padding(.horizontal)
-                            }
-                            .onTapGesture {
-                                self.focused = [false, false, true, false,false, false]
-                                withAnimation(.easeOut(duration: 0.2)) {
-                                    output.bottomSheetPosition = .hidden
-                                }
-                            }
-
-                        VStack(alignment: .leading){
-
-                            if output.mapShow["phone"] ?? false{
-                                    TextFieldTyped1(keyboardType: .namePhonePad, returnVal: .done, tag: 3, isSecure: false, text: $input.phoneNumber, isfocusAble: $focused)
-                                        .placeholderText(when: input.phoneNumber.isEmpty) {
-                                            Text("PhoneNumber".localized())
-                                                .foregroundColor(.gray)
-                                        }
-                                        .placeholderText(when: !input.phoneNumber.isEmpty, placeholder: {
-                                            Text(input.phoneNumber)
-                                        })
-                                        .padding()
-                                        .background(lightGreyColor)
-                                        .frame(height: 36)
-                                        .cornerRadius(.greatestFiniteMagnitude)
-                                }
-
-                                    Text(output.phoneNumberValidationMessage)
-                                        .foregroundColor(.red)
-                                        .font(.footnote)
-                                        .lineLimit(nil)
-                                        .frame(maxHeight: .infinity)
-                                        .fixedSize()
-                                        .padding(.horizontal)
-
-                        }
-                        .onTapGesture {
-                            self.focused = [false, false, false, true,false, false]
-                            withAnimation(.easeOut(duration: 0.2)) {
-                                output.bottomSheetPosition = .hidden
-                            }
-                        }
-                        VStack(alignment: .leading){
-
-                            if output.mapShow["aboutMe"] ?? false{
-                                    TextFieldTyped1(keyboardType: .default, returnVal: .done, tag: 4, isSecure: false, text: $input.aboutMe, isfocusAble: $focused)
-                                        .placeholderText(when: input.aboutMe.isEmpty) {
-                                            Text("About yourself".localized())
-                                                .foregroundColor(.gray)
-                                        }
-                                        .placeholderText(when: !input.aboutMe.isEmpty, placeholder: {
-                                            Text(input.aboutMe)
-                                        })
-                                        .padding()
-                                        .background(lightGreyColor)
-                                        .frame(height: 36)
-                                        .cornerRadius(.greatestFiniteMagnitude)
-
-                                }
-
-                                    Text(output.aboutMeValidationMessage)
-                                        .foregroundColor(.red)
-                                        .font(.footnote)
-                                        .lineLimit(nil)
-                                        .frame(maxHeight: .infinity)
-                                        .fixedSize()
-                                        .padding(.horizontal)
-
-                        }
-                        .onTapGesture {
-                            self.focused = [false, false, false, false, true, false]
-                        }
-
-
-                        VStack(alignment: .leading){
-                            if  (output.mapShow["birthday"] ?? false) {
-                                DatePicker("Birthday".localized(), selection: $output.birthday, displayedComponents: .date)
-                                    .padding()
-                                    .frame(height: 36)
-                                    .background(lightGreyColor)
-                                    .cornerRadius(.greatestFiniteMagnitude)
-                            }
-                            Text(output.ageValidationMessage)
-                                .foregroundColor(.red)
-                                .font(.footnote)
-                                .lineLimit(nil)
-                                .frame(maxHeight: .infinity)
-                                .fixedSize()
-                                .padding(.horizontal)
-                        }
-                        VStack(alignment: .leading){
-
-                            if output.mapShow["cityId"] ?? false{
-                                    Button {
-                                        chooseCityTrigger.send()
-                                        bottomContent = 1
-                                        focused = [false, false, false, false,false, false]
-                                    } label: {
-
-                                        HStack{
-                                            Text(output.city)
-                                            Spacer()
-                                        }
                                     }
-                                    .padding()
-                                    .background(lightGreyColor)
-                                    .frame(height: 36)
-                                    .cornerRadius(.greatestFiniteMagnitude)
+                                    
+//                                    TextFieldWithValidation(inputText: $input.phoneNumber, placeholder: "PhoneNumber".localized(), validationMessage: output.phoneNumberValidationMessage, keyboardType: .numbersAndPunctuation)
                                 }
-
+                                if output.mapShow["aboutMe"] ?? false {
+                                    TextFieldWithValidation(inputText: $input.aboutMe, placeholder: "About yourself".localized(), validationMessage: output.aboutMeValidationMessage)
+                                }
+                                VStack(alignment: .leading) {
+                                    if  (output.mapShow["birthday"] ?? false) {
+                                        DatePicker("Birthday".localized(), selection: $output.birthday, displayedComponents: .date)
+                                            .padding()
+                                            .frame(height: 44)
+                                            .background(lightGreyColor)
+                                            .cornerRadius(12)
+                                    }
+                                    Text(output.ageValidationMessage)
+                                        .foregroundColor(.red)
+                                        .font(.footnote)
+                                        .lineLimit(nil)
+                                }
+                                VStack(alignment: .leading) {
+                                    if output.mapShow["cityId"] ?? false{
+                                        Button {
+                                            chooseCityTrigger.send()
+                                            bottomContent = 1
+                                        } label: {
+                                            
+                                            HStack{
+                                                Text(output.city)
+                                                Spacer()
+                                            }
+                                        }
+                                        .padding()
+                                        .background(lightGreyColor)
+                                        .frame(height: 44)
+                                        .cornerRadius(12)
+                                    }
                                     Text(output.cityValidationMessage)
                                         .foregroundColor(.red)
                                         .font(.footnote)
                                         .lineLimit(nil)
-                                        .frame(maxHeight: .infinity)
-                                        .fixedSize()
-                                        .padding(.horizontal)
-
-
-                        }
-                            VStack{
-                                if output.mapShow["marketId"] ?? false{
+                                }
+                                VStack(alignment: .leading) {
+                                    if output.mapShow["marketId"] ?? false{
                                         Button {
                                             showMarketChooserTrigger.send()
-                                            focused = [false, false, false, false,false, false]
                                             bottomContent = 3
                                         } label: {
                                             HStack{
@@ -269,49 +120,21 @@ struct OnlineApplicationView: View {
                                         }
                                         .padding()
                                         .background(lightGreyColor)
-                                        .frame(height: 36)
-                                        .cornerRadius(.greatestFiniteMagnitude)
+                                        .frame(height: 44)
+                                        .cornerRadius(12)
                                     }
-                                        Text(output.marketValidationMessage)
-                                            .foregroundColor(.red)
-                                            .font(.footnote)
-                                            .lineLimit(nil)
-                                            .frame(maxHeight: .infinity)
-                                            .fixedSize()
-                                            .padding(.horizontal)
-
+                                    Text(output.marketValidationMessage)
+                                        .foregroundColor(.red)
+                                        .font(.footnote)
+                                        .lineLimit(nil)
+                                }
+                                if output.mapShow["shopNumber"] ?? false {
+                                    TextFieldWithValidation(inputText: $input.shopNumber, placeholder: "Shop Number".localized(), validationMessage: output.shopNumberValidationMessage)
+                                }
                             }
-                        VStack(alignment: .leading){
-                                if output.mapShow["shopNumber"] ?? false{
-                                        TextFieldTyped1(keyboardType: .default, returnVal: .done, tag: 5, isSecure: false, text: $input.shopNumber, isfocusAble: $focused)
-                                            .placeholderText(when: input.shopNumber.isEmpty) {
-                                                Text("Shop Number".localized())
-                                                    .foregroundColor(.gray)
-                                            }
-                                            .placeholderText(when: !input.shopNumber.isEmpty, placeholder: {
-                                                Text(input.shopNumber)
-                                            })
-                                            .padding()
-                                            .background(lightGreyColor)
-                                            .frame(height: 36)
-                                            .cornerRadius(.greatestFiniteMagnitude)
-                                    }
-
-                                        Text(output.shopNumberValidationMessage)
-                                            .foregroundColor(.red)
-                                            .font(.footnote)
-                                            .lineLimit(nil)
-                                            .frame(maxHeight: .infinity)
-                                            .fixedSize()
-                                            .padding(.horizontal)
-                            }.onTapGesture {
-                                focused = [false, false,false,false,false,true]
-                            }
-                    }
                         }
-
-                        if output.showSecondPage{
-                            VStack{
+                        if output.showSecondPage {
+                            VStack {
                                 OnlineApplicationImageView(output: output, title: "Make a photo of ID".localized(), selectedImage: $output.photoIdCard)
                                     .onAppear {
                                         UserDefaults.standard.setValue(false, forKey: "_UIConstraintBasedLayoutLogUnsatisfiable")
@@ -336,127 +159,104 @@ struct OnlineApplicationView: View {
                                     .padding(.horizontal)
                             }
                         }
-                        HStack{
-                            Spacer()
-                            Button {
-                                if output.nextPageExists{
-                                    toNextPageTrigger.send()
-                                }else{
-                                    sendOnlineApplicationTrigger.send()
-                                }
-
-
-                            } label: {
-                                HStack{
-                                    Spacer()
-                                    if output.nextPageExists{
-                                        Text("Next".localized())
-                                            .foregroundColor(.white)
-                                    }else{
-                                        Text("Load".localized())
-                                            .foregroundColor(.white)
-                                    }
-                                    Spacer()
-                                }
-
+                        Button {
+                            if output.nextPageExists{
+                                toNextPageTrigger.send()
+                            }else{
+                                sendOnlineApplicationTrigger.send()
                             }
-                            .padding()
-                            .background(Color.blue)
-                            .frame(width: 200, height: 32)
-                            .cornerRadius(.greatestFiniteMagnitude)
-
-                            Spacer()
+                        } label: {
+                            Text(output.nextPageExists ? "Next".localized() : "Load".localized())
+                                .foregroundColor(.white)
+                                .bold()
+                                .frame(maxWidth: .infinity)
                         }
+                        .padding()
+                        .background(Colors.appMainColor)
+                        .frame(height: 44)
+                        .cornerRadius(.greatestFiniteMagnitude)
                         .toast(isPresenting: $output.isShowingToast) {
                             AlertToast(displayMode: .banner(.slide) ,type: .regular, title: output.toastMessage)
                         }
-
-                        if output.showSecondPage{
-                            HStack{
+                        if output.showSecondPage {
+                            HStack {
                                 Spacer()
                                 Button {
                                     output.showSecondPage = false
                                     output.nextPageExists = true
                                 } label: {
                                     Text("Go back".localized())
-
                                 }
                                 Spacer()
                             }
                         }
-
-                    }.padding()
-                        .ignoresSafeArea(.keyboard)
+                        
+                    }
+                    .padding()
+                    .ignoresSafeArea(.keyboard)
                 }
-
-                VStack{
-                    Color.white
-                        .frame(width: UIScreen.main.bounds.width, height: 10)
-                    Spacer()
-                }.onTapGesture {
-                    hideKeyboard()
-                }
-                .bottomSheet(bottomSheetPosition: $output.bottomSheetPosition,options: [.swipeToDismiss, .tapToDissmiss, .noBottomPosition, .background(AnyView(Color.white)), .dragIndicatorColor(Color.red) , .backgroundBlur(effect: .light)]) {
-
-                    if bottomContent == 1{
-                        CitiesView(cities: output.cities) { city, hasChosen, cityIteration,cityId  in
-                            output.city = city
+            }
+            .bottomSheet(bottomSheetPosition: $output.bottomSheetPosition,options: [.swipeToDismiss, .tapToDissmiss, .noBottomPosition, .background(AnyView(Color.white)), .dragIndicatorColor(Color.red) , .backgroundBlur(effect: .light)]) {
+                
+                if bottomContent == 1{
+                    CitiesView(cities: output.cities) { city, hasChosen, cityIteration,cityId  in
+                        output.city = city
+                        output.cityId = cityId
+                        
+                        if hasChosen && cityIteration == -1{
                             output.cityId = cityId
-
-                            if hasChosen && cityIteration == -1{
-                                output.cityId = cityId
+                            withAnimation(.easeOut(duration: 0.2)) {
+                                output.bottomSheetPosition = .hidden
+                            }
+                        }else{
+                            bottomContent = 2
+                            cityIt = cityIteration
+                        }
+                    }
+                }else if bottomContent == 2{
+                    VStack{
+                        ForEach(output.cities[cityIt].child!){city in
+                            Button{
+                                output.city = city.name ?? ""
+                                output.cityId = city.id
                                 withAnimation(.easeOut(duration: 0.2)) {
                                     output.bottomSheetPosition = .hidden
                                 }
-                            }else{
-                                bottomContent = 2
-                                cityIt = cityIteration
-                            }
-                        }
-                    }else if bottomContent == 2{
-                        VStack{
-                            ForEach(output.cities[cityIt].child!){city in
-                                Button{
-                                    output.city = city.name ?? ""
-                                    output.cityId = city.id
-                                    withAnimation(.easeOut(duration: 0.2)) {
-                                        output.bottomSheetPosition = .hidden
-                                    }
-                                }label: {
-                                    VStack{
-                                        Text(city.name ?? "")
-                                        Divider()
-                                    }
+                            }label: {
+                                VStack{
+                                    Text(city.name ?? "")
+                                    Divider()
                                 }
                             }
-                            Spacer()
                         }
-                    }else if bottomContent == 3{
-                        MarketView(markets: output.markets) { marketName, marketId, hasChosen in
-                            output.market = marketName
-                            output.marketId = marketId
-
-                            if hasChosen{
-                                withAnimation(.easeOut(duration: 0.2)){
-                                    output.bottomSheetPosition = .hidden
-                                }
+                        Spacer()
+                    }
+                }else if bottomContent == 3 {
+                    MarketView(markets: output.markets) { marketName, marketId, hasChosen in
+                        output.market = marketName
+                        output.marketId = marketId
+                        
+                        if hasChosen{
+                            withAnimation(.easeOut(duration: 0.2)){
+                                output.bottomSheetPosition = .hidden
                             }
                         }
                     }
-
                 }
+                
             }
         }
 
+        
     }
-
+    
     init(viewModel: OnlineApplicationViewModel){
         let input = OnlineApplicationViewModel.Input( chooseCityTrigger: chooseCityTrigger.asDriver(),startTrigger: startTrigger.asDriver(), sendOnlineApplicationTrigger: sendOnlineApplicationTrigger.asDriver(), toNextPageTrigger: toNextPageTrigger.asDriver(),  showMarketChooserTrigger: showMarketChooserTrigger.asDriver(), popViewTrigger:popViewTrigger.asDriver())
-
+        
         output = viewModel.transform(input, cancelBag: cancelBag)
         self.input = input
         self.startTrigger.send()
-
+        
     }
 }
 
@@ -466,91 +266,3 @@ struct OnlineApplicationView_Previews: PreviewProvider {
         OnlineApplicationView(viewModel: viewModel)
     }
 }
-
-
-struct TextFieldTyped1: UIViewRepresentable {
-    let keyboardType: UIKeyboardType
-    let returnVal: UIReturnKeyType
-    let tag: Int
-    let isSecure: Bool
-    @Binding var text: String
-    @Binding var isfocusAble: [Bool]
-
-    func makeUIView(context: Context) -> UITextField {
-        let textField = UITextField(frame: .zero)
-        textField.keyboardType = self.keyboardType
-        textField.returnKeyType = self.returnVal
-        textField.tag = self.tag
-        textField.delegate = context.coordinator
-        textField.autocorrectionType = .no
-        textField.isSecureTextEntry = isSecure
-        return textField
-    }
-
-    func updateUIView(_ uiView: UITextField, context: Context) {
-        if !isfocusAble[tag]{
-            uiView.resignFirstResponder()
-            return
-        }
-
-        if !uiView.isFirstResponder {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                uiView.becomeFirstResponder()
-            }
-        }
-
-    }
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-
-    class Coordinator: NSObject, UITextFieldDelegate {
-        var parent: TextFieldTyped1
-
-        init(_ textField: TextFieldTyped1) {
-            self.parent = textField
-        }
-
-
-
-        func textFieldDidChangeSelection(_ textField: UITextField) {
-            // Without async this will modify the state during view update.
-            DispatchQueue.main.async {
-                self.parent.text = textField.text ?? ""
-            }
-        }
-
-
-        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-            var focus = self.parent.isfocusAble
-
-            if parent.returnVal == .done{
-                focus = [false,false, false, false, false, false]
-            }
-//            if parent.tag == 0 {
-//
-//                focus = [false, true, false, false,false]
-//            } else if parent.tag == 1 {
-//                focus = [false, false,true, false,false]
-//            }else if parent.tag == 2{
-//                focus = [false,false, false, true,false]
-//            }else if parent.tag == 3{
-//                if parent.returnVal == .done{
-//                    focus = [false, false, false, false,false]
-//                }else{
-//                    focus = [false, false, false, false,true]
-//                }
-//
-//            }else if parent.tag == 4 {
-//                focus = [false,false,false,false,false]
-//            }
-            DispatchQueue.main.async {
-                self.parent.isfocusAble = focus
-            }
-            return true
-        }
-    }
-}
-
-

@@ -169,6 +169,8 @@
 		B821584C2789A413008F25FA /* TransactionHistoryAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B821584B2789A413008F25FA /* TransactionHistoryAssembler.swift */; };
 		B821584E2789A48A008F25FA /* TransactionHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B821584D2789A48A008F25FA /* TransactionHistoryView.swift */; };
 		B82158502789A4A2008F25FA /* TransactionHistoryRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B821584F2789A4A2008F25FA /* TransactionHistoryRow.swift */; };
+		B829740E2DDBA55700884D68 /* TextFieldWithValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B829740D2DDBA55700884D68 /* TextFieldWithValidation.swift */; };
+		B82974122DDBAD1A00884D68 /* TextFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82974112DDBAD1A00884D68 /* TextFieldContainer.swift */; };
 		B82BA74F27EDF3D100CB29EE /* OnlineApplicationDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BA74E27EDF3D100CB29EE /* OnlineApplicationDto.swift */; };
 		B832EB8F2DA1380300343D56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B832EB8E2DA1380300343D56 /* GoogleService-Info.plist */; };
 		B832EB922DA13C7A00343D56 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = B832EB912DA13C7A00343D56 /* netfox */; };
@@ -684,6 +686,8 @@
 		B821584B2789A413008F25FA /* TransactionHistoryAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryAssembler.swift; sourceTree = "<group>"; };
 		B821584D2789A48A008F25FA /* TransactionHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryView.swift; sourceTree = "<group>"; };
 		B821584F2789A4A2008F25FA /* TransactionHistoryRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionHistoryRow.swift; sourceTree = "<group>"; };
+		B829740D2DDBA55700884D68 /* TextFieldWithValidation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldWithValidation.swift; sourceTree = "<group>"; };
+		B82974112DDBAD1A00884D68 /* TextFieldContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldContainer.swift; sourceTree = "<group>"; };
 		B82B74BE2BC021BA00D2C18A /* InfoMixDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InfoMixDebug.entitlements; sourceTree = "<group>"; };
 		B82BA74E27EDF3D100CB29EE /* OnlineApplicationDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationDto.swift; sourceTree = "<group>"; };
 		B832EB8E2DA1380300343D56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -1739,6 +1743,15 @@
 			path = TransactionHistory;
 			sourceTree = "<group>";
 		};
+		B829740C2DDBA54400884D68 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B82974112DDBAD1A00884D68 /* TextFieldContainer.swift */,
+				B829740D2DDBA55700884D68 /* TextFieldWithValidation.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		B82BA74D27EDF3A100CB29EE /* OnlineApplication */ = {
 			isa = PBXGroup;
 			children = (
@@ -1751,6 +1764,7 @@
 		B840452127D5E49A0022DB52 /* OnlineApplication */ = {
 			isa = PBXGroup;
 			children = (
+				B829740C2DDBA54400884D68 /* Views */,
 				19EC91542D19616200ACA2FB /* OnlineApplicationImageView.swift */,
 				19EC913E2D19483800ACA2FB /* Markets */,
 				B873F1AD27D634B20047149E /* Cities */,
@@ -2583,6 +2597,7 @@
 				D2B8E8B8278843DE009270F6 /* API+ProductCategoryList.swift in Sources */,
 				D20D338F278DC32E001256C8 /* ShoppingCartEntryView.swift in Sources */,
 				D22FED9D2768687C00A01200 /* ICUAssembler.swift in Sources */,
+				B829740E2DDBA55700884D68 /* TextFieldWithValidation.swift in Sources */,
 				B842EA9427885B1100527326 /* EventDetail.swift in Sources */,
 				D20D3385278D6713001256C8 /* CancelOrderUseCase.swift in Sources */,
 				B88BD4842D071ED600BEC98B /* GetStatisticsViewUseCase.swift in Sources */,
@@ -2861,6 +2876,7 @@
 				D28943F827664F8D008B3876 /* ShowingTransactionHistory.swift in Sources */,
 				B8EB21A427FF0B0900DCFE52 /* Resume.swift in Sources */,
 				1787235324BD56E400D90F8E /* Product.swift in Sources */,
+				B82974122DDBAD1A00884D68 /* TextFieldContainer.swift in Sources */,
 				D2CDE75027862A4C00F62C00 /* ShoppingView.swift in Sources */,
 				B8ECFB17279C89AB00715567 /* NotificationsUseCase.swift in Sources */,
 				B873F1AC27D6335D0047149E /* CitiesView.swift in Sources */,
@@ -3178,7 +3194,7 @@
 				CODE_SIGN_ENTITLEMENTS = InfoMix/InfoMixDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"InfoMix/Preview Content\"";
 				DEVELOPMENT_TEAM = HW395M775M;
 				ENABLE_PREVIEWS = YES;
@@ -3207,7 +3223,7 @@
 				CODE_SIGN_ENTITLEMENTS = InfoMix/InfoMix.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_ASSET_PATHS = "\"InfoMix/Preview Content\"";
 				DEVELOPMENT_TEAM = HW395M775M;
 				ENABLE_PREVIEWS = YES;

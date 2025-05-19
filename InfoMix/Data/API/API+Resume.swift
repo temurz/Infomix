@@ -55,6 +55,10 @@ extension API{
             if let shopNumber = dto.shopNumber {
                 params["shopNumber"] = shopNumber
             }
+            
+            if let configCode = dto.configCode {
+                params["configCode"] = configCode
+            }
 
             var photoData: [APIUploadData] = []
             if let passportPhoto  = dto.photoIdCard  {

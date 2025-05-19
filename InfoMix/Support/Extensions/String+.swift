@@ -18,4 +18,28 @@ extension String {
         guard let data = Data(base64Encoded: self) else { return nil }
         return String(data: data, encoding: .utf8)
     }
+    
+    func formatNumber(mask: String = "+XXX(XX) XXX-XX-XX") -> String {
+        let cleanNumber = components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        
+        var result = ""
+        var startIndex = cleanNumber.startIndex
+        let endIndex = cleanNumber.endIndex
+        
+        for char in mask where startIndex < endIndex {
+            if char == "X" {
+                result.append(cleanNumber[startIndex])
+                startIndex = cleanNumber.index(after: startIndex)
+            } else {
+                result.append(char)
+            }
+        }
+        
+        return result
+    }
+    
+    func getOnlyPhoneNumber() -> String {
+        let text = self.filter("+0123456789.".contains)
+        return text
+    }
 }
