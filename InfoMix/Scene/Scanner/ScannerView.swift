@@ -26,11 +26,11 @@ struct ScannerView: View {
         return LoadingView(isShowing: $output.isLoading, text: .constant("")) {
             ZStack {
                 
-                QrCodeScannerView()
-                    .found{ r in
-                        foundQrCodeTrigger.send(r)
-                    }
+                QrCodeScannerView(onFound: { result in
+                    foundQrCodeTrigger.send(result)
+                })
                     .interval(delay: self.scanInterval)
+//                    .id(output.scannerId)
                     .ignoresSafeArea(.all)
                 Color.black.opacity(0.6)
                     .mask(
@@ -132,6 +132,17 @@ struct ScannerView: View {
                 }
                 .ignoresSafeArea()
             }
+        }
+        .alert(isPresented: $output.alert.isShowing) {
+            Alert(
+                title: Text(output.alert.title),
+                message: Text(output.alert.message),
+                dismissButton:
+                        .default(Text("OK"), action: {
+                            output.scannerId = UUID()
+                        })
+
+                )
         }
     }
     

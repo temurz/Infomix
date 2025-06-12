@@ -21,8 +21,8 @@ extension API {
                 "password": dto.password ?? "",
                 "configCode":dto.configCode ?? "",
                 "deviceId": UIDevice.current.identifierForVendor?.uuidString ?? "",
-                "deviceName": UIDevice.current.name
-                
+                "deviceName": UIDevice.current.name.uppercased(),
+                "applicationId": Bundle.main.bundleIdentifier ?? ""
             ]
             
             super.init(urlString: API.Urls.login,

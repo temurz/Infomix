@@ -70,9 +70,9 @@ struct AuthGateway: AuthGatewayType {
                     UserDefaults.standard.set(output.token, forKey: "token")
 //                }
                 
-                if let certificate = output.certificate {
-                    _ = LocalUserDao.shared.save(certificate, output.token)
-                }
+//                if let certificate = output.certificate {
+//                    _ = LocalUserDao.shared.save(certificate, output.token)
+//                }
              
                 if output.certificate != nil{
                     return output.certificate!

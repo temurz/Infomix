@@ -23,6 +23,8 @@ struct QrCodeScannerView: UIViewRepresentable {
     ]
     typealias UIViewType = CameraPreview
     
+    var onFound: ((String) -> Void)?
+    
     private let session = AVCaptureSession()
     private let delegate = QrCodeCameraDelegate()
     private let metadataOutput = AVCaptureMetadataOutput()
@@ -105,6 +107,9 @@ struct QrCodeScannerView: UIViewRepresentable {
     
     private func checkCameraAuthorizationStatus(_ uiView: CameraPreview) {
         let cameraAuthorizationStatus = AVCaptureDevice.authorizationStatus(for: .video)
+        delegate.onResult = { result in
+            onFound?(result)
+        }
         if cameraAuthorizationStatus == .authorized {
             setupCamera(uiView)
         } else {

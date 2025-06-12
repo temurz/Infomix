@@ -227,7 +227,7 @@ extension HomeViewModel: ViewModel {
         let checking = stats.checking
         items.append(MainCellModel(
             type: .checking,
-            title: checking != 0 ? "\(checking ?? 0)" : "No card".localized(),
+            title: checking != 0 ? "\(checking ?? 0)" : "No applications".localized(),
             subtitle: "Checking...".localized(),
             leftImage: "list_play"))
         let dispute = stats.dispute

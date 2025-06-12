@@ -78,7 +78,7 @@ struct LoginView: View {
                                     newConfig.normalizeSteps()
                                     output.chosenConfig = newConfig
                                     CardConfig.shared = newConfig
-                                    if output.chosenConfig.resumeFields != nil || !output.chosenConfig.resumeFields!.isEmpty{
+                                    if output.chosenConfig.resumeFields != nil || !(output.chosenConfig.resumeFields?.isEmpty ?? true) {
                                         showOnlineApplicationText = true
                                         print(output.chosenConfig.resumeFields?.count)
                                     }

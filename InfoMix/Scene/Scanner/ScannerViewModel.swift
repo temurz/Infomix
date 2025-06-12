@@ -33,6 +33,9 @@ extension ScannerViewModel: ViewModel{
         @Published var lastQrCode: String = ""
         @Published var showBottomSheet = false
         @Published var isLoading = false
+        @Published var scannerId = UUID()
+        @Published var alert = AlertMessage()
+        @Published var showAlert = false
     }
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
@@ -65,6 +68,12 @@ extension ScannerViewModel: ViewModel{
                 navigationController.topViewController?.dismiss(animated: true)
                 onFound(nil)
             }
+            .store(in: cancelBag)
+        
+        errorTracker
+            .receive(on: RunLoop.main)
+            .map({ AlertMessage(error: $0) })
+            .assign(to: \.alert, on: output)
             .store(in: cancelBag)
         
         activityTracker

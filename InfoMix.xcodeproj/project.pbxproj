@@ -172,7 +172,6 @@
 		B829740E2DDBA55700884D68 /* TextFieldWithValidation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B829740D2DDBA55700884D68 /* TextFieldWithValidation.swift */; };
 		B82974122DDBAD1A00884D68 /* TextFieldContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82974112DDBAD1A00884D68 /* TextFieldContainer.swift */; };
 		B82BA74F27EDF3D100CB29EE /* OnlineApplicationDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BA74E27EDF3D100CB29EE /* OnlineApplicationDto.swift */; };
-		B832EB8F2DA1380300343D56 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B832EB8E2DA1380300343D56 /* GoogleService-Info.plist */; };
 		B832EB922DA13C7A00343D56 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = B832EB912DA13C7A00343D56 /* netfox */; };
 		B837840D27F325CE006B8413 /* API+GetConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B837840C27F325CE006B8413 /* API+GetConfigs.swift */; };
 		B840451E27D5DE900022DB52 /* OnlineApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840451D27D5DE900022DB52 /* OnlineApplicationView.swift */; };
@@ -191,6 +190,7 @@
 		B873F1AC27D6335D0047149E /* CitiesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B873F1AB27D6335D0047149E /* CitiesView.swift */; };
 		B873F1AF27D634CA0047149E /* CityItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B873F1AE27D634CA0047149E /* CityItemViewModel.swift */; };
 		B873F1B127D634DD0047149E /* CityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B873F1B027D634DD0047149E /* CityRow.swift */; };
+		B87526102DEB21D000076697 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B875260F2DEB21D000076697 /* GoogleService-Info.plist */; };
 		B87FED1527FD4FF2000D05C5 /* API+GetCardConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87FED1427FD4FF2000D05C5 /* API+GetCardConfig.swift */; };
 		B883DE3E27A2754600F66790 /* BarCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B883DE3D27A2754600F66790 /* BarCodeView.swift */; };
 		B88788002771AB700018BF0D /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88787FF2771AB700018BF0D /* EventType.swift */; };
@@ -690,7 +690,6 @@
 		B82974112DDBAD1A00884D68 /* TextFieldContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldContainer.swift; sourceTree = "<group>"; };
 		B82B74BE2BC021BA00D2C18A /* InfoMixDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InfoMixDebug.entitlements; sourceTree = "<group>"; };
 		B82BA74E27EDF3D100CB29EE /* OnlineApplicationDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationDto.swift; sourceTree = "<group>"; };
-		B832EB8E2DA1380300343D56 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B837840C27F325CE006B8413 /* API+GetConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+GetConfigs.swift"; sourceTree = "<group>"; };
 		B840451D27D5DE900022DB52 /* OnlineApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationView.swift; sourceTree = "<group>"; };
 		B840451F27D5E0EB0022DB52 /* OnlineApplicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationViewModel.swift; sourceTree = "<group>"; };
@@ -708,6 +707,7 @@
 		B873F1AB27D6335D0047149E /* CitiesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesView.swift; sourceTree = "<group>"; };
 		B873F1AE27D634CA0047149E /* CityItemViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityItemViewModel.swift; sourceTree = "<group>"; };
 		B873F1B027D634DD0047149E /* CityRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRow.swift; sourceTree = "<group>"; };
+		B875260F2DEB21D000076697 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B87FED1427FD4FF2000D05C5 /* API+GetCardConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+GetCardConfig.swift"; sourceTree = "<group>"; };
 		B883DE3D27A2754600F66790 /* BarCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCodeView.swift; sourceTree = "<group>"; };
 		B88787FF2771AB700018BF0D /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
@@ -1357,12 +1357,11 @@
 		178722F524BD537D00D90F8E /* InfoMix */ = {
 			isa = PBXGroup;
 			children = (
-				B832EB8E2DA1380300343D56 /* GoogleService-Info.plist */,
+				B875260F2DEB21D000076697 /* GoogleService-Info.plist */,
 				B82B74BE2BC021BA00D2C18A /* InfoMixDebug.entitlements */,
 				D2A754C227AAADFF0037C1D4 /* InfoMix.entitlements */,
 				178722FE24BD537E00D90F8E /* Preview Content */,
 				D29D0036279FF62900C81B32 /* Persistence */,
-				D21DB08F279E60C5004BFF88 /* PushNotification */,
 				D23177262764DC5A00544CD1 /* Views */,
 				D212A70F276382B300B2850E /* Localization */,
 				1787231924BD53AC00D90F8E /* Domain */,
@@ -1989,13 +1988,6 @@
 			path = Event;
 			sourceTree = "<group>";
 		};
-		D21DB08F279E60C5004BFF88 /* PushNotification */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = PushNotification;
-			sourceTree = "<group>";
-		};
 		D222AF0427959BEF00440D5E /* ChangePassword */ = {
 			isa = PBXGroup;
 			children = (
@@ -2494,7 +2486,7 @@
 			files = (
 				1742B37424D7B6F300C82D15 /* Repo.storyboard in Resources */,
 				1770EC2F24DAA6570022FBFE /* RepoCollectionCell.xib in Resources */,
-				B832EB8F2DA1380300343D56 /* GoogleService-Info.plist in Resources */,
+				B87526102DEB21D000076697 /* GoogleService-Info.plist in Resources */,
 				1742B37F24D7F52D00C82D15 /* RepoCell.xib in Resources */,
 				1787230324BD537E00D90F8E /* LaunchScreen.storyboard in Resources */,
 				D212A7122763858100B2850E /* Localizable.strings in Resources */,

@@ -30,7 +30,7 @@ struct EventsView: View {
         
         return LoadingView(isShowing: $output.isLoading, text: .constant("")){
             ZStack(alignment: .topTrailing) {
-                Color(.systemGray6)
+                Color(.systemBackground)
                 VStack {
                     CustomNavigationBarWithMenu(
                         title: "Event List".localized(),
@@ -68,8 +68,7 @@ struct EventsView: View {
                             }
 
                         }
-                        .listStyle(SidebarListStyle())
-
+                        .listStyle(.plain)
                     }
 
 

@@ -19,7 +19,7 @@ extension API {
             super.init(urlString: API.Urls.currentUser,
                        parameters: nil,
                        method: .get,
-                       requireAccessToken: false)
+                       requireAccessToken: true)
             
         }
     }

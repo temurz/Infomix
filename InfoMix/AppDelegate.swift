@@ -27,13 +27,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         
         UNUserNotificationCenter.current().requestAuthorization(
-          options: authOptions) { _, _ in }
-        
-        application.registerForRemoteNotifications()
+            options: authOptions) { granted, error in
+                guard granted else { return }
+                DispatchQueue.main.async {
+                    application.registerForRemoteNotifications()
+                }
+            }
         
         Messaging.messaging().delegate = self
         NetworkManager.shared = NetworkManager.init(baseUrl: "https://dynamic.infomix.uz/api/v2")
-//        NetworkManager.shared = NetworkManager.init(baseUrl: "http://192.168.7.110:8080/api/v2/")
+//        NetworkManager.shared = NetworkManager.init(baseUrl: "http://192.168.7.61:8080/api/v2")
         
         IQKeyboardManager.shared.isEnabled = true
         IQKeyboardToolbarManager.shared.isEnabled = true
