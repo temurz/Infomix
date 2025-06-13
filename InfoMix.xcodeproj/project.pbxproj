@@ -193,6 +193,12 @@
 		B87526102DEB21D000076697 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B875260F2DEB21D000076697 /* GoogleService-Info.plist */; };
 		B87FED1527FD4FF2000D05C5 /* API+GetCardConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87FED1427FD4FF2000D05C5 /* API+GetCardConfig.swift */; };
 		B88159282DFC15A9002DF6ED /* QuickActionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88159272DFC15A9002DF6ED /* QuickActionRow.swift */; };
+		B881592B2DFC17AD002DF6ED /* API+Voucher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B881592A2DFC17A8002DF6ED /* API+Voucher.swift */; };
+		B881592D2DFC18ED002DF6ED /* VoucherHistoryGetInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = B881592C2DFC18ED002DF6ED /* VoucherHistoryGetInput.swift */; };
+		B88159322DFC29F0002DF6ED /* CreatedVoucherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88159312DFC29F0002DF6ED /* CreatedVoucherResponse.swift */; };
+		B88159342DFC29FA002DF6ED /* VoucherHistoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88159332DFC29FA002DF6ED /* VoucherHistoryResponse.swift */; };
+		B88159362DFC2A03002DF6ED /* VoucherStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88159352DFC2A03002DF6ED /* VoucherStatus.swift */; };
+		B88159382DFC2A09002DF6ED /* VoucherCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88159372DFC2A09002DF6ED /* VoucherCurrency.swift */; };
 		B883DE3E27A2754600F66790 /* BarCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B883DE3D27A2754600F66790 /* BarCodeView.swift */; };
 		B88788002771AB700018BF0D /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88787FF2771AB700018BF0D /* EventType.swift */; };
 		B8895A5A27D8D49100916E33 /* CityGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8895A5927D8D49100916E33 /* CityGateway.swift */; };
@@ -711,6 +717,12 @@
 		B875260F2DEB21D000076697 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B87FED1427FD4FF2000D05C5 /* API+GetCardConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+GetCardConfig.swift"; sourceTree = "<group>"; };
 		B88159272DFC15A9002DF6ED /* QuickActionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionRow.swift; sourceTree = "<group>"; };
+		B881592A2DFC17A8002DF6ED /* API+Voucher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+Voucher.swift"; sourceTree = "<group>"; };
+		B881592C2DFC18ED002DF6ED /* VoucherHistoryGetInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherHistoryGetInput.swift; sourceTree = "<group>"; };
+		B88159312DFC29F0002DF6ED /* CreatedVoucherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreatedVoucherResponse.swift; sourceTree = "<group>"; };
+		B88159332DFC29FA002DF6ED /* VoucherHistoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherHistoryResponse.swift; sourceTree = "<group>"; };
+		B88159352DFC2A03002DF6ED /* VoucherStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherStatus.swift; sourceTree = "<group>"; };
+		B88159372DFC2A09002DF6ED /* VoucherCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherCurrency.swift; sourceTree = "<group>"; };
 		B883DE3D27A2754600F66790 /* BarCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCodeView.swift; sourceTree = "<group>"; };
 		B88787FF2771AB700018BF0D /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
 		B8895A5927D8D49100916E33 /* CityGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityGateway.swift; sourceTree = "<group>"; };
@@ -1107,6 +1119,7 @@
 		173865A224D3BB660059E3AD /* API */ = {
 			isa = PBXGroup;
 			children = (
+				B881592A2DFC17A8002DF6ED /* API+Voucher.swift */,
 				B8A3B2022DC4EDC500580DB5 /* API+CheckSerialNumber.swift */,
 				19528F6B2D1B59E20020DBB5 /* API+Leaderboard.swift */,
 				19EC914A2D194A7B00ACA2FB /* API+Markets.swift */,
@@ -1502,6 +1515,7 @@
 		1787235024BD56C800D90F8E /* Entities */ = {
 			isa = PBXGroup;
 			children = (
+				B881592E2DFC18F3002DF6ED /* Voucher */,
 				19528F742D1B60C40020DBB5 /* LoyalUser.swift */,
 				19EC91432D1949F700ACA2FB /* Market.swift */,
 				19B3BC262D16CC920050930E /* ResumeField.swift */,
@@ -1812,6 +1826,18 @@
 				D21CA17F276724B9005B2FBC /* CurrentUserUseCase.swift */,
 			);
 			path = UseCases;
+			sourceTree = "<group>";
+		};
+		B881592E2DFC18F3002DF6ED /* Voucher */ = {
+			isa = PBXGroup;
+			children = (
+				B88159372DFC2A09002DF6ED /* VoucherCurrency.swift */,
+				B88159352DFC2A03002DF6ED /* VoucherStatus.swift */,
+				B88159332DFC29FA002DF6ED /* VoucherHistoryResponse.swift */,
+				B88159312DFC29F0002DF6ED /* CreatedVoucherResponse.swift */,
+				B881592C2DFC18ED002DF6ED /* VoucherHistoryGetInput.swift */,
+			);
+			path = Voucher;
 			sourceTree = "<group>";
 		};
 		B8895A5B27D8D58100916E33 /* City */ = {
@@ -2591,6 +2617,7 @@
 				B8FE37FC2BC01A6200C34D74 /* ImagePickerViewModel.swift in Sources */,
 				1787233124BD547600D90F8E /* AppViewModel.swift in Sources */,
 				19528F732D1B5C730020DBB5 /* LeaderboardGateway.swift in Sources */,
+				B88159362DFC2A03002DF6ED /* VoucherStatus.swift in Sources */,
 				198C327B2D1B3AB40099C7E5 /* ShowingStatusView.swift in Sources */,
 				D2B257FA2769EEAB00974903 /* EditFieldStepView.swift in Sources */,
 				D274100B2775C1AF00385251 /* API+SendingDone.swift in Sources */,
@@ -2669,6 +2696,7 @@
 				D261DA5927A158E000E2A3AD /* ShowingSplash.swift in Sources */,
 				1742B36524D7B01600C82D15 /* RepoGateway.swift in Sources */,
 				D2B257FF2769F31900974903 /* ScannerView.swift in Sources */,
+				B881592D2DFC18ED002DF6ED /* VoucherHistoryGetInput.swift in Sources */,
 				176BAA5524D158BC00324D3C /* LoginView.swift in Sources */,
 				B8FE79D7279C02EB00EDF7E7 /* NotificationsGateway.swift in Sources */,
 				B8FE37FA2BC01A3800C34D74 /* ImagePicker.swift in Sources */,
@@ -2837,6 +2865,7 @@
 				1765B2D524C6DF8B0096D210 /* ProductItemViewModel.swift in Sources */,
 				176BAA4624D1154F00324D3C /* Storyboards.swift in Sources */,
 				B8FE92E627A1CCF300D55319 /* API+CardsDetail.swift in Sources */,
+				B88159342DFC29FA002DF6ED /* VoucherHistoryResponse.swift in Sources */,
 				B8D2080B27FAEFA500A2C36D /* String+.swift in Sources */,
 				B840452527D5E4EC0022DB52 /* OnlineApplicationUseCase.swift in Sources */,
 				196BCB502D17FC8B00DA8B58 /* AboutViewNavigator.swift in Sources */,
@@ -2872,6 +2901,7 @@
 				D214FE1B278CB4A300AFD09C /* Color+.swift in Sources */,
 				D2740FFD2775A8FD00385251 /* SendingSerialNumbers.swift in Sources */,
 				D2449D4827784F3300F75672 /* OpeningDispute.swift in Sources */,
+				B88159322DFC29F0002DF6ED /* CreatedVoucherResponse.swift in Sources */,
 				D214C26027631EEC00DD4E76 /* SplashUseCase.swift in Sources */,
 				B88788002771AB700018BF0D /* EventType.swift in Sources */,
 				D2449D572778B34000F75672 /* AlertWrapper.swift in Sources */,
@@ -2897,6 +2927,7 @@
 				D2B257EF2769B23100974903 /* AddCardView.swift in Sources */,
 				19528F752D1B60C70020DBB5 /* LoyalUser.swift in Sources */,
 				D24DFE2D279050830043C768 /* UrlImage+.swift in Sources */,
+				B881592B2DFC17AD002DF6ED /* API+Voucher.swift in Sources */,
 				D2B8E8AE27883C21009270F6 /* ProductCategory.swift in Sources */,
 				D214FE1D278CB92400AFD09C /* UpdateProductEntryUseCase.swift in Sources */,
 				D264BF37279749E900A45D78 /* ChangeLanguageNavigator.swift in Sources */,
@@ -2926,6 +2957,7 @@
 				178722FB24BD537D00D90F8E /* ContentView.swift in Sources */,
 				B82158482789A396008F25FA /* TransactionHistoryViewModel.swift in Sources */,
 				1781CF3924BD8D58004ED1C6 /* GatewaysAssembler.swift in Sources */,
+				B88159382DFC2A09002DF6ED /* VoucherCurrency.swift in Sources */,
 				1787232E24BD547600D90F8E /* AppNavigator.swift in Sources */,
 				1742B38124D7F66400C82D15 /* UIImageView+SDWebImage.swift in Sources */,
 				176BAA5124D1483200324D3C /* ShowingProductList.swift in Sources */,
