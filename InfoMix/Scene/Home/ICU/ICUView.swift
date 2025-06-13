@@ -31,7 +31,7 @@ struct ICUView: View {
                         .foregroundColor(.white)
                 }.frame(width: 18, height: 18)
                     
-            }else{
+            } else {
                 Text(String(format: "%.2f ball".localized(), output.icu))
                     .font(.title)
                     .bold()
@@ -43,7 +43,9 @@ struct ICUView: View {
                         .resizable()
                         .foregroundColor(.white)
                 }.frame(width: 18, height: 18)
+                
             }
+            Spacer()
         }.onAppear {
             self.loadTrigger.send()
         }

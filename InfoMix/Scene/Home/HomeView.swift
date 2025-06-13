@@ -45,33 +45,33 @@ struct HomeView: View {
                 .frame(maxHeight: .infinity)
             VStack {
                 HStack {
-                    Button {
-                        showStatusViewTrigger.send(())
-                    } label: {
-                        if let iconUrl = output.loyalty?.icon {
-                            if let url = URL(string: iconUrl) {
-                                AsyncImage(url: url) { image in
-                                    image
-                                        .resizable()
-                                        .centerCropped()
-                                        .frame(width: 36, height: 36)
-                                        .cornerRadius(radius: 18, corners: .allCorners)
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                            }
-                        } else {
-                            Image("na_icon")
-                                .resizable()
-                                .centerCropped()
-                                .frame(width: 36, height: 36)
-                                .cornerRadius(radius: 18, corners: .allCorners)
-                        }
-                    }
-                    .frame(width: 36, height: 36)
-                    .background(.white)
-                    .cornerRadius(radius: 18, corners: .allCorners)
-                    .padding(.vertical)
+//                    Button {
+//                        showStatusViewTrigger.send(())
+//                    } label: {
+//                        if let iconUrl = output.loyalty?.icon {
+//                            if let url = URL(string: iconUrl) {
+//                                AsyncImage(url: url) { image in
+//                                    image
+//                                        .resizable()
+//                                        .centerCropped()
+//                                        .frame(width: 36, height: 36)
+//                                        .cornerRadius(radius: 18, corners: .allCorners)
+//                                } placeholder: {
+//                                    ProgressView()
+//                                }
+//                            }
+//                        } else {
+//                            Image("na_icon")
+//                                .resizable()
+//                                .centerCropped()
+//                                .frame(width: 36, height: 36)
+//                                .cornerRadius(radius: 18, corners: .allCorners)
+//                        }
+//                    }
+//                    .frame(width: 36, height: 36)
+//                    .background(.white)
+//                    .cornerRadius(radius: 18, corners: .allCorners)
+//                    .padding(.vertical)
                     VStack {
                         Text(output.certificate.agentFullName)
                             .font(.headline)
@@ -99,65 +99,19 @@ struct HomeView: View {
                 Text("My balance".localized())
                     .font(.subheadline)
                     .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal)
                 
                 icuView
                     .onReceive(icuView.output.$icu, perform: { icu in
                         output.certificate.balance = icu
                         updateIcuTrigger.send(icu)
                     })
-                
                     .frame(maxWidth:.infinity)
+                    .padding(.horizontal)
                 
                 HStack(alignment: .top) {
                     Spacer()
-//                    VStack(spacing: 0) {
-//                        Button {
-//                            showAddCardTrigger.send(())
-//                        } label: {
-//                            Image("plus")
-//                                .renderingMode(.template)
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .foregroundStyle(.white)
-//                                .padding()
-//                        }
-//                        .frame(width: 60, height: 60)
-//                        .background(Color.black.opacity(0.2))
-//                        .cornerRadius(radius: 30, corners: .allCorners)
-//                        .padding([.horizontal, .top])
-//                        Text("Add Card".localized())
-//                            .font(.callout)
-//                            .bold()
-//                            .multilineTextAlignment(.center)
-//                            .lineLimit(2)
-//                            .foregroundStyle(.white)
-//                    }
-//                    .frame(width: UIScreen.screenWidth/3 - 8)
-                    if output.cardConfig.hasShop {
-                        VStack(spacing: 0) {
-                            Button {
-                                showShoppingViewTrigger.send(())
-                            } label: {
-                                Image("shopping_bag")
-                                    .renderingMode(.template)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .foregroundStyle(.white)
-                                    .padding()
-                            }
-                            .frame(width: 60, height: 60)
-                            .background(Color.black.opacity(0.2))
-                            .cornerRadius(radius: 30, corners: .allCorners)
-                            .padding([.horizontal, .top])
-                            Text("Shop".localized())
-                                .font(.callout)
-                                .bold()
-                                .multilineTextAlignment(.center)
-                                .lineLimit(2)
-                                .foregroundStyle(.white)
-                        }
-                        .frame(width: UIScreen.screenWidth/3 - 8)
-                    }
 //                    if output.cardConfig.hasPayment {
 //                        VStack(spacing: 0) {
 //                            Button {
@@ -192,6 +146,38 @@ struct HomeView: View {
                 
                 VStack(spacing: 5) {
                     ScrollView {
+                        Text("Only for you".localized())
+                            .bold()
+                            .foregroundStyle(Color.primary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 4)
+                        LazyVGrid(columns: [GridItem(.adaptive(minimum: UIScreen.screenWidth/2, maximum: UIScreen.screenWidth/2)), GridItem(.adaptive(minimum: UIScreen.screenWidth/2, maximum: UIScreen.screenWidth/2))]) {
+                            if output.cardConfig.hasShop {
+                                QuickActionRow(icon: "shopping_bag", text: "Shop".localized(), color: .green)
+                                    .padding(4)
+                                    .onTapGesture {
+                                        showShoppingViewTrigger.send(())
+                                    }
+                            }
+                            QuickActionRow(icon: "data", text: "Get balls".localized(), color: .purple)
+                                .padding(4)
+                                .onTapGesture {
+                                    
+                                }
+                            QuickActionRow(icon: "user_tab_icon", text: "Certificate".localized(), color: .teal)
+                                .padding(4)
+                                .onTapGesture {
+                                    showStatusViewTrigger.send(())
+                                }
+                            
+                        }
+                        Spacer()
+                            .frame(height: 24)
+                        Text("Last activity".localized())
+                            .bold()
+                            .foregroundStyle(Color.primary)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal, 4)
                         LazyVGrid(columns: [GridItem(.adaptive(minimum: UIScreen.screenWidth/2, maximum: UIScreen.screenWidth/2)), GridItem(.adaptive(minimum: UIScreen.screenWidth/2, maximum: UIScreen.screenWidth/2))]) {
                             ForEach(output.items, id: \.subtitle) { item in
                                 MainCellView(model: item)

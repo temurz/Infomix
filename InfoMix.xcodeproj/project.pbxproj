@@ -192,6 +192,7 @@
 		B873F1B127D634DD0047149E /* CityRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B873F1B027D634DD0047149E /* CityRow.swift */; };
 		B87526102DEB21D000076697 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B875260F2DEB21D000076697 /* GoogleService-Info.plist */; };
 		B87FED1527FD4FF2000D05C5 /* API+GetCardConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = B87FED1427FD4FF2000D05C5 /* API+GetCardConfig.swift */; };
+		B88159282DFC15A9002DF6ED /* QuickActionRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88159272DFC15A9002DF6ED /* QuickActionRow.swift */; };
 		B883DE3E27A2754600F66790 /* BarCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B883DE3D27A2754600F66790 /* BarCodeView.swift */; };
 		B88788002771AB700018BF0D /* EventType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88787FF2771AB700018BF0D /* EventType.swift */; };
 		B8895A5A27D8D49100916E33 /* CityGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8895A5927D8D49100916E33 /* CityGateway.swift */; };
@@ -709,6 +710,7 @@
 		B873F1B027D634DD0047149E /* CityRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRow.swift; sourceTree = "<group>"; };
 		B875260F2DEB21D000076697 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B87FED1427FD4FF2000D05C5 /* API+GetCardConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+GetCardConfig.swift"; sourceTree = "<group>"; };
+		B88159272DFC15A9002DF6ED /* QuickActionRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionRow.swift; sourceTree = "<group>"; };
 		B883DE3D27A2754600F66790 /* BarCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarCodeView.swift; sourceTree = "<group>"; };
 		B88787FF2771AB700018BF0D /* EventType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventType.swift; sourceTree = "<group>"; };
 		B8895A5927D8D49100916E33 /* CityGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityGateway.swift; sourceTree = "<group>"; };
@@ -1790,6 +1792,28 @@
 			path = Cities;
 			sourceTree = "<group>";
 		};
+		B88159262DFC159F002DF6ED /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D233A17A27687F2700BB74E8 /* HomeAttachedView.swift */,
+				B88159272DFC15A9002DF6ED /* QuickActionRow.swift */,
+				B8EDD9C52D0F6DAD00DABCD3 /* MainCellView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B88159292DFC15C1002DF6ED /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				D2B5A013279A9EE8003A6597 /* LastEventsUseCase.swift */,
+				D24C8BCC27AE9250006AA248 /* FcmTokenUseCase.swift */,
+				B88BD4812D071E8F00BEC98B /* GetLoyaltyViewUseCase.swift */,
+				B88BD4832D071ED600BEC98B /* GetStatisticsViewUseCase.swift */,
+				D21CA17F276724B9005B2FBC /* CurrentUserUseCase.swift */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
 		B8895A5B27D8D58100916E33 /* City */ = {
 			isa = PBXGroup;
 			children = (
@@ -2201,19 +2225,14 @@
 		D28943EB276629C1008B3876 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				B88159292DFC15C1002DF6ED /* UseCases */,
+				B88159262DFC159F002DF6ED /* Views */,
 				D24F8CF62767D57C001876FB /* ICU */,
 				D28943EE27662A00008B3876 /* HomeView.swift */,
 				D28943F327664A02008B3876 /* HomeViewModel.swift */,
 				D28943F527664B50008B3876 /* HomeNavigator.swift */,
 				D28943FC2766524F008B3876 /* HomeAssembler.swift */,
-				D21CA17F276724B9005B2FBC /* CurrentUserUseCase.swift */,
 				D24F8CF42767B8C4001876FB /* CertificateItemViewModel.swift */,
-				D233A17A27687F2700BB74E8 /* HomeAttachedView.swift */,
-				D2B5A013279A9EE8003A6597 /* LastEventsUseCase.swift */,
-				D24C8BCC27AE9250006AA248 /* FcmTokenUseCase.swift */,
-				B88BD4812D071E8F00BEC98B /* GetLoyaltyViewUseCase.swift */,
-				B88BD4832D071ED600BEC98B /* GetStatisticsViewUseCase.swift */,
-				B8EDD9C52D0F6DAD00DABCD3 /* MainCellView.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -2885,6 +2904,7 @@
 				1720C7C124FE383D00D616B2 /* Validation+Collection.swift in Sources */,
 				D24F0317278EB8FC00A0B125 /* GettingOrderStatusList.swift in Sources */,
 				D21CA18B276742E7005B2FBC /* EventsNavigator.swift in Sources */,
+				B88159282DFC15A9002DF6ED /* QuickActionRow.swift in Sources */,
 				D24F8CF52767B8C4001876FB /* CertificateItemViewModel.swift in Sources */,
 				19528F702D1B5B590020DBB5 /* LeaderboardDomainUseCase.swift in Sources */,
 				B81BC049279F254400713323 /* MyCardsView.swift in Sources */,
