@@ -7,7 +7,12 @@
 //
 
 extension API {
+    
     enum Urls {
+        static var baseURL: String {
+            NetworkManager.shared.baseUrl
+        }
+        
         static let login = NetworkManager.shared.baseUrl + "/auth/login"
         static let logout = NetworkManager.shared.baseUrl + "/auth/logout"
         static let currentUser = NetworkManager.shared.baseUrl + "/auth/current"
@@ -45,5 +50,12 @@ extension API {
         static let markets = NetworkManager.shared.baseUrl + "/market/"
         static let leaderboard = NetworkManager.shared.baseUrl + "/loyalty/leaderboard"
         static let checkSerialNumber = NetworkManager.shared.baseUrl + "/sn/checker"
+        
+        //Voucher
+        static let voucherRequest = baseURL + "/voucher/request"
+        static let voucherHistory = baseURL + "/voucher/history"
+        static let voucherStatuses = baseURL + "/voucher/statuses"
+        static let voucherCancel = baseURL + "/voucher/cancel"
+        static let voucherCurrency = baseURL + "/voucher/currency"
     }
 }
