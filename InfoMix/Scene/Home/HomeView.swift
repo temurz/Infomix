@@ -35,6 +35,7 @@ struct HomeView: View {
     private let showShoppingViewTrigger = PassthroughSubject<Void,Never>()
     private let showNotificationsTrigger = PassthroughSubject<Void,Never>()
     private let showStatusViewTrigger = PassthroughSubject<Void,Never>()
+    private let showVoucherViewTrigger = PassthroughSubject<Void,Never>()
 
     let icuView: ICUView
     
@@ -45,33 +46,6 @@ struct HomeView: View {
                 .frame(maxHeight: .infinity)
             VStack {
                 HStack {
-//                    Button {
-//                        showStatusViewTrigger.send(())
-//                    } label: {
-//                        if let iconUrl = output.loyalty?.icon {
-//                            if let url = URL(string: iconUrl) {
-//                                AsyncImage(url: url) { image in
-//                                    image
-//                                        .resizable()
-//                                        .centerCropped()
-//                                        .frame(width: 36, height: 36)
-//                                        .cornerRadius(radius: 18, corners: .allCorners)
-//                                } placeholder: {
-//                                    ProgressView()
-//                                }
-//                            }
-//                        } else {
-//                            Image("na_icon")
-//                                .resizable()
-//                                .centerCropped()
-//                                .frame(width: 36, height: 36)
-//                                .cornerRadius(radius: 18, corners: .allCorners)
-//                        }
-//                    }
-//                    .frame(width: 36, height: 36)
-//                    .background(.white)
-//                    .cornerRadius(radius: 18, corners: .allCorners)
-//                    .padding(.vertical)
                     VStack {
                         Text(output.certificate.agentFullName)
                             .font(.headline)
@@ -110,40 +84,6 @@ struct HomeView: View {
                     .frame(maxWidth:.infinity)
                     .padding(.horizontal)
                 
-                HStack(alignment: .top) {
-                    Spacer()
-//                    if output.cardConfig.hasPayment {
-//                        VStack(spacing: 0) {
-//                            Button {
-//                                showShoppingViewTrigger.send(())
-//                            } label: {
-//                                Image("shopping_bag")
-//                                    .renderingMode(.template)
-//                                    .resizable()
-//                                    .aspectRatio(contentMode: .fit)
-//                                    .foregroundStyle(.white)
-//                                    .padding()
-//                            }
-//                            .frame(width: 60, height: 60)
-//                            .background(Color.black.opacity(0.2))
-//                            .cornerRadius(radius: 30, corners: .allCorners)
-//                            .padding([.horizontal, .top])
-//                            Text("Shop".localized())
-//                                .font(.callout)
-//                                .bold()
-//                                .lineLimit(2)
-//                                .foregroundStyle(.white)
-//                        }
-//                        .frame(width: UIScreen.screenWidth/3 - 8)
-//
-//                    }
-
-                    Spacer()
-                }
-                
-                
-                
-                
                 VStack(spacing: 5) {
                     ScrollView {
                         Text("Only for you".localized())
@@ -162,7 +102,7 @@ struct HomeView: View {
                             QuickActionRow(icon: "data", text: "Get balls".localized(), color: .purple)
                                 .padding(4)
                                 .onTapGesture {
-                                    
+                                    showVoucherViewTrigger.send(())
                                 }
                             QuickActionRow(icon: "user_tab_icon", text: "Certificate".localized(), color: .teal)
                                 .padding(4)
@@ -297,7 +237,8 @@ struct HomeView: View {
             showAddCardTrigger: showAddCardTrigger.asDriver(),
             showShoppingViewTrigger: showShoppingViewTrigger.asDriver(),
             showNotificationsTrigger: showNotificationsTrigger.asDriver(),
-            showStatusViewTrigger: showStatusViewTrigger.asDriver()
+            showStatusViewTrigger: showStatusViewTrigger.asDriver(),
+            showVoucherViewTrigger: showVoucherViewTrigger.asDriver()
         )
         self.output = viewModel.transform(input, cancelBag: cancelBag)
         self.icuView = iv

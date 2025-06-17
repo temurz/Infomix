@@ -37,7 +37,8 @@ ChangePasswordAssembler,
 ChangeLanguageAssembler,
 AboutAssembler,
 LocalUsersAssembler,
-StatusViewAssembler
+StatusViewAssembler,
+VoucherViewAssembler
 {
 
 }

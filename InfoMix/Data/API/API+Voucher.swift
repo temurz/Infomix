@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Alamofire
 
 extension API {
     //Input classes

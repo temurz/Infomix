@@ -9,9 +9,9 @@
 
 struct VoucherCurrency: Decodable {
     let id: Int
-    let createDate: Int?
-    let entityStatus: String?
-    let amount: Int?
-    let effectiveDate: Int?
-    let jobId: Int?
+    var createDate: Int?
+    var entityStatus: String?
+    var amount: Int?
+    var effectiveDate: Int?
+    var jobId: Int?
 }

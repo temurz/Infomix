@@ -74,6 +74,10 @@ extension GatewaysAssembler where Self: DefaultAssembler {
     func resolve() -> StatisticsGatewayType {
         StatisticsGateway()
     }
+    
+    func resolve() -> VoucherGatewayProtocol {
+        VoucherGateway()
+    }
 }
 
 extension GatewaysAssembler where Self: PreviewAssembler {
@@ -129,5 +133,9 @@ extension GatewaysAssembler where Self: PreviewAssembler {
     
     func resolve() -> StatisticsGatewayType {
         StatisticsGateway()
+    }
+    
+    func resolve() -> VoucherGatewayProtocol {
+        VoucherGateway()
     }
 }

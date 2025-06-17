@@ -9,24 +9,24 @@
 
 struct VoucherHistoryResponse: Decodable {
     let id: Int
-    let transactionId: Int?
-    let code: String?
-    let amount: Double?
-    let priceForICU: Int?
-    let totalAmount: Double?
-    let paidAmount: Double?
-    let jobId: Int?
-    let masterId: Int?
-    let createDate: Int?
-    let modifyDate: Int?
-    let closedDate: Int?
-    let paidDate: Int?
-    let note: String?
-    let status: String?
-    let verifyCode: String?
-    let departmentName: String?
-    let departmentPhone: String?
-    let confirmed: Bool?
+    var transactionId: Int?
+    var code: String?
+    var amount: Double?
+    var priceForICU: Int?
+    var totalAmount: Double?
+    var paidAmount: Double?
+    var jobId: Int?
+    var masterId: Int?
+    var createDate: Int?
+    var modifyDate: Int?
+    var closedDate: Int?
+    var paidDate: Int?
+    var note: String?
+    var status: String?
+    var verifyCode: String?
+    var departmentName: String?
+    var departmentPhone: String?
+    var confirmed: Bool?
 }
 
 

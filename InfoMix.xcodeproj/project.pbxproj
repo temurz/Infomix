@@ -184,6 +184,11 @@
 		B842EA9627885C1900527326 /* GettingEventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B842EA9527885C1900527326 /* GettingEventDetail.swift */; };
 		B842EA9827885CB800527326 /* API+EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B842EA9727885CB800527326 /* API+EventDetail.swift */; };
 		B8492F82278EAB62009C0A30 /* GettingTransaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8492F81278EAB62009C0A30 /* GettingTransaction.swift */; };
+		B84D6C3F2DFC6EB5005AC7C0 /* VoucherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D6C3E2DFC6EB2005AC7C0 /* VoucherView.swift */; };
+		B84D6C412DFC6EBD005AC7C0 /* VoucherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D6C402DFC6EB8005AC7C0 /* VoucherViewModel.swift */; };
+		B84D6C432DFC6EC4005AC7C0 /* VoucherViewUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D6C422DFC6EBF005AC7C0 /* VoucherViewUseCase.swift */; };
+		B84D6C452DFC6ECF005AC7C0 /* VoucherNavigator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D6C442DFC6EC6005AC7C0 /* VoucherNavigator.swift */; };
+		B84D6C472DFC6ED7005AC7C0 /* VoucherViewAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84D6C462DFC6ED2005AC7C0 /* VoucherViewAssembler.swift */; };
 		B84E389E278E98730058BA7F /* CalendarAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84E389D278E98730058BA7F /* CalendarAlert.swift */; };
 		B8593F14279162D400614999 /* TransactionTypeUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8593F13279162D400614999 /* TransactionTypeUseCase.swift */; };
 		B8593F162791641E00614999 /* API+TransactionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8593F152791641E00614999 /* API+TransactionTypes.swift */; };
@@ -243,6 +248,7 @@
 		B8EB21A427FF0B0900DCFE52 /* Resume.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EB21A327FF0B0900DCFE52 /* Resume.swift */; };
 		B8EC85412D09309C00DA6C9F /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EC85402D09309800DA6C9F /* Colors.swift */; };
 		B8ECFB17279C89AB00715567 /* NotificationsUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8ECFB16279C89AB00715567 /* NotificationsUseCase.swift */; };
+		B8EDBED22E003E2B00788020 /* ShowingVoucherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EDBED12E003E1F00788020 /* ShowingVoucherView.swift */; };
 		B8EDD9C62D0F6DAD00DABCD3 /* MainCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EDD9C52D0F6DAD00DABCD3 /* MainCellView.swift */; };
 		B8EDD9C92D0F79F200DABCD3 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EDD9C82D0F79F200DABCD3 /* StatusView.swift */; };
 		B8EDD9CB2D0F7A0600DABCD3 /* StatusViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8EDD9CA2D0F7A0000DABCD3 /* StatusViewModel.swift */; };
@@ -256,6 +262,8 @@
 		B8F10D1327A04DCA0095A2CF /* MyCardsDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F10D1227A04DCA0095A2CF /* MyCardsDatePicker.swift */; };
 		B8F10D1527A06ADB0095A2CF /* ShowingCardDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F10D1427A06ADB0095A2CF /* ShowingCardDetail.swift */; };
 		B8F3C33A27705AE300B1C1E9 /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F3C33927705AE300B1C1E9 /* EventRow.swift */; };
+		B8F59FB02E0131DD005F1FFF /* VoucherGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FAF2E0131D5005F1FFF /* VoucherGateway.swift */; };
+		B8F59FB32E01333E005F1FFF /* VoucherDomainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FB22E013336005F1FFF /* VoucherDomainUseCase.swift */; };
 		B8FBCB72278A874E00C0E1E0 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBCB71278A874E00C0E1E0 /* TransactionType.swift */; };
 		B8FBCB74278A87C800C0E1E0 /* TransactionStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBCB73278A87C800C0E1E0 /* TransactionStatistic.swift */; };
 		B8FBCB79278D42BB00C0E1E0 /* GettingTransactionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBCB78278D42BB00C0E1E0 /* GettingTransactionTypes.swift */; };
@@ -708,6 +716,11 @@
 		B842EA9527885C1900527326 /* GettingEventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingEventDetail.swift; sourceTree = "<group>"; };
 		B842EA9727885CB800527326 /* API+EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+EventDetail.swift"; sourceTree = "<group>"; };
 		B8492F81278EAB62009C0A30 /* GettingTransaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingTransaction.swift; sourceTree = "<group>"; };
+		B84D6C3E2DFC6EB2005AC7C0 /* VoucherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherView.swift; sourceTree = "<group>"; };
+		B84D6C402DFC6EB8005AC7C0 /* VoucherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherViewModel.swift; sourceTree = "<group>"; };
+		B84D6C422DFC6EBF005AC7C0 /* VoucherViewUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherViewUseCase.swift; sourceTree = "<group>"; };
+		B84D6C442DFC6EC6005AC7C0 /* VoucherNavigator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherNavigator.swift; sourceTree = "<group>"; };
+		B84D6C462DFC6ED2005AC7C0 /* VoucherViewAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherViewAssembler.swift; sourceTree = "<group>"; };
 		B84E389D278E98730058BA7F /* CalendarAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarAlert.swift; sourceTree = "<group>"; };
 		B8593F13279162D400614999 /* TransactionTypeUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTypeUseCase.swift; sourceTree = "<group>"; };
 		B8593F152791641E00614999 /* API+TransactionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+TransactionTypes.swift"; sourceTree = "<group>"; };
@@ -767,6 +780,7 @@
 		B8EB21A327FF0B0900DCFE52 /* Resume.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resume.swift; sourceTree = "<group>"; };
 		B8EC85402D09309800DA6C9F /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		B8ECFB16279C89AB00715567 /* NotificationsUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsUseCase.swift; sourceTree = "<group>"; };
+		B8EDBED12E003E1F00788020 /* ShowingVoucherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingVoucherView.swift; sourceTree = "<group>"; };
 		B8EDD9C52D0F6DAD00DABCD3 /* MainCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCellView.swift; sourceTree = "<group>"; };
 		B8EDD9C82D0F79F200DABCD3 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
 		B8EDD9CA2D0F7A0000DABCD3 /* StatusViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewModel.swift; sourceTree = "<group>"; };
@@ -780,6 +794,8 @@
 		B8F10D1227A04DCA0095A2CF /* MyCardsDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCardsDatePicker.swift; sourceTree = "<group>"; };
 		B8F10D1427A06ADB0095A2CF /* ShowingCardDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowingCardDetail.swift; sourceTree = "<group>"; };
 		B8F3C33927705AE300B1C1E9 /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRow.swift; sourceTree = "<group>"; };
+		B8F59FAF2E0131D5005F1FFF /* VoucherGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherGateway.swift; sourceTree = "<group>"; };
+		B8F59FB22E013336005F1FFF /* VoucherDomainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherDomainUseCase.swift; sourceTree = "<group>"; };
 		B8FBCB71278A874E00C0E1E0 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
 		B8FBCB73278A87C800C0E1E0 /* TransactionStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatistic.swift; sourceTree = "<group>"; };
 		B8FBCB78278D42BB00C0E1E0 /* GettingTransactionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingTransactionTypes.swift; sourceTree = "<group>"; };
@@ -1269,6 +1285,7 @@
 		1765B2CF24C6D5350096D210 /* Navigators */ = {
 			isa = PBXGroup;
 			children = (
+				B8EDBED12E003E1F00788020 /* ShowingVoucherView.swift */,
 				198C327A2D1B3A580099C7E5 /* ShowingStatusView.swift */,
 				176BAA5024D1483200324D3C /* ShowingProductList.swift */,
 				176BAA5924D16BAE00324D3C /* ShowingLogin.swift */,
@@ -1441,6 +1458,7 @@
 		1787231A24BD53B200D90F8E /* Scene */ = {
 			isa = PBXGroup;
 			children = (
+				B84D6C3D2DFC6EAA005AC7C0 /* Voucher */,
 				19B3BC232D16A2C90050930E /* Views */,
 				19B3BC202D16958E0050930E /* Poll */,
 				B8EDD9C72D0F79C100DABCD3 /* Status */,
@@ -1565,6 +1583,7 @@
 		1787235124BD56CD00D90F8E /* UseCases */ = {
 			isa = PBXGroup;
 			children = (
+				B8F59FB12E01332F005F1FFF /* Voucher */,
 				B8A3B2062DC4F05500580DB5 /* CheckSerialNumber */,
 				19528F712D1B5B9C0020DBB5 /* Leaderboard */,
 				19EC91452D194A2A00ACA2FB /* Market */,
@@ -1602,6 +1621,7 @@
 		1787235924BD577C00D90F8E /* Gateways */ = {
 			isa = PBXGroup;
 			children = (
+				B8F59FAF2E0131D5005F1FFF /* VoucherGateway.swift */,
 				B8A3B2042DC4EE7B00580DB5 /* CheckSerialNumberGateway.swift */,
 				19528F722D1B5C6D0020DBB5 /* LeaderboardGateway.swift */,
 				19EC914E2D194AF200ACA2FB /* OnlineApplicationGateway.swift */,
@@ -1793,6 +1813,18 @@
 			path = OnlineApplication;
 			sourceTree = "<group>";
 		};
+		B84D6C3D2DFC6EAA005AC7C0 /* Voucher */ = {
+			isa = PBXGroup;
+			children = (
+				B84D6C3E2DFC6EB2005AC7C0 /* VoucherView.swift */,
+				B84D6C402DFC6EB8005AC7C0 /* VoucherViewModel.swift */,
+				B84D6C422DFC6EBF005AC7C0 /* VoucherViewUseCase.swift */,
+				B84D6C442DFC6EC6005AC7C0 /* VoucherNavigator.swift */,
+				B84D6C462DFC6ED2005AC7C0 /* VoucherViewAssembler.swift */,
+			);
+			path = Voucher;
+			sourceTree = "<group>";
+		};
 		B873F1AD27D634B20047149E /* Cities */ = {
 			isa = PBXGroup;
 			children = (
@@ -1895,6 +1927,14 @@
 				B8EDD9CE2D0F7A1F00DABCD3 /* StatusViewAssembler.swift */,
 			);
 			path = Status;
+			sourceTree = "<group>";
+		};
+		B8F59FB12E01332F005F1FFF /* Voucher */ = {
+			isa = PBXGroup;
+			children = (
+				B8F59FB22E013336005F1FFF /* VoucherDomainUseCase.swift */,
+			);
+			path = Voucher;
 			sourceTree = "<group>";
 		};
 		B8FBCB75278D40E800C0E1E0 /* Transaction */ = {
@@ -2577,6 +2617,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8EDD9CB2D0F7A0600DABCD3 /* StatusViewModel.swift in Sources */,
+				B84D6C412DFC6EBD005AC7C0 /* VoucherViewModel.swift in Sources */,
 				B8FE37F52BC019CB00C34D74 /* ImageFieldStepView.swift in Sources */,
 				B840452027D5E0EB0022DB52 /* OnlineApplicationViewModel.swift in Sources */,
 				D2E05AEA2795447400BCA104 /* ChangePasswordUseCase.swift in Sources */,
@@ -2765,6 +2806,7 @@
 				D23E2B552792B063003C79B5 /* ProfileAssembler.swift in Sources */,
 				D24F030D278EAA5000A0B125 /* OrderHistoryAssembler.swift in Sources */,
 				17A5B1F424D8080B004BD209 /* UIViewController+Combine.swift in Sources */,
+				B84D6C452DFC6ECF005AC7C0 /* VoucherNavigator.swift in Sources */,
 				17DCF1B624BEE76800D970B4 /* Driver.swift in Sources */,
 				B840452327D5E4DD0022DB52 /* OnlineApplicationAssembler.swift in Sources */,
 				B88BD4882D071FF000BEC98B /* API+Statistics.swift in Sources */,
@@ -2819,6 +2861,7 @@
 				D20D337D278D423E001256C8 /* API+Checkout.swift in Sources */,
 				D22FED942768606B00A01200 /* ICU.swift in Sources */,
 				D24F030B278EAA4000A0B125 /* OrderHistoryNavigation.swift in Sources */,
+				B8F59FB02E0131DD005F1FFF /* VoucherGateway.swift in Sources */,
 				D29D004F27A019AC00C81B32 /* LocalUsersView.swift in Sources */,
 				B8FE79D0279C028900EDF7E7 /* ShowingNotifications.swift in Sources */,
 				D24DFE2F279051CD0043C768 /* URLImageInMemoryStore.swift in Sources */,
@@ -2931,6 +2974,7 @@
 				D2B8E8AE27883C21009270F6 /* ProductCategory.swift in Sources */,
 				D214FE1D278CB92400AFD09C /* UpdateProductEntryUseCase.swift in Sources */,
 				D264BF37279749E900A45D78 /* ChangeLanguageNavigator.swift in Sources */,
+				B8EDBED22E003E2B00788020 /* ShowingVoucherView.swift in Sources */,
 				D2449D4427784D1700F75672 /* API+OpenDispute.swift in Sources */,
 				1720C7C124FE383D00D616B2 /* Validation+Collection.swift in Sources */,
 				D24F0317278EB8FC00A0B125 /* GettingOrderStatusList.swift in Sources */,
@@ -2981,6 +3025,7 @@
 				1770EC2824DAA55B0022FBFE /* PagingCollectionView.swift in Sources */,
 				D2492478278C5B180002E473 /* ProductDetailView.swift in Sources */,
 				D24DFE3527913DBA0043C768 /* AppURLImage.swift in Sources */,
+				B84D6C472DFC6ED7005AC7C0 /* VoucherViewAssembler.swift in Sources */,
 				1787234024BD556E00D90F8E /* LoginUseCase.swift in Sources */,
 				B8F3C33A27705AE300B1C1E9 /* EventRow.swift in Sources */,
 				D2449D532778B2CC00F75672 /* TextAlert.swift in Sources */,
@@ -3013,6 +3058,7 @@
 				D2712826278706A900756A00 /* CurrentShoppingCartUseCase.swift in Sources */,
 				D27128322787283800756A00 /* ShoppingAssembler.swift in Sources */,
 				1770EC2E24DAA6570022FBFE /* RepoCollectionCell.swift in Sources */,
+				B8F59FB32E01333E005F1FFF /* VoucherDomainUseCase.swift in Sources */,
 				B8F10D0F27A01F630095A2CF /* ShowingCardsHistory.swift in Sources */,
 				D21B82562774FD6900C58E3B /* SendingConnectUseCase.swift in Sources */,
 				B8EDD9C62D0F6DAD00DABCD3 /* MainCellView.swift in Sources */,
@@ -3029,11 +3075,13 @@
 				19EC914B2D194A7F00ACA2FB /* API+Markets.swift in Sources */,
 				D2E4A7F227771D130060320E /* SendingTimelineRowView.swift in Sources */,
 				176BAA7524D26E4C00324D3C /* LogOptions.swift in Sources */,
+				B84D6C3F2DFC6EB5005AC7C0 /* VoucherView.swift in Sources */,
 				B8A3B2052DC4EE8300580DB5 /* CheckSerialNumberGateway.swift in Sources */,
 				B8FE92E427A1C5D300D55319 /* MyCardsDetailUseCase.swift in Sources */,
 				B8FDD29C2796D5E80081E236 /* GettingTransactionStatistic.swift in Sources */,
 				176BAA4824D130B800324D3C /* Bindable.swift in Sources */,
 				D214C25E27631E6900DD4E76 /* SplashAssembler.swift in Sources */,
+				B84D6C432DFC6EC4005AC7C0 /* VoucherViewUseCase.swift in Sources */,
 				176BAA5824D167A400324D3C /* LoggingIn.swift in Sources */,
 				19B3BC0D2D158A450050930E /* PopNavigator.swift in Sources */,
 				D29D003E279FFB6900C81B32 /* CoreDataManager.swift in Sources */,
