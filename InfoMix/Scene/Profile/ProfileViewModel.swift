@@ -75,7 +75,7 @@ extension ProfileViewModel : ViewModel {
             .map { _ in
                 self.logoutUseCase.logout()
                     .handleEvents(receiveCompletion: { completion in
-                        if case let .failure(error) = completion {
+                        if case .failure(_) = completion {
                             UserDefaults.standard.removeObject(forKey: "token")
                             self.navigator.showSplash()
                         }

@@ -37,7 +37,7 @@ struct Product: Identifiable {
     var image: String?
 
     func available() -> Bool {
-        return inStock > 0.0 && ((price ?? 0.0) > 0.0 || (priceInPromotion ?? 0.0) > 0.0)
+        return inStock > 0.0 && ((price) > 0.0 || (priceInPromotion ?? 0.0) > 0.0)
     }
 }
 

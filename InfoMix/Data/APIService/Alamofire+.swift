@@ -10,7 +10,7 @@ import Foundation
 
 extension Alamofire.Session{
     @discardableResult
-    open func requestWithoutCache(
+    public func requestWithoutCache(
         _ url: URLConvertible,
         method: HTTPMethod = .get,
         parameters: Parameters? = nil,

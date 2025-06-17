@@ -21,7 +21,7 @@ extension API {
             encoder.outputFormatting = .prettyPrinted
             let json = try? encoder.encode(serialNumbers)
             let string = String(data: json ?? Data(), encoding: .utf8)
-            print(string)
+            
             let parameters: Parameters = [
                 "serialCardId": serialCardId,
                 "serialNumbers": serialNumbers.map { [

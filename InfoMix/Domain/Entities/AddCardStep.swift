@@ -109,7 +109,7 @@ extension AddCardStep{
 
     }
     func isValid() -> Bool{
-        var result = false
+        
         if self.items[0].skip || self.items[0].valueString.count > 0{
             return true
         }

@@ -37,7 +37,7 @@ open class APIInputBase {
 }
 
 extension APIInputBase {
-    open var urlEncodingString: String {
+    public var urlEncodingString: String {
         guard
             let url = URL(string: urlString),
             var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
@@ -63,7 +63,7 @@ extension APIInputBase {
         return urlComponents.url?.absoluteString ?? urlString
     }
     
-    open func description(isIncludedParameters: Bool) -> String {
+    public func description(isIncludedParameters: Bool) -> String {
         if method == .get || !isIncludedParameters {
             return "🌎 \(method.rawValue) \(urlEncodingString)"
         }

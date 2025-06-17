@@ -80,7 +80,7 @@ struct LoginView: View {
                                     CardConfig.shared = newConfig
                                     if output.chosenConfig.resumeFields != nil || !(output.chosenConfig.resumeFields?.isEmpty ?? true) {
                                         showOnlineApplicationText = true
-                                        print(output.chosenConfig.resumeFields?.count)
+                                        print(output.chosenConfig.resumeFields?.count ?? 0)
                                     }
 
                                 }
@@ -216,8 +216,8 @@ struct LoginView: View {
                     CardConfig.shared = newConfig
                     if newConfig.resumeFields != nil && !newConfig.resumeFields!.isEmpty {
                         showOnlineApplicationText = true
-                        print(output.chosenConfig.resumeFields?.count)
-                        print(output.chosenConfig.resumeFields)
+                        print(output.chosenConfig.resumeFields?.count ?? 0)
+                        print(output.chosenConfig.resumeFields ?? "")
                     }
 
                     UserDefaults.standard.set(newConfig.configCode, forKey: "configCode")

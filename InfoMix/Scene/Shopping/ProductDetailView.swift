@@ -53,7 +53,7 @@ struct ProductDetailView: View {
                 VStack (spacing: 12){
                     HStack {
                         
-                        Text("\((Double(self.quantity) * (self.productItemModel.product.price ?? 0)).groupped(fractionDigits: 0, groupSeparator: " ")) ball")
+                        Text("\((Double(self.quantity) * (self.productItemModel.product.price)).groupped(fractionDigits: 0, groupSeparator: " ")) ball")
 
                         
                         Spacer()
@@ -142,7 +142,7 @@ struct ProductDetailView: View {
     
     fileprivate func plusButton() -> some View {
         return Button(action: {
-            let inStock = Int(self.productItemModel.product.inStock ?? 0)
+            let inStock = Int(self.productItemModel.product.inStock)
             let newQuantity = self.quantity + 1
             
             if newQuantity > inStock {

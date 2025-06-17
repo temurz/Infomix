@@ -23,8 +23,7 @@ class APIInput: APIInputBase {  // swiftlint:disable:this final_class
         )
         self.headers = [
             "Content-Type": "application/json; charset=utf-8",
-            "Accept": "application/json",
-            "Cache-Control": "No-Cache"
+            "Accept": "application/json"
         ]
         
         self.token = UserDefaults.standard.string(forKey: "token")
