@@ -50,7 +50,7 @@ extension EventDetail: Decodable {
         content = try values.decodeIfPresent(String.self, forKey: .content)
         
         if let imgUrl = try values.decodeIfPresent(String.self, forKey: .imageUrl){
-            imageUrl = "http://test.infomix.uz/api/v2/image/event/" + imgUrl
+            imageUrl = NetworkManager.shared.baseUrl + "/image/event/" + imgUrl
         }else {
             imageUrl = ""
         }

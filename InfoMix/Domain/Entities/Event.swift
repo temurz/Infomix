@@ -51,7 +51,7 @@ extension Event: Decodable {
         content = try values.decodeIfPresent(String.self, forKey: .content)
         
         if let imgUrl = try values.decodeIfPresent(String.self, forKey: .imageUrl){
-            imageUrl = NetworkManager.shared.baseUrl + imgUrl
+            imageUrl = NetworkManager.shared.baseUrl + "/image/event/" + imgUrl
         }else {
             imageUrl = ""
         }
