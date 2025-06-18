@@ -40,9 +40,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         IQKeyboardManager.shared.isEnabled = true
         IQKeyboardToolbarManager.shared.isEnabled = true
-        #if DEBUG
-        NFX.sharedInstance().start()
-        #endif
+        if Settings.isTestFlightOrDebug {
+            NFX.sharedInstance().start()
+        }
         
         return true
     }

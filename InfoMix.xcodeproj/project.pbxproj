@@ -268,6 +268,7 @@
 		B8F59FBD2E01D2EF005F1FFF /* AddVoucherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FBC2E01D2DF005F1FFF /* AddVoucherView.swift */; };
 		B8F59FBF2E01E0B4005F1FFF /* VoucherDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FBE2E01E0AE005F1FFF /* VoucherDto.swift */; };
 		B8F59FC12E02927D005F1FFF /* BarcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FC02E02927D005F1FFF /* BarcodeView.swift */; };
+		B8F59FC32E02A0AA005F1FFF /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FC22E02A0A7005F1FFF /* Settings.swift */; };
 		B8FBCB72278A874E00C0E1E0 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBCB71278A874E00C0E1E0 /* TransactionType.swift */; };
 		B8FBCB74278A87C800C0E1E0 /* TransactionStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBCB73278A87C800C0E1E0 /* TransactionStatistic.swift */; };
 		B8FBCB79278D42BB00C0E1E0 /* GettingTransactionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBCB78278D42BB00C0E1E0 /* GettingTransactionTypes.swift */; };
@@ -804,6 +805,7 @@
 		B8F59FBC2E01D2DF005F1FFF /* AddVoucherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVoucherView.swift; sourceTree = "<group>"; };
 		B8F59FBE2E01E0AE005F1FFF /* VoucherDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherDto.swift; sourceTree = "<group>"; };
 		B8F59FC02E02927D005F1FFF /* BarcodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeView.swift; sourceTree = "<group>"; };
+		B8F59FC22E02A0A7005F1FFF /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		B8FBCB71278A874E00C0E1E0 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
 		B8FBCB73278A87C800C0E1E0 /* TransactionStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatistic.swift; sourceTree = "<group>"; };
 		B8FBCB78278D42BB00C0E1E0 /* GettingTransactionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingTransactionTypes.swift; sourceTree = "<group>"; };
@@ -1531,6 +1533,7 @@
 		1787234F24BD566300D90F8E /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				B8F59FC22E02A0A7005F1FFF /* Settings.swift */,
 				B8EC85402D09309800DA6C9F /* Colors.swift */,
 				1734926324C59CC00014F87E /* Architecture */,
 				17DCF1B724BF01E400D970B4 /* Extensions */,
@@ -2708,6 +2711,7 @@
 				D21CA18D27674316005B2FBC /* EventsUseCase.swift in Sources */,
 				B8EDD9CD2D0F7A1B00DABCD3 /* StatusViewNavigator.swift in Sources */,
 				17DCF1BB24BF028200D970B4 /* Double+.swift in Sources */,
+				B8F59FC32E02A0AA005F1FFF /* Settings.swift in Sources */,
 				1974C81D2D19451800E096B4 /* OnlineApplicationNavigator.swift in Sources */,
 				B8EC85412D09309C00DA6C9F /* Colors.swift in Sources */,
 				D2B4594027857DB000928D80 /* AddingToCart.swift in Sources */,
