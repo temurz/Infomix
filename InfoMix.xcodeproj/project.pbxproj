@@ -264,6 +264,10 @@
 		B8F3C33A27705AE300B1C1E9 /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F3C33927705AE300B1C1E9 /* EventRow.swift */; };
 		B8F59FB02E0131DD005F1FFF /* VoucherGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FAF2E0131D5005F1FFF /* VoucherGateway.swift */; };
 		B8F59FB32E01333E005F1FFF /* VoucherDomainUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FB22E013336005F1FFF /* VoucherDomainUseCase.swift */; };
+		B8F59FB92E01A279005F1FFF /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FB82E01A275005F1FFF /* HistoryCell.swift */; };
+		B8F59FBD2E01D2EF005F1FFF /* AddVoucherView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FBC2E01D2DF005F1FFF /* AddVoucherView.swift */; };
+		B8F59FBF2E01E0B4005F1FFF /* VoucherDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FBE2E01E0AE005F1FFF /* VoucherDto.swift */; };
+		B8F59FC12E02927D005F1FFF /* BarcodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8F59FC02E02927D005F1FFF /* BarcodeView.swift */; };
 		B8FBCB72278A874E00C0E1E0 /* TransactionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBCB71278A874E00C0E1E0 /* TransactionType.swift */; };
 		B8FBCB74278A87C800C0E1E0 /* TransactionStatistic.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBCB73278A87C800C0E1E0 /* TransactionStatistic.swift */; };
 		B8FBCB79278D42BB00C0E1E0 /* GettingTransactionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FBCB78278D42BB00C0E1E0 /* GettingTransactionTypes.swift */; };
@@ -796,6 +800,10 @@
 		B8F3C33927705AE300B1C1E9 /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRow.swift; sourceTree = "<group>"; };
 		B8F59FAF2E0131D5005F1FFF /* VoucherGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherGateway.swift; sourceTree = "<group>"; };
 		B8F59FB22E013336005F1FFF /* VoucherDomainUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherDomainUseCase.swift; sourceTree = "<group>"; };
+		B8F59FB82E01A275005F1FFF /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		B8F59FBC2E01D2DF005F1FFF /* AddVoucherView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVoucherView.swift; sourceTree = "<group>"; };
+		B8F59FBE2E01E0AE005F1FFF /* VoucherDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoucherDto.swift; sourceTree = "<group>"; };
+		B8F59FC02E02927D005F1FFF /* BarcodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarcodeView.swift; sourceTree = "<group>"; };
 		B8FBCB71278A874E00C0E1E0 /* TransactionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionType.swift; sourceTree = "<group>"; };
 		B8FBCB73278A87C800C0E1E0 /* TransactionStatistic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionStatistic.swift; sourceTree = "<group>"; };
 		B8FBCB78278D42BB00C0E1E0 /* GettingTransactionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GettingTransactionTypes.swift; sourceTree = "<group>"; };
@@ -1816,6 +1824,7 @@
 		B84D6C3D2DFC6EAA005AC7C0 /* Voucher */ = {
 			isa = PBXGroup;
 			children = (
+				B8F59FB72E01A271005F1FFF /* Views */,
 				B84D6C3E2DFC6EB2005AC7C0 /* VoucherView.swift */,
 				B84D6C402DFC6EB8005AC7C0 /* VoucherViewModel.swift */,
 				B84D6C422DFC6EBF005AC7C0 /* VoucherViewUseCase.swift */,
@@ -1932,9 +1941,20 @@
 		B8F59FB12E01332F005F1FFF /* Voucher */ = {
 			isa = PBXGroup;
 			children = (
+				B8F59FBE2E01E0AE005F1FFF /* VoucherDto.swift */,
 				B8F59FB22E013336005F1FFF /* VoucherDomainUseCase.swift */,
 			);
 			path = Voucher;
+			sourceTree = "<group>";
+		};
+		B8F59FB72E01A271005F1FFF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B8F59FC02E02927D005F1FFF /* BarcodeView.swift */,
+				B8F59FBC2E01D2DF005F1FFF /* AddVoucherView.swift */,
+				B8F59FB82E01A275005F1FFF /* HistoryCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		B8FBCB75278D40E800C0E1E0 /* Transaction */ = {
@@ -2759,6 +2779,7 @@
 				D2696CA8279862410000861D /* ShowingAbout.swift in Sources */,
 				D24F8CF82767D59A001876FB /* ICUView.swift in Sources */,
 				17A5B1FC24D948BC004BD209 /* PagingTableView.swift in Sources */,
+				B8F59FC12E02927D005F1FFF /* BarcodeView.swift in Sources */,
 				D20D3381278D45A7001256C8 /* ClearingShoppingCart.swift in Sources */,
 				B8BEF424276DB363004B003E /* Event.swift in Sources */,
 				1742B37824D7C48400C82D15 /* RepoItemViewModel.swift in Sources */,
@@ -2835,6 +2856,7 @@
 				1952458B2D1C8036003301EB /* ToastView.swift in Sources */,
 				1742B37B24D7E88900C82D15 /* AlertMessage.swift in Sources */,
 				D2E05AEC2795462000BCA104 /* ChangingPassword.swift in Sources */,
+				B8F59FB92E01A279005F1FFF /* HistoryCell.swift in Sources */,
 				19B3BC222D1695A10050930E /* PollView.swift in Sources */,
 				D222AF0C27959C4000440D5E /* ChangePasswordNavigator.swift in Sources */,
 				D26CF4F3278A9506002A75E4 /* SearchBoxView.swift in Sources */,
@@ -2934,6 +2956,7 @@
 				1734926524C59D2A0014F87E /* AppError.swift in Sources */,
 				D27410032775AA9400385251 /* SendingAdditionalData.swift in Sources */,
 				B8F10D1127A039910095A2CF /* MyCardItemViewModel.swift in Sources */,
+				B8F59FBD2E01D2EF005F1FFF /* AddVoucherView.swift in Sources */,
 				19EC91422D19485500ACA2FB /* MarketView.swift in Sources */,
 				17A5B1F224D804DA004BD209 /* UIViewController+.swift in Sources */,
 				B873F1B127D634DD0047149E /* CityRow.swift in Sources */,
@@ -3022,6 +3045,7 @@
 				19B3BC2D2D16EE1D0050930E /* SendImageValue.swift in Sources */,
 				1787235B24BD578500D90F8E /* ProductGateway.swift in Sources */,
 				B842EA9827885CB800527326 /* API+EventDetail.swift in Sources */,
+				B8F59FBF2E01E0B4005F1FFF /* VoucherDto.swift in Sources */,
 				1770EC2824DAA55B0022FBFE /* PagingCollectionView.swift in Sources */,
 				D2492478278C5B180002E473 /* ProductDetailView.swift in Sources */,
 				D24DFE3527913DBA0043C768 /* AppURLImage.swift in Sources */,

@@ -66,3 +66,12 @@ extension Date {
         }
 }
 
+extension Int {
+    func formatTimestamp() -> String {
+        let date = Date(timeIntervalSince1970: TimeInterval(self) / 1000)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        formatter.timeZone = TimeZone.current // or set explicitly if needed
+        return formatter.string(from: date)
+    }
+}

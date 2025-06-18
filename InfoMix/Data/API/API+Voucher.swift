@@ -42,16 +42,12 @@ extension API {
         }
     }
     
-    struct EmptyResponse: Decodable {
-        
-    }
-    
     //Methods
     func voucherRequest(_ input: VoucherRequestAPIInput) -> Observable<CreatedVoucherResponse> {
         request(input)
     }
-    func getVoucherHistory(_ input: VoucherHistoryAPIInput) -> Observable<VoucherHistoryResponse> {
-        request(input)
+    func getVoucherHistory(_ input: VoucherHistoryAPIInput) -> Observable<[VoucherHistoryResponse]> {
+        requestList(input)
     }
     func getVoucherStatuses() -> Observable<[VoucherStatus]> {
         let input = APIInput(urlString:  API.Urls.voucherStatuses, parameters: nil, method: .get, requireAccessToken: true)

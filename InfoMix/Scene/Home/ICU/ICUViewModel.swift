@@ -9,7 +9,7 @@
 
 import Combine
 import Alamofire
-
+import Foundation
 
 struct ICUViewModel {
     let agentCurrentICUUseCase: AgentCurrentICUUseCaseType
@@ -40,7 +40,10 @@ extension ICUViewModel: ViewModel {
         let (item, error, isLoading, isReloading) = getItem(input: getItemInput).destructured
 
         item
-            .map{ $0.balance }
+            .map {
+                UserDefaults.standard.setValue($0.balance, forKey: "balance")
+                return $0.balance
+            }
             .assign(to: \.icu, on: output)
             .store(in: cancelBag)
        

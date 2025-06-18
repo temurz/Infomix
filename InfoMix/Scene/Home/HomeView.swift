@@ -192,6 +192,7 @@ struct HomeView: View {
             
         }
         .onAppear(perform: {
+            loadTrigger.send(())
             getLoyaltyTrigger.send(())
             getStatisticsTrigger.send(())
         })
@@ -242,8 +243,6 @@ struct HomeView: View {
         )
         self.output = viewModel.transform(input, cancelBag: cancelBag)
         self.icuView = iv
-        
-        loadTrigger.send(())
         
         if let token = UserDefaults.standard.string(forKey: "fcmToken"){
             sendTokentoServerTrigger.send(token)

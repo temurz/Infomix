@@ -210,3 +210,15 @@
 "Only for you" = "Faqat siz uchun";
 "Last activity" = "Oxirgi faoliyat";
 "Get balls" = "Ballni ayirboshlash";
+"NotePointPrice" = "Eslatma! Bir ball uchun narx = 1.00 so'm";
+"Request: " = "So'rov: ";
+"You have %@ balls" = "Sizda %@ ball bor";
+"Enter amount" = "Miqdorni kiriting";
+"Request" = "So'rov";
+"HowManyBallsNeedToBeGot" = "Qancha ballni almashtirmoqchiz?";
+"At least should be 30 balls" = "Ayirboshlash so'rovi kamida 30 ball bo'lishi kerak";
+"How to get?" = "Qanday olinadi?";
+"To receive the voucher, show this code to the payment point manager." = "Vaucherni olish uchun ushbu kodni to‘lov punkti menejeriga ko‘rsating.";
+"Success" = "Muvaffaqiyat!";
+"Successfully requested voucher" = "Muvaffaqiyatli so'rov jo'natildi";
+"Successfully canceled" = "So'rov bekor qilindi";

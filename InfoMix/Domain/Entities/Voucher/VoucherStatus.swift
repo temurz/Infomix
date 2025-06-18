@@ -7,9 +7,13 @@
 //
 
 
-struct VoucherStatus: Decodable {
+struct VoucherStatus: Decodable, Identifiable {
     let valueField: String?
     let textField: String?
     let selected: Bool?
+    
+    var id: String {
+        return valueField ?? ""
+    }
 }
 

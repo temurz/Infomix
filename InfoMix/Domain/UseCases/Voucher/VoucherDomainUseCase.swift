@@ -15,7 +15,7 @@ extension VoucherDomainUseCase {
         voucherGateway.voucherRequest(amount: amount)
     }
     
-    func getVoucherHistory(_ input: GetVoucherHistoryInput, page: GetPageDto) -> Observable<VoucherHistoryResponse> {
+    func getVoucherHistory(_ input: GetVoucherHistoryInput, page: GetPageDto) -> Observable<[VoucherHistoryResponse]> {
         voucherGateway.getVoucherHistory(input, page: page)
     }
     

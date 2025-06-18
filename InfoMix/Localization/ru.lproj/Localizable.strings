@@ -210,3 +210,15 @@
 "Only for you" = "Только для вас";
 "Last activity" = "Последняя деятельность";
 "Get balls" = "Поменять баллы";
+"NotePointPrice" = "Примечание! Цена за один балл = 1,00 сум";
+"Request: " = "Запрос: ";
+"You have %@ balls" = "У вас есть %@ баллов";
+"Enter amount" = "Введите количество";
+"Request" = "Запрос";
+"HowManyBallsNeedToBeGot" = "Сколько баллов хотите обменять?";
+"At least should be 30 balls" = "Запрос средств должно быть минимум 30 баллов";
+"How to get?" = "Как получить?";
+"To receive the voucher, show this code to the payment point manager." = "Чтобы получить ваучер, покажите этот код менеджеру пункта оплаты.";
+"Success" = "Успешно!";
+"Successfully requested voucher" = "Запрос успешно отправлен";
+"Successfully canceled" = "Запрос отменен";

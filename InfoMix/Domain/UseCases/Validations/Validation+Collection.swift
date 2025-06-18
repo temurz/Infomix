@@ -77,3 +77,17 @@ public extension Validation where Value == Date{
         }
     }
 }
+
+public extension Validation where Value == String {
+
+    /// The non empty Validation with error message
+    static func amountMoreThan(_ amount: Double, message: String) -> Validation {
+        return .init { value in
+            if value.isEmpty || Double(value) ?? 0 < amount {
+                return .failure(ValidationError(message: message))
+            } else {
+                return .success(())
+            }
+        }
+    }
+}

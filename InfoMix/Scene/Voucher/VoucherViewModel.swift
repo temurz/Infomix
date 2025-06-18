@@ -18,16 +18,28 @@ extension VoucherViewModel: ViewModel {
         let popViewTrigger: Driver<Void>
         let onAppearTrigger: Driver<Void>
         let selectStatus: Driver<String>
+        let addVoucherTrigger: Driver<Void>
+        let requestVoucherTrigger: Driver<String>
+        let cancelRequestTrigger: Driver<Int>
+        let getBarcodetrigger: Driver<String>
     }
     
     final class Output: ObservableObject {
         @Published var alert = AlertMessage()
         @Published var isLoading = false
+        @Published var isShowingAddVoucher = false
         @Published var from: String = Calendar.current.date(byAdding: .day, value: -7, to: Date())?.toApiFormat() ?? ""
         @Published var to: String = Date().toApiFormat()
         @Published var statuses = [VoucherStatus]()
-        @Published var history: VoucherHistoryResponse = .init(id: 0)
+        @Published var history: [VoucherHistoryResponse] = []
         @Published var currency: VoucherCurrency = .init(id: 0)
+        @Published var selectedStatus: VoucherStatus?
+        @Published var requestAmount: String = ""
+        @Published var requestAmountError: String = ""
+        @Published var isVoucherRequestEnabled = true
+        @Published var showBarcode = false
+        @Published var barcode = ""
+        @Published var balance: Double = 0.0
     }
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
@@ -35,6 +47,22 @@ extension VoucherViewModel: ViewModel {
         let errorTracker = ErrorTracker()
         let activityTracker = ActivityTracker(false)
 
+        let amountValidation = Publishers
+            .CombineLatest(output.$requestAmount, input.requestVoucherTrigger)
+            .map { $0.0 }
+            .map { VoucherDto.validateAmount($0) }
+        
+        amountValidation
+            .asDriver()
+            .map { $0.message }
+            .assign(to: \.requestAmountError, on: output)
+            .store(in: cancelBag)
+        
+        amountValidation
+            .map { $0.isValid }
+            .assign(to: \.isVoucherRequestEnabled, on: output)
+            .store(in: cancelBag)
+        
         input.popViewTrigger
             .sink {
                 navigator.popView()
@@ -43,13 +71,12 @@ extension VoucherViewModel: ViewModel {
         
         input.onAppearTrigger
             .map {
+                output.balance = UserDefaults.standard.value(forKey: "balance") as? Double ?? 0.0
                 useCase.getVoucherCurrency()
                     .trackError(errorTracker)
                     .trackActivity(activityTracker)
                     .asDriver()
                     .sink { currency in
-                        print("currency")
-                        print(currency)
                         output.currency = currency
                     }
                     .store(in: cancelBag)
@@ -59,9 +86,15 @@ extension VoucherViewModel: ViewModel {
                     .trackActivity(activityTracker)
                     .asDriver()
                     .sink { statuses in
-                        print("statuses")
-                        print(statuses)
-                        output.statuses = statuses
+                        let firstStatus = statuses.first
+                        let updatedStatus = statuses.map {
+                            if $0.valueField == firstStatus?.valueField {
+                                return VoucherStatus(valueField: $0.valueField, textField: $0.textField, selected: true)
+                            }
+                            return $0
+                        }
+                        output.statuses = updatedStatus
+                        
                     }
                     .store(in: cancelBag)
             }
@@ -70,13 +103,19 @@ extension VoucherViewModel: ViewModel {
         
         input.selectStatus
             .map { status in
-                useCase.getVoucherHistory(.init(from: output.from, to: output.to, status: "New"), page: .init())
-                    .trackError(errorTracker)
+                let updatedStatus = output.statuses.map {
+                    return VoucherStatus(valueField: $0.valueField, textField: $0.textField, selected: false)
+                }
+                output.statuses = updatedStatus.map({
+                    if $0.id == status {
+                        return VoucherStatus(valueField: $0.valueField, textField: $0.textField, selected: true)
+                    }
+                    return VoucherStatus(valueField: $0.valueField, textField: $0.textField, selected: false)
+                })
+                useCase.getVoucherHistory(.init(from: output.from, to: output.to, status: status), page: .init())
                     .trackActivity(activityTracker)
                     .asDriver()
                     .sink { history in
-                        print("history")
-                        print(history)
                         output.history = history
                     }
                     .store(in: cancelBag)
@@ -84,6 +123,53 @@ extension VoucherViewModel: ViewModel {
             }
             .sink()
             .store(in: cancelBag)
+        
+        input.addVoucherTrigger
+            .sink {
+                output.isShowingAddVoucher = true
+            }
+            .store(in: cancelBag)
+        
+        input.requestVoucherTrigger
+            .delay(for: 0.1, scheduler: RunLoop.main)
+            .filter { _ in output.isVoucherRequestEnabled }
+            .sink { amount in
+                if let amount = Double(amount) {
+                    useCase.voucherRequest(amount: amount)
+                        .trackError(errorTracker)
+                        .trackActivity(activityTracker)
+                        .asDriver()
+                        .sink { response in
+                            output.isShowingAddVoucher = false
+                            output.requestAmount = ""
+                            output.alert = AlertMessage(title: "Success".localized(), message: "Successfully requested voucher".localized(), isShowing: true)
+                        }
+                        .store(in: cancelBag)
+                }
+                
+            }
+            .store(in: cancelBag)
+        
+        input.cancelRequestTrigger
+            .sink { id in
+                useCase.cancelVoucher(id)
+                    .trackError(errorTracker)
+                    .trackActivity(activityTracker)
+                    .asDriver()
+                    .sink { bool in
+                        output.alert = AlertMessage(title: "Success".localized(), message: "Successfully canceled".localized(), isShowing: true)
+                    }
+                    .store(in: cancelBag)
+            }
+            .store(in: cancelBag)
+        
+        input.getBarcodetrigger
+            .sink { code in
+                output.barcode = code
+                output.showBarcode = true
+            }
+            .store(in: cancelBag)
+        
         
         errorTracker
             .receive(on: RunLoop.main)

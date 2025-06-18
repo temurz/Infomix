@@ -57,12 +57,6 @@ extension SplashViewModel: ViewModel {
         
         error
             .receive(on: RunLoop.main)
-            .map { AlertMessage(error: $0) }
-            .assign(to: \.alert, on: output)
-            .store(in: cancelBag)
-        
-        error
-            .receive(on: RunLoop.main)
             .map { _ in
                 self.startTrigger.send(())
             }
@@ -76,9 +70,9 @@ extension SplashViewModel: ViewModel {
         startTrigger
             .sink(receiveValue: { () in
                 
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1.0) {
+                DispatchQueue.main.async {
                     if UserDefaults.standard.string(forKey: "token") != nil &&
-                        UserDefaults.standard.string(forKey: "configCode") != nil{
+                        UserDefaults.standard.string(forKey: "configCode") != nil {
                         
 //                        NetworkManager.shared = NetworkManager(baseUrl: output.cardConfig.remoteUrl ?? "")
                         

@@ -7,7 +7,7 @@
 //
 
 
-struct VoucherHistoryResponse: Decodable {
+struct VoucherHistoryResponse: Decodable, Identifiable {
     let id: Int
     var transactionId: Int?
     var code: String?

@@ -210,3 +210,15 @@
 "Only for you" = "Only for you";
 "Last activity" = "Last activity";
 "Get balls" = "Get balls";
+"NotePointPrice" = "Note! Price per point = 1.00 som";
+"Request: " = "Request: ";
+"You have %@ balls" = "You have %@ balls";
+"Enter amount" = "Enter amount";
+"Request" = "Request";
+"HowManyBallsNeedToBeGot" = "How many balls need to be got?";
+"At least should be 30 balls" = "At least should be 30 balls";
+"How to get?" = "How to get?";
+"To receive the voucher, show this code to the payment point manager." = "To receive the voucher, show this code to the payment point manager.";
+"Success" = "Success";
+"Successfully requested voucher" = "Successfully requested voucher";
+"Successfully canceled" = "Successfully canceled";
