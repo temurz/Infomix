@@ -12,9 +12,10 @@ import Alamofire
 extension API {
     //Input classes
     final class VoucherRequestAPIInput: APIInput {
-        init(_ amount: Double) {
-            let params = [
-                "amount": amount
+        init(amount: Double, comment: String) {
+            let params: [String: Any] = [
+                "amount": amount,
+                "comment": comment
             ]
             super.init(urlString: API.Urls.voucherRequest, parameters: params, method: .post, requireAccessToken: true)
         }

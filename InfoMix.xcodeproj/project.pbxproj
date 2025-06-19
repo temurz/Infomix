@@ -174,6 +174,9 @@
 		B82BA74F27EDF3D100CB29EE /* OnlineApplicationDto.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82BA74E27EDF3D100CB29EE /* OnlineApplicationDto.swift */; };
 		B832EB922DA13C7A00343D56 /* netfox in Frameworks */ = {isa = PBXBuildFile; productRef = B832EB912DA13C7A00343D56 /* netfox */; };
 		B837840D27F325CE006B8413 /* API+GetConfigs.swift in Sources */ = {isa = PBXBuildFile; fileRef = B837840C27F325CE006B8413 /* API+GetConfigs.swift */; };
+		B83C4A212E02E01C008EF787 /* QrCodeGeneratedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83C4A202E02E016008EF787 /* QrCodeGeneratedView.swift */; };
+		B83C4A232E03E555008EF787 /* FilterPopUpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83C4A222E03E550008EF787 /* FilterPopUpView.swift */; };
+		B83C4A252E03E5F2008EF787 /* CertificateInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B83C4A242E03E5F2008EF787 /* CertificateInfo.swift */; };
 		B840451E27D5DE900022DB52 /* OnlineApplicationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840451D27D5DE900022DB52 /* OnlineApplicationView.swift */; };
 		B840452027D5E0EB0022DB52 /* OnlineApplicationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840451F27D5E0EB0022DB52 /* OnlineApplicationViewModel.swift */; };
 		B840452327D5E4DD0022DB52 /* OnlineApplicationAssembler.swift in Sources */ = {isa = PBXBuildFile; fileRef = B840452227D5E4DD0022DB52 /* OnlineApplicationAssembler.swift */; };
@@ -711,6 +714,9 @@
 		B82B74BE2BC021BA00D2C18A /* InfoMixDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = InfoMixDebug.entitlements; sourceTree = "<group>"; };
 		B82BA74E27EDF3D100CB29EE /* OnlineApplicationDto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationDto.swift; sourceTree = "<group>"; };
 		B837840C27F325CE006B8413 /* API+GetConfigs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "API+GetConfigs.swift"; sourceTree = "<group>"; };
+		B83C4A202E02E016008EF787 /* QrCodeGeneratedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QrCodeGeneratedView.swift; sourceTree = "<group>"; };
+		B83C4A222E03E550008EF787 /* FilterPopUpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterPopUpView.swift; sourceTree = "<group>"; };
+		B83C4A242E03E5F2008EF787 /* CertificateInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CertificateInfo.swift; sourceTree = "<group>"; };
 		B840451D27D5DE900022DB52 /* OnlineApplicationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationView.swift; sourceTree = "<group>"; };
 		B840451F27D5E0EB0022DB52 /* OnlineApplicationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationViewModel.swift; sourceTree = "<group>"; };
 		B840452227D5E4DD0022DB52 /* OnlineApplicationAssembler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineApplicationAssembler.swift; sourceTree = "<group>"; };
@@ -1853,6 +1859,7 @@
 		B88159262DFC159F002DF6ED /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B83C4A242E03E5F2008EF787 /* CertificateInfo.swift */,
 				D233A17A27687F2700BB74E8 /* HomeAttachedView.swift */,
 				B88159272DFC15A9002DF6ED /* QuickActionRow.swift */,
 				B8EDD9C52D0F6DAD00DABCD3 /* MainCellView.swift */,
@@ -1953,6 +1960,8 @@
 		B8F59FB72E01A271005F1FFF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				B83C4A222E03E550008EF787 /* FilterPopUpView.swift */,
+				B83C4A202E02E016008EF787 /* QrCodeGeneratedView.swift */,
 				B8F59FC02E02927D005F1FFF /* BarcodeView.swift */,
 				B8F59FBC2E01D2DF005F1FFF /* AddVoucherView.swift */,
 				B8F59FB82E01A275005F1FFF /* HistoryCell.swift */,
@@ -2821,6 +2830,7 @@
 				D25E320F2772E84700F375C2 /* GettingCardConfig.swift in Sources */,
 				D2B8E8AC2788246F009270F6 /* ProductCategoryView.swift in Sources */,
 				D2376B482774ADE2001E271E /* AddCardConfirmView.swift in Sources */,
+				B83C4A232E03E555008EF787 /* FilterPopUpView.swift in Sources */,
 				D2696CA127985A090000861D /* About.swift in Sources */,
 				D25E320A2772E54F00F375C2 /* CardConfigGateway.swift in Sources */,
 				D29D005527A019DA00C81B32 /* LocalUserNavigator.swift in Sources */,
@@ -2901,6 +2911,7 @@
 				D28943F227663A47008B3876 /* RoundedCorner.swift in Sources */,
 				B81E323027D8D13D009BD4B4 /* CityUseCase.swift in Sources */,
 				B842EA9627885C1900527326 /* GettingEventDetail.swift in Sources */,
+				B83C4A252E03E5F2008EF787 /* CertificateInfo.swift in Sources */,
 				B81E322827D8C937009BD4B4 /* CityViewModel.swift in Sources */,
 				1787236524BD5EC700D90F8E /* ProductsNavigator.swift in Sources */,
 				B8BEF426276DB3C5004B003E /* API+Event.swift in Sources */,
@@ -2971,6 +2982,7 @@
 				D214FE1B278CB4A300AFD09C /* Color+.swift in Sources */,
 				D2740FFD2775A8FD00385251 /* SendingSerialNumbers.swift in Sources */,
 				D2449D4827784F3300F75672 /* OpeningDispute.swift in Sources */,
+				B83C4A212E02E01C008EF787 /* QrCodeGeneratedView.swift in Sources */,
 				B88159322DFC29F0002DF6ED /* CreatedVoucherResponse.swift in Sources */,
 				D214C26027631EEC00DD4E76 /* SplashUseCase.swift in Sources */,
 				B88788002771AB700018BF0D /* EventType.swift in Sources */,

@@ -32,10 +32,7 @@ struct EventDetailView: View {
                                 image
                                     .resizable()
                                     .centerCropped()
-                            } placeholder: {
-                                Image("logo")
-                                    .centerCropped()
-                            }
+                            } placeholder: { }
                             .frame(height: 200)
                         }
                         VStack{

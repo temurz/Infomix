@@ -11,6 +11,7 @@ import Localize_Swift
 
 struct AddVoucherView: View {
     @Binding var amount: String
+    @Binding var comment: String
     @Binding var errorText: String
     let balance: String
     var cancelAction: (() -> Void)?
@@ -55,6 +56,22 @@ struct AddVoucherView: View {
                 .foregroundStyle(.red)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
+            
+            VStack(alignment: .trailing, spacing: 0) {
+                HStack {
+                    TextField("Enter comment".localized(), text: $comment)
+                        .padding()
+                }
+                .frame(height: 60)
+                .background(lightGreyColor)
+                .cornerRadius(5.0)
+                .padding(.top)
+                .padding(.horizontal)
+                Text("\(comment.count)" + " / 400")
+                    .font(.caption2)
+                    .foregroundStyle(.gray)
+                    .padding(.horizontal)
+            }
             
             Button {
                 requestAction?()

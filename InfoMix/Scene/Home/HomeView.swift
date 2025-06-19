@@ -189,7 +189,12 @@ struct HomeView: View {
                 }
             }
             
-            
+            if output.showCertificateInfo {
+                CertificateInfo(model: output.certificate) {
+                    output.showCertificateInfo = false
+                }
+                    .ignoresSafeArea(.all)
+            }
         }
         .onAppear(perform: {
             loadTrigger.send(())

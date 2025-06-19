@@ -11,8 +11,8 @@ protocol VoucherDomainUseCase {
 }
 
 extension VoucherDomainUseCase {
-    func voucherRequest(amount: Double) -> Observable<CreatedVoucherResponse> {
-        voucherGateway.voucherRequest(amount: amount)
+    func voucherRequest(amount: Double, comment: String) -> Observable<CreatedVoucherResponse> {
+        voucherGateway.voucherRequest(amount: amount, comment: comment)
     }
     
     func getVoucherHistory(_ input: GetVoucherHistoryInput, page: GetPageDto) -> Observable<[VoucherHistoryResponse]> {

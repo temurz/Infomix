@@ -20,25 +20,12 @@ struct EventRow: View {
         VStack (spacing: 0) {
             ZStack{
                 if let url = url {
-                    if #available(iOS 15.0, *) {
-                        AsyncImage(url: url) { image in
-                            image
-                                .resizable()
-                                .centerCropped()
-                        } placeholder: {
-                            Image("logo")
-                                .centerCropped()
-                        }
-                    } else {
+                    AsyncImage(url: url) { image in
+                        image
+                            .resizable()
+                            .centerCropped()
+                    } placeholder: {
                         
-                        AsyncImageEarly(
-                            url: url,
-                            placeholder: { ProgressView() },
-                            image: { (Image(uiImage: $0)
-                                .resizable()
-                                )
-                            }
-                        )
                     }
                 }
             }.frame(height: 200)

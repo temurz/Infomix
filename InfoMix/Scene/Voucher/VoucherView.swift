@@ -19,7 +19,7 @@ struct VoucherView: View {
     private let onAppearTrigger = PassthroughSubject<Void, Never>()
     private let addVoucherTrigger = PassthroughSubject<Void, Never>()
     private let selectStatusTrigger = PassthroughSubject<String, Never>()
-    private let requestVoucherTrigger = PassthroughSubject<String, Never>()
+    private let requestVoucherTrigger = PassthroughSubject<(String, String), Never>()
     private let cancelRequestTrigger = PassthroughSubject<Int, Never>()
     private let getBarcodetrigger = PassthroughSubject<String, Never>()
     
@@ -39,22 +39,22 @@ struct VoucherView: View {
                                     .padding(2)
                                     .frame(width: 24, height: 24)
                             }
-                            .padding()
                             
                             Text("Get balls".localized())
                                 .font(.headline)
                                 .truncationMode(.middle)
                                 .foregroundStyle(.white)
-                                .padding()
                             Spacer()
                             Button {
                                 filterTrigger.send(())
                             } label: {
                                 Text("Filter".localized())
                                     .foregroundStyle(.white)
-                                    .padding()
+                                    
                             }
                         }
+                        .padding(.horizontal)
+                        .padding(.top, 8)
                         Text("NotePointPrice".localized())
                             .italic()
                             .foregroundStyle(.white)
@@ -68,7 +68,7 @@ struct VoucherView: View {
                                     VStack {
                                         Text(status.textField ?? "")
                                             .padding(.horizontal, 6)
-                                            .foregroundStyle(status.selected ?? false ? .white : .secondary)
+                                            .foregroundStyle(status.selected ?? false ? .white : .black)
                                             .padding(.bottom, 4)
                                         if status.selected ?? false {
                                             Color.white
@@ -138,11 +138,12 @@ struct VoucherView: View {
                         .ignoresSafeArea(.all)
                     VStack {
                         Spacer()
-                        AddVoucherView(amount: $output.requestAmount, errorText: $output.requestAmountError ,balance: "\(output.balance)", cancelAction: {
+                        AddVoucherView(amount: $output.requestAmount, comment: $output.comment, errorText: $output.requestAmountError, balance: "\(output.balance)", cancelAction: {
                             output.requestAmount = ""
+                            output.comment = ""
                             output.isShowingAddVoucher = false
                         }) {
-                            requestVoucherTrigger.send(output.requestAmount)
+                            requestVoucherTrigger.send((output.requestAmount, output.comment))
                         }
                         Spacer()
                     }
@@ -164,6 +165,15 @@ struct VoucherView: View {
                     .padding()
                     
                 }
+                if output.showFilter {
+                    FilterPopUpView(fromDate: $output.fromDate, toDate: $output.toDate) {
+                        output.showFilter = false
+                    } updateAction: {
+                        selectStatusTrigger.send(output.selectedStatus?.valueField ?? "")
+                        output.showFilter = false
+                    }
+                    .ignoresSafeArea(.all)
+                }
             }
         }
         .onAppear {
@@ -182,6 +192,7 @@ struct VoucherView: View {
     init(viewModel: VoucherViewModel) {
         let input = VoucherViewModel.Input(
             popViewTrigger: backButtonTrigger.asDriver(),
+            filterTrigger: filterTrigger.asDriver(),
             onAppearTrigger: onAppearTrigger.asDriver(),
             selectStatus: selectStatusTrigger.asDriver(),
             addVoucherTrigger: addVoucherTrigger.asDriver(),

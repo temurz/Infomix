@@ -87,11 +87,7 @@ extension ProfileViewModel : ViewModel {
             .switchToLatest()
             .sink(receiveValue: { localUserCount in
                 if let cc = certificate.cardConfig {
-                    if localUserCount == 0 {
-                        self.navigator.showLogin(cardConfig: cc)
-                    } else {
-                        self.navigator.showLocalUsers(cardConfig: cc)
-                    }
+                    self.navigator.showLogin(cardConfig: cc)
                 }else {
                     self.navigator.showSplash()
                 }

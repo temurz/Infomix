@@ -60,6 +60,7 @@ extension HomeViewModel: ViewModel {
         @Published var loyalty: Loyalty?
         @Published var statistics: Statistics?
         @Published var items = [MainCellModel]()
+        @Published var showCertificateInfo = false
         
         init(cardConfig: CardConfig){
             self.cardConfig = cardConfig
@@ -205,7 +206,7 @@ extension HomeViewModel: ViewModel {
 
         input.showStatusViewTrigger
             .sink {
-                homeNavigator.showStatusView(output.loyalty)
+                output.showCertificateInfo = true
             }
             .store(in: cancelBag)
         

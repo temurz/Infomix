@@ -16,10 +16,11 @@ struct VoucherViewModel {
 extension VoucherViewModel: ViewModel {
     struct Input {
         let popViewTrigger: Driver<Void>
+        let filterTrigger: Driver<Void>
         let onAppearTrigger: Driver<Void>
         let selectStatus: Driver<String>
         let addVoucherTrigger: Driver<Void>
-        let requestVoucherTrigger: Driver<String>
+        let requestVoucherTrigger: Driver<(String, String)>
         let cancelRequestTrigger: Driver<Int>
         let getBarcodetrigger: Driver<String>
     }
@@ -35,11 +36,15 @@ extension VoucherViewModel: ViewModel {
         @Published var currency: VoucherCurrency = .init(id: 0)
         @Published var selectedStatus: VoucherStatus?
         @Published var requestAmount: String = ""
+        @Published var comment: String = ""
         @Published var requestAmountError: String = ""
         @Published var isVoucherRequestEnabled = true
         @Published var showBarcode = false
+        @Published var showFilter = false
         @Published var barcode = ""
         @Published var balance: Double = 0.0
+        @Published var fromDate: Date = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+        @Published var toDate: Date = Date()
     }
     
     func transform(_ input: Input, cancelBag: CancelBag) -> Output {
@@ -108,11 +113,13 @@ extension VoucherViewModel: ViewModel {
                 }
                 output.statuses = updatedStatus.map({
                     if $0.id == status {
-                        return VoucherStatus(valueField: $0.valueField, textField: $0.textField, selected: true)
+                        let selectedStatus = VoucherStatus(valueField: $0.valueField, textField: $0.textField, selected: true)
+                        output.selectedStatus = selectedStatus
+                        return selectedStatus
                     }
                     return VoucherStatus(valueField: $0.valueField, textField: $0.textField, selected: false)
                 })
-                useCase.getVoucherHistory(.init(from: output.from, to: output.to, status: status), page: .init())
+                useCase.getVoucherHistory(.init(from: output.fromDate.toApiFormat(), to: output.toDate.toApiFormat(), status: status), page: .init())
                     .trackActivity(activityTracker)
                     .asDriver()
                     .sink { history in
@@ -133,9 +140,9 @@ extension VoucherViewModel: ViewModel {
         input.requestVoucherTrigger
             .delay(for: 0.1, scheduler: RunLoop.main)
             .filter { _ in output.isVoucherRequestEnabled }
-            .sink { amount in
-                if let amount = Double(amount) {
-                    useCase.voucherRequest(amount: amount)
+            .sink { input in
+                if let amount = Double(input.0) {
+                    useCase.voucherRequest(amount: amount, comment: input.1)
                         .trackError(errorTracker)
                         .trackActivity(activityTracker)
                         .asDriver()
@@ -170,6 +177,11 @@ extension VoucherViewModel: ViewModel {
             }
             .store(in: cancelBag)
         
+        input.filterTrigger
+            .sink {
+                output.showFilter = true
+            }
+            .store(in: cancelBag)
         
         errorTracker
             .receive(on: RunLoop.main)

@@ -7,7 +7,7 @@
 //
 
 protocol VoucherGatewayProtocol {
-    func voucherRequest(amount: Double) -> Observable<CreatedVoucherResponse>
+    func voucherRequest(amount: Double, comment: String) -> Observable<CreatedVoucherResponse>
     func getVoucherHistory(_ input: GetVoucherHistoryInput, page: GetPageDto) -> Observable<[VoucherHistoryResponse]>
     func getVoucherStatuses() -> Observable<[VoucherStatus]>
     func cancelVoucher(_ id: Int) -> Observable<Bool>
@@ -16,8 +16,8 @@ protocol VoucherGatewayProtocol {
 }
 
 struct VoucherGateway: VoucherGatewayProtocol {
-    func voucherRequest(amount: Double) -> Observable<CreatedVoucherResponse> {
-        let input = API.VoucherRequestAPIInput(amount)
+    func voucherRequest(amount: Double, comment: String) -> Observable<CreatedVoucherResponse> {
+        let input = API.VoucherRequestAPIInput(amount: amount, comment: comment)
         return API.shared.voucherRequest(input)
     }
     
